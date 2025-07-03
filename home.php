@@ -19,6 +19,63 @@
 
   <?php require 'vues/clients/chat-user-modal.php' ?>
 
+  <section class="absolute flex justify-center items-center" style="z-index: 200">
+    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 45vw; height:520px; margin: 30px 340px">
+        <div class="flex items-center justify-between shadow-sm w-full p-4">
+          <div class="flex gap-4">
+              <div class="relative">
+                <img class="rounded-full object-cover" src="assets/images/img_user_publicaton.jpg" alt="" style="width: 45px; height: 45px">
+                <div class="absolute w-3 h-3 bg-green-500 rounded-full border-2 border-white" style="right: -1px; bottom: 3px"></div>
+              </div>
+              <div style="width: 380px">
+                  <strong>Junior Rice</strong>
+                  <p class="text-gray-600">en ligne</p>
+              </div>
+          </div>
+          <svg class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2" xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
+              <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <div class="flex flex-col my-1">
+          <!-- Message envoyé -->
+          <div class="flex gap-1 flex-col bg-blue-100 text-gray-600 rounded-xl my-2 p-2  shadow-sm" style="margin-left: auto; width: 375px; margin-right: 12px">
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, corrupti? Lorem ipsum dolor sit.</div>
+            <div class="text-sm">19:02</div>
+          </div>
+
+          <!-- Message recu -->
+          <div class="flex gap-3 bg-gray-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm" style="margin-right: auto; width: 375px; margin-left: 12px">
+            <img class="object-cover rounded-full" src="assets/images/img_user_publicaton.jpg" alt="" style="width: 60px; height: 45px">
+            <div class="flex gap-1 flex-col" style="width: 400px;">
+              <div>Lorem ipsum dolor sit amet consectetur adipisici</div>
+              <div class="text-sm">19:02</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Champ de saisi du message -->
+        <form action="" method="post" style="margin-top: auto">
+          <div class="flex gap-2 items-center mb-1 w-full" style="margin: 0 10px">
+            <div class="relative">
+              <textarea class="bg-gray-200 rounded-xl outline-hidden" style="resize: none; height: 44px; width: 40vw; padding: 10px 12px; padding-right: 53px" name="" placeholder="Entrer un message" id=""></textarea>
+              <svg class="absolute w-4 h-4 font-bold text-gray-600" style="right: 16px; bottom: 19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+            </div>
+            <div>
+              <button class="flex justify-center items-center rounded-full bg-gray-400 p-2">
+                <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+    </div>
+   </section>
+
   <!-- Partie de l'entete -->
   <section>
     <div class="flex items-center justify-between py-3 px-8 border-b border-gray-200">
