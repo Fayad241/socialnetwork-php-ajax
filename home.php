@@ -16,6 +16,9 @@
   overflow-y: auto !important;
   margin: 0;
   padding: 0;">
+
+  <?php require 'vues/clients/chat-user-modal.php' ?>
+
   <!-- Partie de l'entete -->
   <section>
     <div class="flex items-center justify-between py-3 px-8 border-b border-gray-200">
@@ -64,12 +67,12 @@
           </span>
 
           <!-- UI Affichage Notifications -->
-          <div class="absolute border border-gray-200 rounded bg-white px-4 py-2 shadow-lg" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 370px; z-index: 100; padding-right: 30px; overflow-y: scroll;">
+          <div class="absolute border border-gray-200 rounded bg-white px-5 py-2 shadow-lg" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 390px; z-index: 100; padding-right: 40px; overflow-y: scroll;">
             <div class="flex flex-col">
               <div class="flex items-center justify-between border-b border-gray-200">
                 <div class="flex gap-1 items-center font-bold text-xl">
                   <svg xmlns="http://www.w3.org/2000/svg"
-                      class="w-10 h-10 p-[6px] rounded-full"
+                      class="w-10 h-10 p-[6px] rounded-full mb-2"
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
@@ -77,9 +80,17 @@
                             6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595
                             1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
-                  <p>Notifications</p>
+                  <p class="mb-2">Notifications</p>
                 </div>
-                <div class="bg-gray-200 shadow-lg text-red-500 text-sm font-bold flex items-center justify-center rounded-full" style="padding: 0 8px; padding-bottom: 3px;" id="close-notifications">x</div>
+                <svg id="close-notifications" class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2" xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </div>
               <div class="my-4">
                 <div class="font-bold text-xl">Aujourdhui</div>
@@ -187,7 +198,15 @@
           </div>
           <div class="flex gap-6 items-center justify-between mt-4 font-bold">
             <p class="bg-blue-600 rounded-2xl text-white py-2 px-4 whitespace-nowrap">Accepter l'invitation</p>
-            <p class="border border-gray-200 text-gray-300 text-xl flex items-center justify-center rounded-xl" style="padding: 0 13px; padding-bottom: 4px;">x</p>
+            <svg class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-xl w-9 h-9 py-1 px-2" xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+                class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </div>
         </div>
       </div>
@@ -210,47 +229,47 @@
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_1.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_2.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_3.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_4.png" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
         <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white ml-2">Junior MANTINOU</p>
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
       </div>
 
@@ -288,10 +307,17 @@
           <div class="flex gap-5 items-center justify-between">
             <div class="flex items-center justify-center" style="margin-left: 10px; gap: 4px">
               <!-- Like (non activé) -->
-              <svg class="w-6 h-6 text-gray-400" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="179px" height="179px" viewBox="0 0 37 32" enable-background="new 0 0 37 32" xml:space="preserve" fill="currentColor" stroke="currentColor" stroke-width="3.145"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="currentColor" d="M33.582,2.483c-1.776-1.56-4.077-2.418-6.481-2.418c-2.767,0-5.49,1.134-7.472,3.112l-0.781,0.778 c-0.188,0.188-0.508,0.188-0.697,0l-1.027-1.024C15.23,1.041,12.711,0,10.032,0C7.415,0,4.938,1,3.059,2.814 c-1.87,1.805-2.911,4.287-2.933,6.988c-0.023,2.824,1.095,5.573,3.067,7.541l14.252,14.22C17.728,31.845,18.103,32,18.5,32 s0.772-0.155,1.055-0.437L34.061,17.09c1.952-1.948,3.021-4.645,2.934-7.399C36.906,6.897,35.693,4.338,33.582,2.483z M33.355,16.382L18.849,30.855c-0.188,0.188-0.51,0.188-0.697,0L3.899,16.635c-1.784-1.779-2.794-4.267-2.773-6.824 c0.02-2.431,0.953-4.66,2.627-6.277C5.445,1.9,7.675,1,10.032,1c2.413,0,4.681,0.938,6.387,2.64l1.026,1.024 c0.565,0.564,1.545,0.564,2.11,0l0.78-0.778c1.796-1.792,4.263-2.82,6.766-2.82c2.161,0,4.228,0.77,5.821,2.169 c1.902,1.67,2.993,3.974,3.073,6.488C36.075,12.238,35.138,14.603,33.355,16.382z"></path> </g> </g></svg>
-              <!-- Like (activé) -->
               <!-- <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6 text-red-500 cursor-pointer"
+                  class="w-7 h-7 text-gray-400"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 
+                        4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 
+                        4.5 0 00-6.364 0z" />
+              </svg> -->
+              <!-- Like (activé) -->
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-7 h-7 text-red-500 cursor-pointer"
                   fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 
                         2 12.28 2 8.5 2 5.42 4.42 3 
@@ -300,11 +326,11 @@
                         16.5 3 19.58 3 22 5.42 22 
                         8.5c0 3.78-3.4 6.86-8.55 
                         11.54L12 21.35z" />
-              </svg> -->
+              </svg>
               <p>1.8k</p>
             </div>
             <div class="flex items-center justify-center" style="gap: 4px">
-              <svg class="w-7 h-7 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+              <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -482,6 +508,7 @@
       </div>
     </div>
   </section>
+
 
 
 
