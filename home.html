@@ -4,8 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="assets/css/output.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+  html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+</style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" style="height: 100%;
+  overflow-y: auto !important;
+  margin: 0;
+  padding: 0;">
   <!-- Partie de l'entete -->
   <section>
     <div class="flex items-center justify-between py-3 px-8 border-b border-gray-200">
@@ -40,7 +50,7 @@
           <p>Creer</p>
         </div>
         <div class="relative">
-          <svg xmlns="http://www.w3.org/2000/svg"
+          <svg id="open-notifications" xmlns="http://www.w3.org/2000/svg"
               class="w-10 h-10 text-gray-500 p-[6px] bg-gray-200 rounded-full"
               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,6 +62,63 @@
           <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
             3
           </span>
+
+          <!-- UI Affichage Notifications -->
+          <div class="absolute border border-gray-200 rounded bg-white px-4 py-2 shadow-lg" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 370px; z-index: 100; padding-right: 30px; overflow-y: scroll;">
+            <div class="flex flex-col">
+              <div class="flex items-center justify-between border-b border-gray-200">
+                <div class="flex gap-1 items-center font-bold text-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                      class="w-10 h-10 p-[6px] rounded-full"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
+                            6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67
+                            6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595
+                            1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <p>Notifications</p>
+                </div>
+                <div class="bg-gray-200 shadow-lg text-red-500 text-sm font-bold flex items-center justify-center rounded-full" style="padding: 0 8px; padding-bottom: 3px;" id="close-notifications">x</div>
+              </div>
+              <div class="my-4">
+                <div class="font-bold text-xl">Aujourdhui</div>
+                <div class="flex gap-3 my-4">
+                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
+                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
+                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
+                    <div>24min</div>
+                  </div>
+                </div>
+                <div class="flex gap-3 my-4">
+                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
+                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
+                    <div class=""><strong class="text-black">ULRICH MORGAN</strong> veut faire partie de vos amis</div>
+                    <div>2h</div>
+                    <div class="flex gap-6 items-center justify-center my-1">
+                      <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
+                      <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="font-bold text-xl">7 derniers jours</div>
+                <div class="flex gap-3 my-4">
+                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
+                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
+                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
+                    <div>1j</div>
+                  </div>
+                </div>
+                <div class="flex gap-3 my-4">
+                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
+                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
+                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
+                    <div>3j</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <img class="w-9 h-9 object-cover rounded" src="assets/images/img_user.jpg" alt="">
@@ -60,9 +127,9 @@
     </div>
   </section>
 
-  <section class="flex justify-center">
+  <section class="flex justify-center h-full">
     <!-- Partie side-bar et invitations (zone gauche) -->
-    <div class="flex gap-3 flex-col overflow-y-auto h-screen my-3 w-full" style="padding: 0 40px;">
+    <div class="flex gap-3 flex-col my-3 w-full" style="padding: 0 40px;">
 
       <div class="flex gap-3 items-center justify-center bg-white px-4 py-4 rounded-2xl shadow-md w-full">
         <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user.jpg" alt="">
@@ -74,7 +141,7 @@
 
       <div class="flex gap-2 flex-col bg-white px-8 py-4 rounded-2xl shadow-md font-bold text-gray-400">
         <div class="flex gap-4 items-center border-b border-gray-100">
-          <svg  class="w-5 h-5 mb-3" viewBox="0 -0.5 25 25" fill="curentColor" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.35 19.0001C9.35 19.4143 9.68579 19.7501 10.1 19.7501C10.5142 19.7501 10.85 19.4143 10.85 19.0001H9.35ZM10.1 16.7691L9.35055 16.7404C9.35018 16.75 9.35 16.7595 9.35 16.7691H10.1ZM12.5 14.5391L12.4736 15.2886C12.4912 15.2892 12.5088 15.2892 12.5264 15.2886L12.5 14.5391ZM14.9 16.7691H15.65C15.65 16.7595 15.6498 16.75 15.6495 16.7404L14.9 16.7691ZM14.15 19.0001C14.15 19.4143 14.4858 19.7501 14.9 19.7501C15.3142 19.7501 15.65 19.4143 15.65 19.0001H14.15ZM10.1 18.2501C9.68579 18.2501 9.35 18.5859 9.35 19.0001C9.35 19.4143 9.68579 19.7501 10.1 19.7501V18.2501ZM14.9 19.7501C15.3142 19.7501 15.65 19.4143 15.65 19.0001C15.65 18.5859 15.3142 18.2501 14.9 18.2501V19.7501ZM10.1 19.7501C10.5142 19.7501 10.85 19.4143 10.85 19.0001C10.85 18.5859 10.5142 18.2501 10.1 18.2501V19.7501ZM9.5 19.0001V18.2501C9.4912 18.2501 9.4824 18.2502 9.4736 18.2505L9.5 19.0001ZM5.9 15.6541H5.15C5.15 15.6635 5.15018 15.673 5.15054 15.6825L5.9 15.6541ZM6.65 8.94807C6.65 8.53386 6.31421 8.19807 5.9 8.19807C5.48579 8.19807 5.15 8.53386 5.15 8.94807H6.65ZM3.0788 9.95652C2.73607 10.1891 2.64682 10.6555 2.87944 10.9983C3.11207 11.341 3.57848 11.4302 3.9212 11.1976L3.0788 9.95652ZM6.3212 9.56863C6.66393 9.336 6.75318 8.86959 6.52056 8.52687C6.28793 8.18415 5.82152 8.09489 5.4788 8.32752L6.3212 9.56863ZM5.47883 8.3275C5.13609 8.5601 5.04682 9.02651 5.27942 9.36924C5.51203 9.71198 5.97844 9.80125 6.32117 9.56865L5.47883 8.3275ZM11.116 5.40807L10.7091 4.77804C10.7043 4.78114 10.6995 4.78429 10.6948 4.7875L11.116 5.40807ZM13.884 5.40807L14.3052 4.7875C14.3005 4.78429 14.2957 4.78114 14.2909 4.77804L13.884 5.40807ZM18.6788 9.56865C19.0216 9.80125 19.488 9.71198 19.7206 9.36924C19.9532 9.02651 19.8639 8.5601 19.5212 8.3275L18.6788 9.56865ZM14.9 18.2501C14.4858 18.2501 14.15 18.5859 14.15 19.0001C14.15 19.4143 14.4858 19.7501 14.9 19.7501V18.2501ZM15.5 19.0001L15.5264 18.2505C15.5176 18.2502 15.5088 18.2501 15.5 18.2501V19.0001ZM19.1 15.6541L19.8495 15.6825C19.8498 15.673 19.85 15.6635 19.85 15.6541L19.1 15.6541ZM19.85 8.94807C19.85 8.53386 19.5142 8.19807 19.1 8.19807C18.6858 8.19807 18.35 8.53386 18.35 8.94807H19.85ZM21.079 11.1967C21.4218 11.4293 21.8882 11.3399 22.1207 10.9971C22.3532 10.6543 22.2638 10.1879 21.921 9.9554L21.079 11.1967ZM19.521 8.3274C19.1782 8.09487 18.7119 8.18426 18.4793 8.52705C18.2468 8.86984 18.3362 9.33622 18.679 9.56875L19.521 8.3274ZM10.85 19.0001V16.7691H9.35V19.0001H10.85ZM10.8495 16.7977C10.8825 15.9331 11.6089 15.2581 12.4736 15.2886L12.5264 13.7895C10.8355 13.73 9.41513 15.0497 9.35055 16.7404L10.8495 16.7977ZM12.5264 15.2886C13.3911 15.2581 14.1175 15.9331 14.1505 16.7977L15.6495 16.7404C15.5849 15.0497 14.1645 13.73 12.4736 13.7895L12.5264 15.2886ZM14.15 16.7691V19.0001H15.65V16.7691H14.15ZM10.1 19.7501H14.9V18.2501H10.1V19.7501ZM10.1 18.2501H9.5V19.7501H10.1V18.2501ZM9.4736 18.2505C7.96966 18.3035 6.70648 17.1294 6.64946 15.6257L5.15054 15.6825C5.23888 18.0125 7.19612 19.8317 9.5264 19.7496L9.4736 18.2505ZM6.65 15.6541V8.94807H5.15V15.6541H6.65ZM3.9212 11.1976L6.3212 9.56863L5.4788 8.32752L3.0788 9.95652L3.9212 11.1976ZM6.32117 9.56865L11.5372 6.02865L10.6948 4.7875L5.47883 8.3275L6.32117 9.56865ZM11.5229 6.0381C12.1177 5.65397 12.8823 5.65397 13.4771 6.0381L14.2909 4.77804C13.2008 4.07399 11.7992 4.07399 10.7091 4.77804L11.5229 6.0381ZM13.4628 6.02865L18.6788 9.56865L19.5212 8.3275L14.3052 4.7875L13.4628 6.02865ZM14.9 19.7501H15.5V18.2501H14.9V19.7501ZM15.4736 19.7496C17.8039 19.8317 19.7611 18.0125 19.8495 15.6825L18.3505 15.6257C18.2935 17.1294 17.0303 18.3035 15.5264 18.2505L15.4736 19.7496ZM19.85 15.6541V8.94807H18.35V15.6541H19.85ZM21.921 9.9554L19.521 8.3274L18.679 9.56875L21.079 11.1967L21.921 9.9554Z" fill="currentColor"></path> </g></svg>
+          <svg class="w-5 h-5 mb-3" viewBox="0 -0.5 25 25" fill="curentColor" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.35 19.0001C9.35 19.4143 9.68579 19.7501 10.1 19.7501C10.5142 19.7501 10.85 19.4143 10.85 19.0001H9.35ZM10.1 16.7691L9.35055 16.7404C9.35018 16.75 9.35 16.7595 9.35 16.7691H10.1ZM12.5 14.5391L12.4736 15.2886C12.4912 15.2892 12.5088 15.2892 12.5264 15.2886L12.5 14.5391ZM14.9 16.7691H15.65C15.65 16.7595 15.6498 16.75 15.6495 16.7404L14.9 16.7691ZM14.15 19.0001C14.15 19.4143 14.4858 19.7501 14.9 19.7501C15.3142 19.7501 15.65 19.4143 15.65 19.0001H14.15ZM10.1 18.2501C9.68579 18.2501 9.35 18.5859 9.35 19.0001C9.35 19.4143 9.68579 19.7501 10.1 19.7501V18.2501ZM14.9 19.7501C15.3142 19.7501 15.65 19.4143 15.65 19.0001C15.65 18.5859 15.3142 18.2501 14.9 18.2501V19.7501ZM10.1 19.7501C10.5142 19.7501 10.85 19.4143 10.85 19.0001C10.85 18.5859 10.5142 18.2501 10.1 18.2501V19.7501ZM9.5 19.0001V18.2501C9.4912 18.2501 9.4824 18.2502 9.4736 18.2505L9.5 19.0001ZM5.9 15.6541H5.15C5.15 15.6635 5.15018 15.673 5.15054 15.6825L5.9 15.6541ZM6.65 8.94807C6.65 8.53386 6.31421 8.19807 5.9 8.19807C5.48579 8.19807 5.15 8.53386 5.15 8.94807H6.65ZM3.0788 9.95652C2.73607 10.1891 2.64682 10.6555 2.87944 10.9983C3.11207 11.341 3.57848 11.4302 3.9212 11.1976L3.0788 9.95652ZM6.3212 9.56863C6.66393 9.336 6.75318 8.86959 6.52056 8.52687C6.28793 8.18415 5.82152 8.09489 5.4788 8.32752L6.3212 9.56863ZM5.47883 8.3275C5.13609 8.5601 5.04682 9.02651 5.27942 9.36924C5.51203 9.71198 5.97844 9.80125 6.32117 9.56865L5.47883 8.3275ZM11.116 5.40807L10.7091 4.77804C10.7043 4.78114 10.6995 4.78429 10.6948 4.7875L11.116 5.40807ZM13.884 5.40807L14.3052 4.7875C14.3005 4.78429 14.2957 4.78114 14.2909 4.77804L13.884 5.40807ZM18.6788 9.56865C19.0216 9.80125 19.488 9.71198 19.7206 9.36924C19.9532 9.02651 19.8639 8.5601 19.5212 8.3275L18.6788 9.56865ZM14.9 18.2501C14.4858 18.2501 14.15 18.5859 14.15 19.0001C14.15 19.4143 14.4858 19.7501 14.9 19.7501V18.2501ZM15.5 19.0001L15.5264 18.2505C15.5176 18.2502 15.5088 18.2501 15.5 18.2501V19.0001ZM19.1 15.6541L19.8495 15.6825C19.8498 15.673 19.85 15.6635 19.85 15.6541L19.1 15.6541ZM19.85 8.94807C19.85 8.53386 19.5142 8.19807 19.1 8.19807C18.6858 8.19807 18.35 8.53386 18.35 8.94807H19.85ZM21.079 11.1967C21.4218 11.4293 21.8882 11.3399 22.1207 10.9971C22.3532 10.6543 22.2638 10.1879 21.921 9.9554L21.079 11.1967ZM19.521 8.3274C19.1782 8.09487 18.7119 8.18426 18.4793 8.52705C18.2468 8.86984 18.3362 9.33622 18.679 9.56875L19.521 8.3274ZM10.85 19.0001V16.7691H9.35V19.0001H10.85ZM10.8495 16.7977C10.8825 15.9331 11.6089 15.2581 12.4736 15.2886L12.5264 13.7895C10.8355 13.73 9.41513 15.0497 9.35055 16.7404L10.8495 16.7977ZM12.5264 15.2886C13.3911 15.2581 14.1175 15.9331 14.1505 16.7977L15.6495 16.7404C15.5849 15.0497 14.1645 13.73 12.4736 13.7895L12.5264 15.2886ZM14.15 16.7691V19.0001H15.65V16.7691H14.15ZM10.1 19.7501H14.9V18.2501H10.1V19.7501ZM10.1 18.2501H9.5V19.7501H10.1V18.2501ZM9.4736 18.2505C7.96966 18.3035 6.70648 17.1294 6.64946 15.6257L5.15054 15.6825C5.23888 18.0125 7.19612 19.8317 9.5264 19.7496L9.4736 18.2505ZM6.65 15.6541V8.94807H5.15V15.6541H6.65ZM3.9212 11.1976L6.3212 9.56863L5.4788 8.32752L3.0788 9.95652L3.9212 11.1976ZM6.32117 9.56865L11.5372 6.02865L10.6948 4.7875L5.47883 8.3275L6.32117 9.56865ZM11.5229 6.0381C12.1177 5.65397 12.8823 5.65397 13.4771 6.0381L14.2909 4.77804C13.2008 4.07399 11.7992 4.07399 10.7091 4.77804L11.5229 6.0381ZM13.4628 6.02865L18.6788 9.56865L19.5212 8.3275L14.3052 4.7875L13.4628 6.02865ZM14.9 19.7501H15.5V18.2501H14.9V19.7501ZM15.4736 19.7496C17.8039 19.8317 19.7611 18.0125 19.8495 15.6825L18.3505 15.6257C18.2935 17.1294 17.0303 18.3035 15.5264 18.2505L15.4736 19.7496ZM19.85 15.6541V8.94807H18.35V15.6541H19.85ZM21.921 9.9554L19.521 8.3274L18.679 9.56875L21.079 11.1967L21.921 9.9554Z" fill="currentColor"></path> </g></svg>
           <div class="mb-3">Acceuil</div>
         </div>
         <div class="flex gap-4 items-center border-b border-gray-100 my-1">
@@ -118,9 +185,9 @@
             <div class="rounded-[50%] py-6 px-9 border-4 border-white bg-indigo-500 text-[28px] font-bold text-white shadow-md">R</div>
             <div class="absolute bottom-3 font-bold text-white text-lg">Mandjid BALOGOUN</div>
           </div>
-          <div class="flex gap-6 items-center justify-between mt-4">
+          <div class="flex gap-6 items-center justify-between mt-4 font-bold">
             <p class="bg-blue-600 rounded-2xl text-white py-2 px-4 whitespace-nowrap">Accepter l'invitation</p>
-            <p class="bg-gray-100 text-md w-8 h-8 flex items-center justify-center pb-3 rounded-full py-2 px-4">x</p>
+            <p class="border border-gray-200 text-gray-300 text-xl flex items-center justify-center rounded-xl" style="padding: 0 13px; padding-bottom: 4px;">x</p>
           </div>
         </div>
       </div>
@@ -191,7 +258,7 @@
       <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3">
         <div class="flex gap-3 items-center">
           <img class="w-10 h-10 rounded object-cover" src="assets/images/img_user.jpg" alt="">
-          <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" name="" id="">Quoi de neuf,Fayad?</textarea>
+          <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,Fayad?</textarea>
         </div>
         <button class="flex gap-2 items-center justify-center bg-blue-600 text-white rounded-xl text-sm font-bold" style="width: 95px; padding: 10px 12px">
           <svg class="w-4 h-4 font-bold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
@@ -209,7 +276,7 @@
               <p class="text-gray-400">il y'a 10h</p>
             </div>
           </div>
-          <div class="flex items-center justify-center rounded border px-4 text-gray-400 w-5 h-5" style="padding-bottom: 20px;">
+          <div class="flex items-center justify-center rounded border px-4 text-gray-400 w-5 h-5" style="padding-bottom: 21px;">
             <p class="flex items-center justify-center w-2 h-3 text-3xl">...</p>      
           </div>
         </div>
@@ -262,9 +329,9 @@
           </div>
         </div>
         <div class="flex items-center justify-between mb-4 mt-5 border-t border-gray-300">
-          <div class="flex gap-2 items-center justify-center">
+          <div class="flex gap-2 justify-center">
             <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-            <input class="bg-gray-200 rounded-xl w-96 h-full px-3 py-3 outline-hidden" type="text" placeholder="Commenter en tant que Raphael RAOUFOU">
+            <textarea class="bg-gray-200 rounded-xl w-96 outline-hidden" style="resize: none; height: 74px; padding: 6px 12px;" name="" id="">Commenter en tant que Raphael RAOUFOU</textarea>
           </div>
           <div class="flex justify-center items-center rounded-full bg-gray-400 p-2">
             <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
@@ -274,7 +341,7 @@
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->
-    <div class="flex gap-6 flex-col my-3 overflow-y-auto h-screen w-full" style="padding: 0 40px;">
+    <div class="flex gap-6 flex-col my-3 w-full" style="padding: 0 40px;">
       <!-- Partie Invitations recues -->
       <div class="flex flex-col justify-center">
         <div class="flex items-center justify-between mb-1">
@@ -291,7 +358,7 @@
           </div>
           <div class="flex gap-6 items-center justify-center">
             <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
-            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 105px;">Refuser</button>
+            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
         <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
@@ -304,7 +371,7 @@
           </div>
           <div class="flex gap-6 items-center justify-center">
             <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
-            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 105px;">Refuser</button>
+            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
         <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm">Voir tout</button>
@@ -415,5 +482,9 @@
       </div>
     </div>
   </section>
+
+
+
+  <script src="assets/js/index.js"></script>
 </body>
 </html>
