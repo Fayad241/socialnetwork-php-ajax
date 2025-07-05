@@ -12,14 +12,14 @@
   }
 </style>
 </head>
-<body class="bg-gray-50" style="height: 100%;
+<body class="bg-gray-100" style="height: 100%;
   overflow-y: auto !important;
   margin: 0;
   padding: 0;">
 
   <!-- <?php require 'vues/clients/chat-user-modal.php' ?> -->
 
-  <section class="absolute flex justify-center items-center" style="z-index: 200">
+  <section class="absolute hidden justify-center items-center" style="z-index: 200">
     <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 45vw; height:520px; margin: 30px 340px">
         <div class="flex items-center justify-between shadow-sm w-full p-4">
           <div class="flex gap-4">
@@ -79,23 +79,29 @@
   <!-- Partie de l'entete -->
   <section>
     <div class="flex items-center justify-between py-3 px-8 border-b border-gray-200">
-      <div class="flex gap-3 items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor" class="w-9 h-9 text-indigo-600 bg-blue-100 rounded">
-          <!-- Cercle central représentant l'identité (AfroVibe) -->
-          <circle cx="32" cy="32" r="10" class="fill-current text-indigo-600" />
-        
-          <!-- Cercles secondaires représentant les connexions sociales -->
-          <circle cx="12" cy="20" r="4" class="fill-current text-pink-500" />
-          <circle cx="52" cy="20" r="4" class="fill-current text-yellow-400" />
-          <circle cx="20" cy="52" r="4" class="fill-current text-green-500" />
-          <circle cx="44" cy="52" r="4" class="fill-current text-blue-400" />
-          <!-- Lignes pour symboliser les liens -->
-          <line x1="32" y1="32" x2="12" y2="20" stroke="currentColor" stroke-width="2" />
-          <line x1="32" y1="32" x2="52" y2="20" stroke="currentColor" stroke-width="2" />
-          <line x1="32" y1="32" x2="20" y2="52" stroke="currentColor" stroke-width="2" />
-          <line x1="32" y1="32" x2="44" y2="52" stroke="currentColor" stroke-width="2" />
+      <div class="flex gap-[1px] items-center">
+        <svg width="42" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#2563EB" />   <!-- blue-600 -->
+              <stop offset="50%" stop-color="#3B82F6" />  <!-- blue-500 -->
+              <stop offset="100%" stop-color="#06B6D4" /> <!-- cyan-400 -->
+            </linearGradient>
+          </defs>
+          <!-- Spiral circle -->
+          <g transform="translate(10, 10)">
+            <circle cx="30" cy="30" r="28" stroke="url(#blueGradient)" stroke-width="4" fill="none"/>
+            <path d="
+              M30 30
+              m0 -20
+              a20 20 0 1 1 -20 20
+              a10 10 0 1 0 10 -10
+            " fill="none" stroke="url(#blueGradient)" stroke-width="2"/>
+          </g>
         </svg>
-        <p class="font-extrabold text-2xl">AFROVibe</p>
+        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
+          AFRO<span class="font-light">vibe</span>
+        </h1>
       </div>
       <div class="relative flex gap-3 items-center justify-between">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500 absolute ml-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -103,7 +109,7 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         <input class="bg-gray-100 rounded-2xl outline-hidden h-auto py-2 px-3 pl-12 w-76 shadow-sm" type="text" placeholder="Rechercher sur Afrovibe">
-        <div class="flex gap-2 items-center justify-center bg-blue-600 rounded-2xl text-white font-bold py-2 px-4">
+        <div class="flex gap-2 items-center justify-center bg-cyan-500 rounded-2xl text-white font-bold py-2 px-4">
           <div class="flex items-center justify-center text-center rounded border px-1 pb-1">
             <p class="flex items-center justify-center text-center w-2 h-3 text-sm">+</p>      
           </div>
@@ -254,7 +260,7 @@
             <div class="absolute bottom-3 font-bold text-white text-lg">Mandjid BALOGOUN</div>
           </div>
           <div class="flex gap-6 items-center justify-between mt-4 font-bold">
-            <p class="bg-blue-600 rounded-2xl text-white py-2 px-4 whitespace-nowrap">Accepter l'invitation</p>
+            <p class="bg-[#2563EB] rounded-2xl text-white py-2 px-4 whitespace-nowrap">Accepter l'invitation</p>
             <svg class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-xl w-9 h-9 py-1 px-2" xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -336,7 +342,7 @@
           <img class="w-10 h-10 rounded object-cover" src="assets/images/img_user.jpg" alt="">
           <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,Fayad?</textarea>
         </div>
-        <button class="flex gap-2 items-center justify-center bg-blue-600 text-white rounded-xl text-sm font-bold" style="width: 95px; padding: 10px 12px">
+        <button class="flex gap-2 items-center justify-center bg-cyan-500 text-white rounded-xl text-sm font-bold" style="width: 95px; padding: 10px 12px">
           <svg class="w-4 h-4 font-bold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
           Publier
         </button>
@@ -440,7 +446,7 @@
             <div class="text-gray-600 text-sm font-bold">1h</div>
           </div>
           <div class="flex gap-6 items-center justify-center">
-            <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
+            <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
             <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
@@ -453,7 +459,7 @@
             <div class="text-gray-600 text-sm font-bold">8sem</div>
           </div>
           <div class="flex gap-6 items-center justify-center">
-            <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
+            <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
             <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
@@ -498,7 +504,7 @@
             <div class="flex gap-3 flex-col justify-center">
               <strong>Georges SANNI</strong>
               <div class="flex gap-2 items-center justify-center">
-                <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
+                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
                 <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 90px;">Retirer</button>
               </div>
             </div>
@@ -510,7 +516,7 @@
             <div class="flex gap-3 flex-col justify-center">
               <strong>Gabriel BAKARY</strong>
               <div class="flex gap-2 items-center justify-center">
-                <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
+                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
                 <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 90px;">Retirer</button>
               </div>
             </div>
