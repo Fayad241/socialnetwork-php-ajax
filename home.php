@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;">
 
-  <?php require 'vues/clients/chat-user-modal.php' ?>
+  <!-- <?php require 'vues/clients/chat-user-modal.php' ?> -->
 
   <section class="absolute flex justify-center items-center" style="z-index: 200">
     <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 45vw; height:520px; margin: 30px 340px">
@@ -74,7 +74,7 @@
           </div>
         </form>
     </div>
-   </section>
+  </section> 
 
   <!-- Partie de l'entete -->
   <section>
