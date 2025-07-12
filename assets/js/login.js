@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('password');
 
     // Vérifie si l'utilisateur est déjà connecté
-    if (sessionStorage.getItem('user')) {
-        window.location.href = 'home.php';
-    }
+    // if (sessionStorage.getItem('user')) {
+    //     window.location.href = '../../home.php';
+    // }
 
     function showError(input, message) {
         const formControl = input.parentElement;

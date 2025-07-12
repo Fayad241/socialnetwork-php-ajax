@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../inclusions/database.php';
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -33,16 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
+        $_SESSION['user_id'] = $user['unique-id'];
         // Retourne les données utilisateur pour sessionStorage
         echo json_encode([
             'success' => true,
             'user' => [
                 'id' => $user['unique-id'],
-                'email' => $user['email'],
                 'first_name' => $user['first-name'],
+                'last_name' => $user['last-name'],
+                'email' => $user['email'],
+                'bio' => $user['bio'],
+                'gender' => $user['gender'],
+                'birthday' => $user['birthday'],
                 'profile_pic' => $user['profile-pic']
             ],
-            'redirect' => 'home.php'
+            'redirect' => '../../home.php'
         ]);
         
     } catch(PDOException $e) {

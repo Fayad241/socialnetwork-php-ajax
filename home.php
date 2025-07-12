@@ -1,3 +1,23 @@
+<?php 
+  session_start();
+  require 'inclusions/database.php';
+
+  if (!isset($_SESSION['user-id'])) {
+    die(json_encode(['error' => 'Non connecté'])); 
+  }
+
+  $stmt = $pdo->prepare("SELECT * FROM users WHERE `unique-id` = :user_id");
+  $stmt->execute([':user_id' => $_SESSION['user-id']]);
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  // echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+
+?>
+
+
+
+
+
 <!doctype html>
 <html>
 <head>
@@ -195,7 +215,7 @@
           </div>
         </div>
         <div>
-          <img class="w-9 h-9 object-cover rounded" src="assets/images/img_user.jpg" alt="">
+          <img class="w-9 h-9 object-cover rounded" src="profile-pic/<?=$user['profile-pic']?>" alt="">
         </div>
       </div>
     </div>
@@ -205,11 +225,11 @@
     <!-- Partie side-bar et invitations (zone gauche) -->
     <div class="flex gap-3 flex-col my-3 w-full" style="padding: 0 40px;">
 
-      <div class="flex gap-3 items-center justify-center bg-white px-4 py-4 rounded-2xl shadow-md w-full">
-        <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user.jpg" alt="">
+      <div class="flex gap-4 items-center justify-center bg-white px-2 py-4 rounded-2xl shadow-md w-full">
+        <img class="w-12 h-12 object-cover rounded" src="profile-pic/<?=$user['profile-pic']?>" alt="">
         <div>
-          <p class="font-bold">Fayad ROUFAI</p>
-          <p class="text-gray-400">@fayadroufai@gmail.com</p>
+          <p class="font-bold"> <?= htmlspecialchars($user['last-name'] . ' ' . $user['first-name']); ?> </p>
+          <p class="text-gray-400"><?= htmlspecialchars($user['email']) ?></p>
         </div>
       </div>
 
@@ -339,8 +359,8 @@
       <!-- Faire une publication rapide -->
       <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3">
         <div class="flex gap-3 items-center">
-          <img class="w-10 h-10 rounded object-cover" src="assets/images/img_user.jpg" alt="">
-          <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,Fayad?</textarea>
+          <img class="w-10 h-10 rounded object-cover" src="profile-pic/<?=$user['profile-pic']?>" alt="">
+          <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,<?= ' ' . $user['first-name']?>?</textarea>
         </div>
         <button class="flex gap-2 items-center justify-center bg-cyan-500 text-white rounded-xl text-sm font-bold" style="width: 95px; padding: 10px 12px">
           <svg class="w-4 h-4 font-bold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
@@ -505,7 +525,7 @@
               <strong>Georges SANNI</strong>
               <div class="flex gap-2 items-center justify-center">
                 <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
-                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 90px;">Retirer</button>
+                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 90px;">Retirer</button>
               </div>
             </div>
           </div>
@@ -517,7 +537,7 @@
               <strong>Gabriel BAKARY</strong>
               <div class="flex gap-2 items-center justify-center">
                 <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
-                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-indigo-300 text-sm" style="width: 90px;">Retirer</button>
+                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 90px;">Retirer</button>
               </div>
             </div>
           </div>
