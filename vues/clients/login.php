@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="../../assets/css/output.css" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -68,7 +69,7 @@
         <input
             type="submit"
             value="Se connecter"
-            class="w-full py-3 rounded-full bg-gray-700 text-white font-semibold text-sm cursor-pointer hover:bg-blue-600 hover:text-gray-100 transition"
+            class="w-full py-3 rounded-full bg-gray-700 text-white font-semibold text-sm outline-0 cursor-pointer hover:bg-blue-600 hover:text-gray-100 transition"
         />
 
         <!-- Lien inscription -->
@@ -78,5 +79,10 @@
         </div>
     </form>
 
+
+
+
+
+    <script src="../../assets/js/login.js"></script>
 </body>
 </html>
