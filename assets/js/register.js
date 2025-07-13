@@ -323,6 +323,14 @@
             sessionStorage.removeItem("currentStep");
 
             console.log(response.data);
+
+            // Vérifier la réponse
+            if (response.data.success) {
+                sessionStorage.setItem('user', JSON.stringify(response.data.user));
+                window.location.href = response.data.redirect;
+            } else {
+                console.error('Erreur serveur:', response.data.error);
+            }
         } 
         
         catch(error) {

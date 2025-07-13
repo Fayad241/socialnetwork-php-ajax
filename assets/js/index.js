@@ -10,4 +10,20 @@ closeNotification.addEventListener('click', () => {
     popupNotification.style.display = 'none';
 })
 
+const openMessage = document.getElementById('open-messages');
+const closeMessage = document.getElementById('close-messages');
+const popupMessage = document.getElementById('popup-messages');
+
+openMessage.addEventListener('click', () => {
+    popupMessage.style.display = 'block';
+})
+
+closeMessage.addEventListener('click', () => {
+    popupMessage.style.display = 'none';
+})
+
+
+
+
+
 

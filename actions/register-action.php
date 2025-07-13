@@ -148,6 +148,7 @@
             ],
             'redirect' => '../../home.php'
         ]);
+        exit;
         echo "Inscription reussie";
     } catch(PDOException $e) {
         http_response_code(500);
