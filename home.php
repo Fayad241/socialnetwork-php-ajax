@@ -39,7 +39,7 @@
 
   <?php require 'vues/clients/chat-conversations-modal.php' ?>
 
-  <section class="absolute hidden justify-center items-center" style="z-index: 200">
+  <section id="chat-container" class="absolute hidden justify-center items-center" style="z-index: 200">
     <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 45vw; height:520px; margin: 30px 340px">
         <div class="flex items-center justify-between shadow-sm w-full p-4">
           <div class="flex gap-4">
@@ -64,19 +64,19 @@
         </div>
         <div class="flex flex-col my-1">
           <!-- Message envoyé -->
-          <div class="flex gap-1 flex-col bg-blue-100 text-gray-600 rounded-xl my-2 p-2  shadow-sm" style="margin-left: auto; width: 375px; margin-right: 12px">
+          <!-- <div class="flex gap-1 flex-col bg-blue-100 text-gray-600 rounded-xl my-2 p-2  shadow-sm" style="margin-left: auto; width: 375px; margin-right: 12px">
             <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, corrupti? Lorem ipsum dolor sit.</div>
             <div class="text-sm">19:02</div>
-          </div>
+          </div> -->
 
           <!-- Message recu -->
-          <div class="flex gap-3 bg-gray-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm" style="margin-right: auto; width: 375px; margin-left: 12px">
+          <!-- <div class="flex gap-3 bg-gray-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm" style="margin-right: auto; width: 375px; margin-left: 12px">
             <img class="object-cover rounded-full" src="assets/images/img_user_publicaton.jpg" alt="" style="width: 60px; height: 45px">
             <div class="flex gap-1 flex-col" style="width: 400px;">
               <div>Lorem ipsum dolor sit amet consectetur adipisici</div>
               <div class="text-sm">19:02</div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- Champ de saisi du message -->
@@ -223,7 +223,7 @@
 
   <section class="flex justify-center h-full">
     <!-- Partie side-bar et invitations (zone gauche) -->
-    <div class="flex gap-3 flex-col my-3 w-full" style="padding: 0 40px;">
+    <div class="flex gap-3 flex-col my-3 w-full overflow-y-auto" style="padding: 0 40px;">
 
       <div class="flex gap-4 items-center justify-center bg-white px-2 py-4 rounded-2xl shadow-md w-full">
         <img class="w-12 h-12 object-cover rounded" src="profile-pic/<?=$user['profile-pic']?>" alt="">
@@ -297,59 +297,59 @@
 
 
     <!-- Fil d'actualités (milieu) -->
-    <div class="flex gap-5 flex-col my-3" style="width: 560px">
+    <div class="flex gap-5 flex-col my-3 overflow-y-scroll" style="width: 560px">
       <!-- Statut(story) des utilisateurs -->
       <div class="flex gap-4 items-center w-full overflow-x-auto scrollbar-custom" style="scroll-behavior: smooth;">
-        <div class="relative flex-col items-center justify-center" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative flex-col items-center justify-center" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="h-full w-full object-cover rounded-2xl shadow-sm" src="assets/images/img_status.jpg" alt="">
-          <div class="flex flex-col items-center justify-center absolute bottom-3 font-bold text-white ml-2">
+          <div class="flex flex-col items-center justify-center absolute bottom-3 font-bold text-white ml-4">
             <div class="flex items-center justify-center rounded-xl border-4 w-9 h-9 p-1 mb-1">
               <p class="flex items-center justify-center w-full h-full text-sm text-blue-600 pb-1 rounded bg-white">+</p>      
             </div>
             <p>Ajouter storie</p>
           </div>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_1.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_2.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_3.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_4.png" alt="">
+          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_4.jpeg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 115px; height: 210px">
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
+          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
+          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
+          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
+        </div>
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
@@ -450,7 +450,7 @@
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->
-    <div class="flex gap-6 flex-col my-3 w-full" style="padding: 0 40px;">
+    <div class="flex gap-6 flex-col my-3 w-full overflow-y-auto" style="padding: 0 40px;">
       <!-- Partie Invitations recues -->
       <div class="flex flex-col justify-center">
         <div class="flex items-center justify-between mb-1">
