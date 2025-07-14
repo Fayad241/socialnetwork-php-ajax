@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil utilisateur</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <img src="img/default.jpg" alt="Photo de profil" class="profile-picture" id="profile-picture">
+      <h1 id="username">Nom d'utilisateur</h1>
+      <p id="bio">Ceci est une bio...</p>
+    </div>
+
+    <div class="profile-details">
+      <p><strong>Date de naissance:</strong> <span id="birthday">01/01/2000</span></p>
+      <p><strong>Localisation:</strong> <span id="location">Cotonou, Bénin</span></p>
+      <p><strong>Site web:</strong> <a href="#" id="website">https://monsite.com</a></p>
+    </div>
+
+    <button onclick="editProfile()">Modifier mon profil</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
