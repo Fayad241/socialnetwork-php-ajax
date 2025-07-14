@@ -17,7 +17,7 @@ try {
     }
 
     // Vérifie s'il existe déjà une invitation
-    $check = $pdo->prepare("SELECT * FROM friend_requests WHERE sender_id = :sender AND receiver_id = :receiver AND status = 'pending'");
+    $check = $pdo->prepare("SELECT * FROM friend_requests WHERE `sender-id` = :sender AND `receiver-id` = :receiver AND status = 'pending'");
     $check->execute([
         ':sender' => $senderId,
         ':receiver' => $receiverId
@@ -27,16 +27,17 @@ try {
     }
 
     // Insertion dans friend_requests
-    $stmt = $pdo->prepare("INSERT INTO friend_requests (sender_id, receiver_id) VALUES (:sender, :receiver)");
+    $stmt = $pdo->prepare("INSERT INTO friend_requests (`sender-id`, `receiver-id`, `created-at`) VALUES (:sender, :receiver, NOW())");
     $stmt->execute([
         ':sender' => $senderId,
         ':receiver' => $receiverId
     ]);
 
     // Notifications pour le destinataire
-    $notif = $pdo->prepare("INSERT INTO notifications (user_id, type, message) VALUES (:user, 'friend_request', :msg)");
+    $notif = $pdo->prepare("INSERT INTO notifications (`user-id`, message, type, `created-at`) VALUES (:user, :type, :msg, NOW())");
     $notif->execute([
         ':user' => $receiverId,
+        ':type' => 'friend_request',
         ':msg' => 'Vous avez reçu une invitation d\'ami.'
     ]);
 

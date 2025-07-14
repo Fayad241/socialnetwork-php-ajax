@@ -11,6 +11,7 @@
   $stmt->execute([':user_id' => $_SESSION['user-id']]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+  //
   $stmt1 = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
   $stmt1->execute([':user_id' => $_SESSION['user-id']]);
   $usersList = $stmt1->fetchAll(PDO::FETCH_ASSOC);
@@ -32,6 +33,24 @@
             ORDER BY posts.`date-publication` DESC;
           ");
   $stmt2->execute();
+
+
+  // Requete affichage des invitations recues
+  $stmt3 = $pdo->prepare(" SELECT u.* FROM users u
+              JOIN friend_requests f ON u.`unique-id` = f.`sender-id`
+              WHERE f.`receiver-id` = :user_id AND f.status = 'pending'
+            ");
+  $stmt3->bindParam(':user_id', $_SESSION['user-id']);
+  $stmt3->execute();
+
+  // Requete affichage des invitations envoyées
+  $stmt4 = $pdo->prepare(" SELECT u.* FROM users u
+              JOIN friend_requests f ON u.`unique-id` = f.`receiver-id`
+              WHERE f.`sender-id` = :user_id AND f.status = 'pending'
+            ");
+  $stmt4->bindParam(':user_id', $_SESSION['user-id']);
+  $stmt4->execute();
+
   
 
 
@@ -46,6 +65,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link href="assets/css/output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 overflow-hidden">
@@ -353,11 +373,12 @@
           <div class="text-gray-400 font-bold">INVITATIONS RECUES</div>
           <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">5</div>
         </div>
+        <?php while($row = $stmt3->fetch(PDO::FETCH_ASSOC)) { ?>
         <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
           <div class="flex gap-3 justify-center">
             <div class="flex gap-3 items-center justify-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <div class="break-words w-48"><strong>ULRICH MORGAN</strong> veut faire partie de vos amis</div>
+              <img class="w-10 h-10 object-cover rounded" src="<?= $row['profile-pic'] ?>" alt="">
+              <div class="break-words w-48"><strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong> veut faire partie de vos amis</div>
             </div>
             <div class="text-gray-600 text-sm font-bold">1h</div>
           </div>
@@ -366,7 +387,8 @@
             <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
+        <?php } ?>
+        <!-- <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
           <div class="flex gap-3 justify-center">
             <div class="flex gap-3 items-center justify-center">
               <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
@@ -378,7 +400,7 @@
             <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
             <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
-        </div>
+        </div> -->
         <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm cursor-pointer">Voir tout</button>
       </div>
       
@@ -388,17 +410,19 @@
           <div class="text-gray-400 font-bold">INVITATIONS ENVOYEES</div>
           <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">5</div>
         </div>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
-          <div class="flex gap-3 justify-center">
-            <div class="flex gap-3 items-center justify-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <div class="break-words w-44">Invitation envoyée à <strong>Jojo ALAO</strong></div>
+        <?php while($row = $stmt4->fetch(PDO::FETCH_ASSOC)) { ?>
+          <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
+            <div class="flex gap-3 justify-center">
+              <div class="flex gap-3 items-center justify-center">
+                <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $row['profile-pic'] ?>" alt="">
+                <div class="break-words w-44">Invitation envoyée à <strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong></div>
+              </div>
+              <div class="text-gray-600 text-sm font-bold">2ans</div>
             </div>
-            <div class="text-gray-600 text-sm font-bold">2ans</div>
+            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm outline-0">Annuler</button>
           </div>
-          <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm">Annuler</button>
-        </div>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
+        <?php } ?>
+        <!-- <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
           <div class="flex gap-3 justify-center">
             <div class="flex gap-3 items-center justify-center">
               <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
@@ -407,7 +431,7 @@
             <div class="text-gray-600 text-sm font-bold">2m</div>
           </div>
           <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm">Annuler</button>
-        </div>
+        </div> -->
         <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm">Voir tout</button>
       </div>
 
@@ -424,8 +448,8 @@
           <div class="flex gap-3 flex-col justify-center">
             <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
             <div class="flex gap-2">
-              <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
-              <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
+              <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer outline-0 btn-add-friend" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
+              <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer outline-0 btn-remove-suggestion" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
             </div>
           </div>
         </div>
@@ -442,8 +466,8 @@
             <div class="flex gap-3 flex-col justify-center">
               <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
               <div class="flex gap-2">
-                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
-                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
+                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer outline-0 btn-add-friend" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
+                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer outline-0 btn-remove-suggestion" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
               </div>
             </div>
           </div>

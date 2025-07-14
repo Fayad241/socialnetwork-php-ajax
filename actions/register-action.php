@@ -139,7 +139,7 @@
         echo json_encode([
             'success' => true,
             'user' => [
-                'id' => $randomId,
+                'unique-id' => $randomId,
                 'first_name' => $userData['first-name'],
                 'last_name' => $userData['last-name'],
                 'email' => $userData['email'],

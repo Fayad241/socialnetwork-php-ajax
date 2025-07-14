@@ -46,6 +46,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-add-friend').forEach(button => {
+        button.addEventListener('click', async () => {
+            const receiverId = button.dataset.userId;
+
+            try {
+                const response = await axios.post('actions/add-friend-action.php', {
+                    receiver_id: receiverId
+                });
+
+                if (response.data.success) {
+                    alert("Invitation envoyée !");
+                    button.closest('.suggestion-item').remove(); // retire la suggestion
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                console.log(receiverId)
+                console.error("Erreur :", error);
+                alert("Erreur lors de l'envoi de l'invitation.");
+            }
+        });
+    });
+
+    // Bouton Retirer
+    document.querySelectorAll('.btn-remove-suggestion').forEach(button => {
+        button.addEventListener('click', () => {
+            button.closest('.suggestion-item').remove();
+        });
+    });
+// });
+
+
+
 
 
 

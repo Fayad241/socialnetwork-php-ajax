@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode([
             'success' => true,
             'user' => [
-                'id' => $user['unique-id'],
+                'unique-id' => $user['unique-id'],
                 'first_name' => $user['first-name'],
                 'last_name' => $user['last-name'],
                 'email' => $user['email'],
