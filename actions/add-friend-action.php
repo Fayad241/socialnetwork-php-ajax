@@ -9,7 +9,7 @@ try {
     }
 
     $data = json_decode(file_get_contents("php://input"), true);
-    $senderId = $_SESSION['user-id'];
+    $senderId = $_SESSION['user_id'];
     $receiverId = $data['receiver_id'];
 
     if (!$receiverId || $receiverId == $senderId) {
@@ -34,7 +34,7 @@ try {
     ]);
 
     // Notifications pour le destinataire
-    $notif = $pdo->prepare("INSERT INTO notifications (`user-id`, message, type, `created-at`) VALUES (:user, :type, :msg, NOW())");
+    $notif = $pdo->prepare("INSERT INTO notifications (`user-id`, message, type, `created-at`) VALUES (:user, :msg, :type, NOW())");
     $notif->execute([
         ':user' => $receiverId,
         ':type' => 'friend_request',

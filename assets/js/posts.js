@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.data.success) {
-                alert('Publication envoyée avec succès !');
                 textarea.value = '';
                 fileInput.value = '';
                 document.getElementById('image-preview').classList.add('hidden');
                 document.getElementById('preview').src = '';
+                window.location.href = '../../home.php';
             } else {
                 alert(response.data.message || 'Erreur lors de la publication.');
             }

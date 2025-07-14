@@ -36,7 +36,7 @@ try {
     }
 
 
-    $userId = $_SESSION['user-id'];
+    $userId = $_SESSION['user_id'];
     $datePost = date('Y-m-d H:i:s');;
 
     $sql = "INSERT INTO `posts` (`content`, `img-publication`, `date-publication`, `unique-id`) VALUES (:content, :image, :date, :user_id)";

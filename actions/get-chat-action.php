@@ -6,10 +6,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_SESSION['user-id'])) die(json_encode(['error' => 'Non connecté']));
+if (!isset($_SESSION['user_id'])) die(json_encode(['error' => 'Non connecté']));
 if (!isset($_GET['contact_id'])) die(json_encode(['error' => 'Contact manquant']));
 
-$current_user = $_SESSION['user-id'];
+$current_user = $_SESSION['user_id'];
 $contact_id = $_GET['contact_id'];
 
 // Récupère les messages entre les 2 utilisateurs

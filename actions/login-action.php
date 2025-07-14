@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $_SESSION['user-id'] = $user['unique-id'];
+        $_SESSION['user_id'] = $user['unique-id'];
         // Retourne les données utilisateur pour sessionStorage
         echo json_encode([
             'success' => true,

@@ -2,12 +2,12 @@
     session_start();
     require '../inclusions/database.php';
 
-    if (!isset($_SESSION['user-id'])) {
+    if (!isset($_SESSION['user_id'])) {
         die(json_encode(['error' => 'Non connecté'])); 
     }
 
     $sql = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
-    $sql->execute([':user_id' => $_SESSION['user-id']]);
+    $sql->execute([':user_id' => $_SESSION['user_id']]);
 
     $output = '';
 

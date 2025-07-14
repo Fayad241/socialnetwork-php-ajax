@@ -132,7 +132,7 @@
         ]);
 
         // Configuration des sessions
-        $_SESSION['user-id'] = $randomId;
+        $_SESSION['user_id'] = $randomId;
         $_SESSION['user-email'] = $userData['email'];
 
         // Réponse avec données pour sessionStorage
