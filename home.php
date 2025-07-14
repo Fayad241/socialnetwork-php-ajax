@@ -3,7 +3,7 @@
   require 'inclusions/database.php';
 
   if (!isset($_SESSION['user-id'])) {
-    die(json_encode(['error' => 'Non connecté'])); 
+    header("Location: vues/clients/login.php"); 
   }
 
   // Requete pour afficher les informations personnelles de l'utilisateur
@@ -204,6 +204,9 @@
           </div>
         </div>
       </div>
+      <button id="logoutBtn" type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer">
+          Se déconnecter
+      </button>
     </div>
 
 
@@ -510,5 +513,6 @@
 
   <script src="assets/js/index.js"></script>
   <script src="assets/js/chat-conversations-modal.js"></script>
+  <script src="assets/js/logout.js"></script>
 </body>
 </html>

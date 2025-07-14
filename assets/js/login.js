@@ -97,16 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Vérifier l'état de connexion (à utiliser sur d'autres pages)
-function checkAuth() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    if (!user) {
-        window.location.href = 'login.php';
-    }
-    return user;
-}
+// function checkAuth() {
+//     const user = JSON.parse(sessionStorage.getItem('user'));
+//     if (!user) {
+//         window.location.href = 'login.php';
+//     }
+//     return user;
+// }
 
-// Fonction de déconnexion
-function logout() {
-    sessionStorage.removeItem('user');
-    window.location.href = 'login.php';
-}

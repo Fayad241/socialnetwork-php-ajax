@@ -23,18 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
 
         if ($stmt->rowCount() === 0) {
-            echo json_encode(['error' => 'Email incorrect']);
+            echo json_encode(['error' => 'Email ou mot de passe incorrect']);
             exit;
         }
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if (!password_verify($password, $user['password'])) {
-            echo json_encode(['error' => 'mot de passe incorrect']);
+            echo json_encode(['error' => 'Email ou mot de passe incorrect']);
             exit;
         }
 
-        $_SESSION['user_id'] = $user['unique-id'];
+        $_SESSION['user-id'] = $user['unique-id'];
         // Retourne les données utilisateur pour sessionStorage
         echo json_encode([
             'success' => true,
