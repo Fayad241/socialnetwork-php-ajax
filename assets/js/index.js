@@ -23,6 +23,30 @@ closeMessage.addEventListener('click', () => {
 })
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('toggle-suggestions');
+    const limited = document.getElementById('suggestion-limited');
+    const full = document.getElementById('suggestion-full');
+
+    let expanded = false;
+
+    btn.addEventListener('click', () => {
+      expanded = !expanded;
+
+      if (expanded) {
+        limited.classList.add('hidden');
+        full.classList.remove('hidden');
+        btn.textContent = "Voir moins";
+      } else {
+        full.classList.add('hidden');
+        limited.classList.remove('hidden');
+        btn.textContent = "Voir plus";
+      }
+    });
+});
+
+
+
 
 
 

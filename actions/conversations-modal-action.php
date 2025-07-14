@@ -6,14 +6,14 @@
         die(json_encode(['error' => 'Non connecté'])); 
     }
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
-    $stmt->execute([':user_id' => $_SESSION['user-id']]);
+    $sql = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
+    $sql->execute([':user_id' => $_SESSION['user-id']]);
 
     $output = '';
 
-    if($stmt->rowCount() == 1) {
+    if($sql->rowCount() == 1) {
         $output .= "Aucun utilisateur disponible dans le chat";
-    } else if($stmt->rowCount() > 0) {
+    } else if($sql->rowCount() > 0) {
         require '../inclusions/data.php';
     }
     echo $output;

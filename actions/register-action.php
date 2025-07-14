@@ -83,7 +83,7 @@
         // Vérification de l'extension de l'image 
         $extensions = ['png', 'jpeg', 'jpg', 'webp'];
         if(in_array($img_ext, $extensions) === true) {
-            $new_img_name = uniqid() . '_' . bin2hex(random_bytes(8)) . '.' . $img_ext;;
+            $new_img_name = uniqid() . '_' . bin2hex(random_bytes(8)) . '.' . $img_ext;
             
             if(move_uploaded_file($tmp_name, "../profile-pic/".$new_img_name)) {
                 $randomId = rand(time(), 10000000);            

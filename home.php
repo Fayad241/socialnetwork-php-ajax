@@ -6,11 +6,34 @@
     die(json_encode(['error' => 'Non connecté'])); 
   }
 
+  // Requete pour afficher les informations personnelles de l'utilisateur
   $stmt = $pdo->prepare("SELECT * FROM users WHERE `unique-id` = :user_id");
   $stmt->execute([':user_id' => $_SESSION['user-id']]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  // echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+  $stmt1 = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
+  $stmt1->execute([':user_id' => $_SESSION['user-id']]);
+  $usersList = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+  $firstTwo = array_slice($usersList, 0, 2);
+  $others = array_slice($usersList, 2);
+
+  // Requete pour affichage des posts
+  $stmt2 = $pdo->prepare("SELECT 
+            posts.id AS post_id,
+            posts.content,
+            posts.`img-publication`,
+            posts.`date-publication`,
+            users.`first-name`,
+            users.`last-name`,
+            users.`profile-pic`,
+            users.email
+            FROM posts
+            INNER JOIN users ON posts.`unique-id` = users.`unique-id`
+            ORDER BY posts.`date-publication` DESC;
+          ");
+  $stmt2->execute();
+  
+
 
 ?>
 
@@ -24,18 +47,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="assets/css/output.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
-  <style>
-  html, body {
-    height: auto !important;
-    overflow-y: auto !important;
-  }
-</style>
 </head>
-<body class="bg-gray-100" style="height: 100%;
-  overflow-y: auto !important;
-  margin: 0;
-  padding: 0;">
+<body class="bg-gray-100 overflow-hidden">
 
   <?php require 'vues/clients/chat-conversations-modal.php' ?>
 
@@ -99,9 +112,9 @@
   <!-- Partie de l'entete -->
   <?php require 'inclusions/header.php' ?>
 
-  <section class="flex justify-center h-full">
+  <section class="flex justify-center">
     <!-- Partie side-bar et invitations (zone gauche) -->
-    <div class="flex gap-3 flex-col my-3 w-full overflow-y-auto" style="padding: 0 40px;">
+    <div class="flex gap-3 flex-col my-3 w-full overflow-y-auto scrollbar-custom" style="padding: 0 30px; height: 87vh; width: 350px;">
 
       <div class="flex gap-4 items-center justify-center bg-white px-2 py-4 rounded-2xl shadow-md w-full">
         <img class="w-12 h-12 object-cover rounded" src="profile-pic/<?=$user['profile-pic']?>" alt="">
@@ -144,7 +157,7 @@
           <div class="">Enregistrements</div>
         </div>
       </div>
-      <div class="">
+      <div class="mb-5">
         <div class="flex items-center justify-between my-4">
           <p class="text-gray-400">Invitations</p>
           <p class="bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">
@@ -175,7 +188,7 @@
 
 
     <!-- Fil d'actualités (milieu) -->
-    <div class="flex gap-5 flex-col my-3 overflow-y-scroll" style="width: 560px">
+    <div class="my-3 overflow-y-auto scrollbar-custom" style="width: 560px; height: 87vh">
       <!-- Statut(story) des utilisateurs -->
       <div class="flex gap-4 items-center w-full overflow-x-auto scrollbar-custom" style="scroll-behavior: smooth;">
         <div class="relative flex-col items-center justify-center" style="flex: 0 0 auto; width: 135px; height: 210px">
@@ -235,100 +248,105 @@
       </div>
 
       <!-- Faire une publication rapide -->
-      <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3">
+      <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3 my-8">
         <div class="flex gap-3 items-center">
           <img class="w-10 h-10 rounded object-cover" src="profile-pic/<?=$user['profile-pic']?>" alt="">
           <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,<?= ' ' . $user['first-name']?>?</textarea>
         </div>
-        <button class="flex gap-2 items-center justify-center bg-cyan-500 text-white rounded-xl text-sm font-bold" style="width: 95px; padding: 10px 12px">
+        <button class="flex gap-2 items-center justify-center bg-cyan-500 text-white rounded-xl text-sm font-bold cursor-pointer" style="width: 95px; padding: 10px 12px">
           <svg class="w-4 h-4 font-bold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
           Publier
         </button>
       </div>
 
       <!-- Publications et Posts des utilisateurs -->
-      <div class="flex flex-col justify-center bg-white rounded-2xl shadow-md px-5 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex gap-3 items-center justify-center">
-            <img class="w-10 h-10 rounded object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-            <div>
-              <p class="font-bold">Raphael RAOUFOU</p>
-              <p class="text-gray-400">il y'a 10h</p>
+      <?php 
+        while($post = $stmt2->fetch(PDO::FETCH_ASSOC)) { ?>
+          <div class="flex flex-col justify-center bg-white rounded-2xl shadow-md px-5 py-4 mb-5">
+            <div class="flex items-center justify-between">
+              <div class="flex gap-3 items-center justify-center">
+                <img class="w-10 h-10 rounded object-cover" src="profile-pic/<?=$post['profile-pic']?>" alt="">
+                <div>
+                  <p class="font-bold"><?= htmlspecialchars($post['last-name'] . ' ' . $post['first-name']); ?></p>
+                  <p class="text-gray-400">il y'a 10h</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-center rounded border px-4 text-gray-400 w-5 h-5" style="padding-bottom: 21px;">
+                <p class="flex items-center justify-center w-2 h-3 text-3xl">...</p>      
+              </div>
             </div>
-          </div>
-          <div class="flex items-center justify-center rounded border px-4 text-gray-400 w-5 h-5" style="padding-bottom: 21px;">
-            <p class="flex items-center justify-center w-2 h-3 text-3xl">...</p>      
-          </div>
-        </div>
-        <div class="my-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde non repellendus eum cumque adipisci! Suscipit deleniti ea dolorum dolor totam expedita! Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus necessitatibus facilis veniam exercitationem, consectetur explicabo? Dignissimos architecto impedit rem corrupti culpa, fugit enim molestiae sed.
-        </div>
-        <img class="h-96 w-full rounded-xl object-cover" src="assets/images/img_publication.jpg" alt="">
-        <div class="flex items-center justify-between my-4">
-          <div class="flex gap-5 items-center justify-between">
-            <div class="flex items-center justify-center" style="margin-left: 10px; gap: 4px">
-              <!-- Like (non activé) -->
-              <!-- <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-7 h-7 text-gray-400"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 
-                        4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 
-                        4.5 0 00-6.364 0z" />
-              </svg> -->
-              <!-- Like (activé) -->
-              <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-7 h-7 text-red-500 cursor-pointer"
-                  fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 
-                        2 12.28 2 8.5 2 5.42 4.42 3 
-                        7.5 3c1.74 0 3.41 0.81 4.5 
-                        2.09C13.09 3.81 14.76 3 
-                        16.5 3 19.58 3 22 5.42 22 
-                        8.5c0 3.78-3.4 6.86-8.55 
-                        11.54L12 21.35z" />
-              </svg>
-              <p>1.8k</p>
+            <div class="my-4">
+              <?= $post['content'] ?>
             </div>
-            <div class="flex items-center justify-center" style="gap: 4px">
-              <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  class="w-6 h-6 text-gray-500 hover:text-blue-500 cursor-pointer transition duration-200">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M21 12c0 4.97-4.03 9-9 9a8.96 8.96 0 01-4.479-1.175L3 21l1.175-4.479A8.96 8.96 0 013 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" />
-              </svg>
-              <p>2.5k</p>
+            <img class="h-96 w-full rounded-xl object-cover" src="uploads/posts/<?=$post['img-publication']?>" alt="">
+            <div class="flex items-center justify-between my-4">
+              <div class="flex gap-5 items-center justify-between">
+                <div class="flex items-center justify-center" style="margin-left: 10px; gap: 4px">
+                  <!-- Like (non activé) -->
+                  <!-- <svg xmlns="http://www.w3.org/2000/svg"
+                      class="w-7 h-7 text-gray-400"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 
+                            4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 
+                            4.5 0 00-6.364 0z" />
+                  </svg> -->
+                  <!-- Like (activé) -->
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                      class="w-7 h-7 text-red-500 cursor-pointer"
+                      fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 
+                            2 12.28 2 8.5 2 5.42 4.42 3 
+                            7.5 3c1.74 0 3.41 0.81 4.5 
+                            2.09C13.09 3.81 14.76 3 
+                            16.5 3 19.58 3 22 5.42 22 
+                            8.5c0 3.78-3.4 6.86-8.55 
+                            11.54L12 21.35z" />
+                  </svg>
+                  <p>1.8k</p>
+                </div>
+                <div class="flex items-center justify-center" style="gap: 4px">
+                  <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      class="w-6 h-6 text-gray-500 hover:text-blue-500 cursor-pointer transition duration-200">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M21 12c0 4.97-4.03 9-9 9a8.96 8.96 0 01-4.479-1.175L3 21l1.175-4.479A8.96 8.96 0 013 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" />
+                  </svg>
+                  <p>2.5k</p>
+                </div>
+                <div class="flex items-center justify-center">
+                  <svg class="w-9 h-9 text-gray-400" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.734 15.8974L19.22 12.1374C19.3971 11.9927 19.4998 11.7761 19.4998 11.5474C19.4998 11.3187 19.3971 11.1022 19.22 10.9574L14.734 7.19743C14.4947 6.9929 14.1598 6.94275 13.8711 7.06826C13.5824 7.19377 13.3906 7.47295 13.377 7.78743V9.27043C7.079 8.17943 5.5 13.8154 5.5 16.9974C6.961 14.5734 10.747 10.1794 13.377 13.8154V15.3024C13.3888 15.6178 13.5799 15.8987 13.8689 16.0254C14.158 16.1521 14.494 16.1024 14.734 15.8974Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                  <p>145</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z" />
+                </svg>
+              </div>
             </div>
-            <div class="flex items-center justify-center">
-              <svg class="w-9 h-9 text-gray-400" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.734 15.8974L19.22 12.1374C19.3971 11.9927 19.4998 11.7761 19.4998 11.5474C19.4998 11.3187 19.3971 11.1022 19.22 10.9574L14.734 7.19743C14.4947 6.9929 14.1598 6.94275 13.8711 7.06826C13.5824 7.19377 13.3906 7.47295 13.377 7.78743V9.27043C7.079 8.17943 5.5 13.8154 5.5 16.9974C6.961 14.5734 10.747 10.1794 13.377 13.8154V15.3024C13.3888 15.6178 13.5799 15.8987 13.8689 16.0254C14.158 16.1521 14.494 16.1024 14.734 15.8974Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-              <p>145</p>
-            </div>
+            <form action="post">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex gap-2 justify-center">
+                  <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
+                  <textarea class="bg-gray-200 rounded-xl w-96 outline-hidden" style="resize: none; height: 74px; padding: 6px 12px;" name="comment" id="">Commenter en tant que Fayad Roufai</textarea>
+                </div>
+                <button type="submit" class="flex justify-center items-center rounded-full bg-gray-400 p-2 outline-0">
+                  <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z" />
-            </svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex gap-2 justify-center">
-            <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-            <textarea class="bg-gray-200 rounded-xl w-96 outline-hidden" style="resize: none; height: 74px; padding: 6px 12px;" name="" id="">Commenter en tant que Fayad Roufai</textarea>
-          </div>
-          <div class="flex justify-center items-center rounded-full bg-gray-400 p-2">
-            <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-          </div>
-        </div>
-      </div>
+     <?php  } ?>
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->
-    <div class="flex gap-6 flex-col my-3 w-full overflow-y-auto" style="padding: 0 40px;">
+    <div class="flex gap-6 flex-col my-3 w-full overflow-y-auto scrollbar-custom" style="padding: 0 30px;height: 87vh; width: 350px;">
       <!-- Partie Invitations recues -->
       <div class="flex flex-col justify-center">
         <div class="flex items-center justify-between mb-1">
@@ -361,7 +379,7 @@
             <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
           </div>
         </div>
-        <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm">Voir tout</button>
+        <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm cursor-pointer">Voir tout</button>
       </div>
       
       <!-- Partie Invitations envoyées -->
@@ -395,33 +413,52 @@
 
       <!-- Partie Suggestions d'amis -->
       <div class="flex flex-col justify-center">
-        <div class="text-gray-400 mb-1 font-bold">SUGGESTION D'AMIS</div>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
-          <div class="flex items-center gap-3 justify-center">
-            <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-            <div class="flex gap-3 flex-col justify-center">
-              <strong>Georges SANNI</strong>
-              <div class="flex gap-2 items-center justify-center">
-                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
-                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 90px;">Retirer</button>
-              </div>
+  <div class="text-gray-400 mb-1 font-bold">SUGGESTION D'AMIS</div>
+
+  <!-- Les deux premières suggestions visibles au départ -->
+  <div id="suggestion-limited">
+    <?php foreach ($firstTwo as $users) { ?>
+      <div class="suggestion-item bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
+        <div class="flex items-center gap-3 justify-center">
+          <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $users['profile-pic'] ?>" alt="">
+          <div class="flex gap-3 flex-col justify-center">
+            <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
+            <div class="flex gap-2">
+              <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
+              <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
             </div>
           </div>
         </div>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
-          <div class="flex gap-3 items-center justify-center">
-            <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-            <div class="flex gap-3 flex-col justify-center">
-              <strong>Gabriel BAKARY</strong>
-              <div class="flex gap-2 items-center justify-center">
-                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap" style="width: 90px;">Ajouter ami</button>
-                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 90px;">Retirer</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm">Voir plus</button>
       </div>
+    <?php } ?>
+  </div>
+
+  <!-- Toutes les suggestions (y compris les 2 premières si tu préfères tout refaire) -->
+  <div id="suggestion-full" class="hidden">
+      <?php foreach ($usersList as $users) { ?>
+        <div class="suggestion-item bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
+          <div class="flex items-center gap-3 justify-center">
+            <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $users['profile-pic'] ?>" alt="">
+            <div class="flex gap-3 flex-col justify-center">
+              <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
+              <div class="flex gap-2">
+                <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Ajouter ami</button>
+                <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+
+    <?php if (count($usersList) > 2) { ?>
+      <button id="toggle-suggestions" class="text-blue-600 text-sm border border-gray-300 rounded-xl py-2 px-4 bg-gray-100 shadow-sm cursor-pointer self-center outline-0">
+        Voir plus
+      </button>
+    <?php } ?>
+  </div>
+
+
 
       <!-- Amis en connectés -->
       <div>
@@ -430,41 +467,15 @@
           <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">15</div>
         </div>
         <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
+        <?php while($users = $stmt1->fetch(PDO::FETCH_ASSOC)) { ?> 
           <div class="flex items-center justify-between">
             <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <strong>Jojo ALAO</strong>
+              <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$users['profile-pic']?>" alt="">
+              <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
             </div>
             <div class="bg-green-500 rounded-full h-2 w-2"></div>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <strong>Jojo ALAO</strong>
-            </div>
-            <div class="bg-green-500 rounded-full h-2 w-2"></div>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <strong>Jojo ALAO</strong>
-            </div>
-            <div class="bg-green-500 rounded-full h-2 w-2"></div>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <strong>Jojo ALAO</strong>
-            </div>
-            <div class="bg-green-500 rounded-full h-2 w-2"></div>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-              <strong>Jojo ALAO</strong>
-            </div>
-            <div class="bg-green-500 rounded-full h-2 w-2"></div>
-          </div>
+        <?php } ?>
         </div>
       </div>
     </div>

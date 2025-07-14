@@ -1,5 +1,5 @@
 <?php 
-    while($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    while($user = $sql->fetch(PDO::FETCH_ASSOC)) {
         $output .= '<div class="flex justify-between my-4 cursor-pointer user-item" data-user-id="'.$user['unique-id'].'">
                 <div class="flex gap-4">
                     <div class="relative">

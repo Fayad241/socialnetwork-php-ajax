@@ -42,11 +42,11 @@
           <div class="flex items-center justify-center text-center rounded border px-1 pb-1">
             <p class="flex items-center justify-center text-center w-2 h-3 text-sm">+</p>      
           </div>
-          <p>Creer</p>
+          <a href="vues/clients/posts.php">Creer</a>
         </div>
         <div class="relative">
           <svg id="open-notifications" xmlns="http://www.w3.org/2000/svg"
-              class="w-10 h-10 text-gray-500 p-[6px] bg-gray-200 rounded-full"
+              class="w-10 h-10 text-gray-500 p-[6px] bg-gray-200 rounded-full cursor-pointer"
               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
@@ -59,7 +59,7 @@
           </span>
 
           <!-- UI Affichage Notifications -->
-          <div class="absolute border border-gray-200 rounded bg-white px-5 py-2 shadow-lg overflow-y-auto" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 390px; z-index: 100; padding-right: 40px;">
+          <div class="absolute border border-gray-200 rounded bg-white px-5 py-2 shadow-lg overflow-y-auto" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 390px; height: 85vh; z-index: 100; padding-right: 40px;">
             <div class="flex flex-col">
               <div class="flex items-center justify-between border-b border-gray-200">
                 <div class="flex gap-1 items-center font-bold text-xl">

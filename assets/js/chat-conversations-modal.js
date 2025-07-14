@@ -48,6 +48,8 @@ async function loadConversation(userId) {
         // Affiche le modal du chat
         document.getElementById('chat-container').classList.remove('hidden');
         document.getElementById('chat-container').classList.add('flex');
+        
+        console.log( document.getElementById('chat-container'));
         console.log("load conversation succeed")
     } catch (error) {
         console.error("Erreur:", error);
