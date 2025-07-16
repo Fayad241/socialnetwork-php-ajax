@@ -6,9 +6,9 @@
                       <img class="w-13 h-13 rounded object-cover" src="profile-pic/'. $user['profile-pic'] .'" alt="">
                       <div class="absolute w-3 h-3 bg-green-500 rounded-full border-2 border-white" style="right: -5px; bottom:15px"></div>
                     </div>
-                    <div style="width: 380px">
+                    <div>
                         <strong>'. $user['last-name'] .' '.$user['first-name'].'</strong>
-                        <p class="text-gray-600">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium omnis voluptatem quam ipsum!</p>
+                        <p class="text-gray-600">Lorem ipsum dolor sit, amet consectetur</p>
                     </div>
                 </div>
                 <div class="flex gap-2 flex-col items-center">

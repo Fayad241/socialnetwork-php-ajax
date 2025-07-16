@@ -6,8 +6,18 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_SESSION['user_id'])) die(json_encode(['error' => 'Non connecté']));
-if (!isset($_GET['contact_id'])) die(json_encode(['error' => 'Contact manquant']));
+// Debug: Log toutes les entrées
+error_log("GET: " . print_r($_GET, true));
+error_log("SESSION: " . print_r($_SESSION, true));
+
+// Validation
+if (!isset($_SESSION['user_id'])) {
+    die("<div class='error'>Non connecté</div>");
+}
+
+if (empty($_GET['contact_id'])) {
+    die("<div class='error'>ID contact manquant</div>");
+}
 
 $current_user = $_SESSION['user_id'];
 $contact_id = $_GET['contact_id'];

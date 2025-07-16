@@ -20,13 +20,18 @@ fetchUsers();
 
 
 // Écoute les clics sur les utilisateurs
-const userList = document.querySelector('.users-list');
+// const userList = document.querySelector('.users-list');
 
-userList.addEventListener('click', async (e) => {
+usersList.addEventListener('click', async (e) => {
     console.log("utilisateur cliqué")
     const userItem = e.target.closest('.user-item');
     console.log(userItem)
     if (!userItem) return;
+
+    // document.querySelectorAll('.user-item').forEach(item => {
+    //     item.classList.remove('bg-blue-50');
+    // });
+    // userItem.classList.add('bg-blue-50');
 
     const userId = userItem.dataset.userId;
     console.log(userId)
@@ -36,8 +41,15 @@ userList.addEventListener('click', async (e) => {
 // Charge la conversation
 async function loadConversation(userId) {
     try {
+
         const response = await axios.get(`actions/get-chat-action.php?contact_id=${userId}`);
-        document.getElementById('chat-container').innerHTML = response.data;
+
+        // const response = await axios.get(`actions/get-chat-action.php`, {
+        //     params: {
+        //         contact_id: userId // Plus propre que dans l'URL
+        //     }
+        // });
+        document.querySelector('.chat-place').innerHTML = response.data;
 
         console.log("Réponse reçue:", response.data);
         
@@ -47,7 +59,9 @@ async function loadConversation(userId) {
         document.getElementById('chat-container').classList.remove('hidden');
         document.getElementById('chat-container').classList.add('flex');
         
-        console.log( document.getElementById('chat-container'));
+        console.log(document.getElementById('chat-container'));
+        console.log(document.querySelector('.chat-place'));
+        console.log(document.getElementById('popup-messages'));
         console.log("load conversation succeed")
     } catch (error) {
         console.error("Erreur:", error);

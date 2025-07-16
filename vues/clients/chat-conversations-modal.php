@@ -37,7 +37,7 @@
 <body>
 
    <section id="popup-messages" class="absolute hidden justify-center items-center" style="z-index: 200">
-    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 45vw; height:520px; margin: 30px 340px">
+    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 440px">
         <div class="flex items-center justify-between mb-4">
             <div class="text-blue-600 font-bold text-2xl">Messages</div>
             <svg id="close-messages" class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
