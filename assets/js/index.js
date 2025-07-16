@@ -174,29 +174,64 @@ document.querySelectorAll('.btn-cancel-invite').forEach(button => {
 });
 
 
-// Retirer utilisateur
-// button.addEventListener('click', async () => {
-//     const ignoredId = button.dataset.userId;
+function sendComment(event) {
+    const button = event.currentTarget;
+    const container = button.closest('.comment-block'); 
 
-//     try {
-//         await axios.post('actions/ignore-suggestion-action.php', {
-//             ignored_id: ignoredId
-//         });
+    const comment = container.querySelector('.commentInput').value.trim();
+    const postId = container.querySelector('.postId').value;
+    const uniqueId = container.querySelector('.uniqueId').value;
 
-//         button.closest('.suggestion-item').remove();
-//     } catch (e) {
-//         console.error("Erreur suppression suggestion :", e);
-//     }
-// });
+    console.log(comment)
+    console.log(postId)
+    console.log(uniqueId)
+
+    if (comment.trim() === '') return;
+
+    axios.post('actions/envoi-commentaire-action.php', {
+        comment: comment,
+        post_id: postId,
+        unique_id: uniqueId
+    })
+    .then(response => {
+        console.log(response.data);
+        container.querySelector('.commentInput').value = '';
+        loadComments(postId); // recharge les commentaires du post
+    })
+    .catch(error => {
+        console.error('Erreur lors de l\'envoi', error);
+    });
+}
+
+document.querySelectorAll('.commentButton').forEach(button => {
+    button.addEventListener('click', sendComment);
+})
 
 
+function loadComments(postId) {
+    axios.get('actions/afficher-commentaires.php', {
+        params: {
+            post_id: postId
+        }
+    })
+    .then(response => {
+        const container = document.getElementById('commentsContainer');
+        if (container) {
+            container.innerHTML = response.data;
+        } else {
+            console.error('Conteneur #commentsContainer introuvable');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur chargement commentaires', error);
+    });
+}
 
-
-
-
-
-
-
+// Charger les commentaires au démarrage
+window.onload = () => {
+    const postId = document.getElementById('postId')?.value;
+    if (postId) loadComments(postId);
+};
 
 
 

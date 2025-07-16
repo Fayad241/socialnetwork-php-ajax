@@ -31,9 +31,11 @@
   // Requete pour affichage des posts
   $stmt2 = $pdo->prepare("SELECT 
             posts.id AS post_id,
+            posts.id,
             posts.content,
             posts.`img-publication`,
             posts.`date-publication`,
+            posts.`unique-id`,
             users.`first-name`,
             users.`last-name`,
             users.`profile-pic`,
@@ -365,19 +367,20 @@
                 </svg>
               </div>
             </div>
-            <form action="post">
-              <div class="flex items-center justify-between mb-4">
-                <div class="flex gap-2 justify-center">
-                  <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-                  <textarea class="bg-gray-200 rounded-xl w-96 outline-hidden" style="resize: none; height: 74px; padding: 6px 12px;" name="comment" id="">Commenter en tant que Fayad Roufai</textarea>
-                </div>
-                <button type="submit" class="flex justify-center items-center rounded-full bg-gray-400 p-2 outline-0">
-                  <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                </button>
+            <div class="comment-block flex items-center justify-between mb-4">
+              <div class="flex gap-2 justify-center">
+                <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
+                <textarea class="commentInput bg-gray-200 rounded-xl w-96 outline-0" placeholder="Commenter ce post" style="resize: none; height: 74px; padding: 6px 12px;"></textarea>
+                <input type="hidden" class="postId" value="<?= htmlspecialchars($post['id']) ?>">
+                <input type="hidden" class="uniqueId" value="<?= htmlspecialchars($_SESSION['user_id']) ?>">
               </div>
-            </form>
+              <button class="commentButton flex justify-center items-center rounded-full bg-gray-400 p-2 outline-0">
+                <svg class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              </button>
+            </div>
+            <div id="commentsContainer"></div>
           </div>
-     <?php  } ?>
+      <?php  } ?>
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->

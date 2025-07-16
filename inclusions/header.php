@@ -38,12 +38,12 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         <input class="bg-gray-100 rounded-2xl outline-hidden h-auto py-2 px-3 pl-12 w-76 shadow-sm" type="text" placeholder="Rechercher sur Afrovibe">
-        <div class="flex gap-2 items-center justify-center bg-cyan-500 rounded-2xl text-white font-bold py-2 px-4 cursor-pointer">
+        <a class="flex gap-1 items-center justify-center bg-cyan-500 rounded-2xl text-white font-bold py-2 px-3 cursor-pointer" href="vues/clients/posts.php">
           <div class="flex items-center justify-center text-center rounded border px-1 pb-1">
             <p class="flex items-center justify-center text-center w-2 h-3 text-sm">+</p>      
           </div>
-          <a href="vues/clients/posts.php">Creer</a>
-        </div>
+          <div>Creer</div>
+        </a>
         <div class="relative">
           <svg id="open-notifications" xmlns="http://www.w3.org/2000/svg"
               class="w-10 h-10 text-gray-500 p-[6px] bg-gray-200 rounded-full cursor-pointer"
