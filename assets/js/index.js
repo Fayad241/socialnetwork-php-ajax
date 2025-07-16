@@ -182,10 +182,6 @@ function sendComment(event) {
     const postId = container.querySelector('.postId').value;
     const uniqueId = container.querySelector('.uniqueId').value;
 
-    console.log(comment)
-    console.log(postId)
-    console.log(uniqueId)
-
     if (comment.trim() === '') return;
 
     axios.post('actions/envoi-commentaire-action.php', {
@@ -225,10 +221,6 @@ function loadComments(postId, container) {
             const comments = block.querySelectorAll('.comment-item');
             const showMoreBtn = document.querySelector('.show-more');
             const showLessBtn = document.querySelector('.show-less');
-
-            console.log(comments)
-            console.log(showMoreBtn)
-            console.log(showLessBtn)
 
             if (showMoreBtn && showLessBtn) {
                 showMoreBtn.addEventListener('click', () => {

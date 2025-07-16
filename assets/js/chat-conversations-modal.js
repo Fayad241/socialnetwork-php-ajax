@@ -20,19 +20,17 @@ fetchUsers();
 
 
 // Écoute les clics sur les utilisateurs
-document.addEventListener('DOMContentLoaded', () => {
-    const userList = document.querySelector('.users-list');
-    
-    userList.addEventListener('click', async (e) => {
-        console.log("utilisateur cliqué")
-        const userItem = e.target.closest('.user-item');
-        console.log(userItem)
-        if (!userItem) return;
+const userList = document.querySelector('.users-list');
 
-        const userId = userItem.dataset.userId;
-        console.log(userId)
-        await loadConversation(userId);
-    });
+userList.addEventListener('click', async (e) => {
+    console.log("utilisateur cliqué")
+    const userItem = e.target.closest('.user-item');
+    console.log(userItem)
+    if (!userItem) return;
+
+    const userId = userItem.dataset.userId;
+    console.log(userId)
+    await loadConversation(userId);
 });
 
 // Charge la conversation

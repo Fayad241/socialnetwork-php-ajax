@@ -110,20 +110,7 @@
           </svg>
         </div>
         <div class="flex flex-col my-1">
-          <!-- Message envoyé -->
-          <!-- <div class="flex gap-1 flex-col bg-blue-100 text-gray-600 rounded-xl my-2 p-2  shadow-sm" style="margin-left: auto; width: 375px; margin-right: 12px">
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, corrupti? Lorem ipsum dolor sit.</div>
-            <div class="text-sm">19:02</div>
-          </div> -->
-
-          <!-- Message recu -->
-          <!-- <div class="flex gap-3 bg-gray-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm" style="margin-right: auto; width: 375px; margin-left: 12px">
-            <img class="object-cover rounded-full" src="assets/images/img_user_publicaton.jpg" alt="" style="width: 60px; height: 45px">
-            <div class="flex gap-1 flex-col" style="width: 400px;">
-              <div>Lorem ipsum dolor sit amet consectetur adipisici</div>
-              <div class="text-sm">19:02</div>
-            </div>
-          </div> -->
+          
         </div>
 
         <!-- Champ de saisi du message -->
@@ -191,7 +178,7 @@
           <div class="">Enregistrements</div>
         </div>
       </div>
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <div class="flex items-center justify-between my-4">
           <p class="text-gray-400">Invitations</p>
           <p class="bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">
@@ -217,10 +204,14 @@
             </svg>
           </div>
         </div>
-      </div>
-      <button id="logoutBtn" type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer">
-          Se déconnecter
+      </div> -->
+      <button id="logoutBtn" type="submit" class="bg-red-400 hover:bg-red-300 text-white px-4 py-3 rounded-2xl cursor-pointer my-4 flex justify-center items-center gap-2 font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+        </svg>
+        Se déconnecter
       </button>
+
     </div>
 
 

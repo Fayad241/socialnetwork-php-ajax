@@ -58,22 +58,7 @@
             <input class="bg-gray-100 rounded-2xl outline-hidden h-auto py-2 px-3 pl-12 w-80 shadow-lg" type="text" placeholder="Rechercher...">
         </div>
         <div class="flex gap-1 flex-col my-6 overflow-y-auto users-list">
-            <!-- <div class="flex justify-between my-4">
-                <div class="flex gap-4">
-                    <div class="relative">
-                      <img class="w-13 h-13 rounded object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-                      <div class="absolute w-3 h-3 bg-gray-400 rounded-full border-2 border-white" style="right: -5px; bottom:15px"></div>
-                    </div>
-                    <div style="width: 380px">
-                        <strong>Junior Rice</strong>
-                        <p class="text-gray-600">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium omnis voluptatem quam ipsum!</p>
-                    </div>
-                </div>
-                <div class="flex gap-2 flex-col items-center">
-                    <p class="text-gray-600">12:35</p>
-                    <p class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">2</p>
-                </div>
-            </div> -->
+           
         </div>
     </div>
    </section>
