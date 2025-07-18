@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         formControl.appendChild(errorElement);
-        input.classList.add('border-red-500');
     }
 
     function clearError(input) {
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(errorElement) {
             formControl.removeChild(errorElement);
         }
-        input.classList.remove('border-red-500');
     }
 
     function validateEmail(input) {

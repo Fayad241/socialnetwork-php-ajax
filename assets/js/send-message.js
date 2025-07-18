@@ -1,38 +1,58 @@
-// Définir l'ID du destinataire
-let currentReceiverId = null;
-
-function setReceiverId(userId) {
-    currentReceiverId = userId;
-    document.getElementById('receiver-id').value = userId;
-}
-
-// Envoi du formulaire via Axios
-document.getElementById('message-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+// // Attendre que le DOM soit complètement chargé
+// function initMessageSending() {
+//     const sendButton = document.getElementById('send-message-btn');
     
-    const senderId = document.getElementById('sender-id').value;
-    const receiverId = document.getElementById('receiver-id').value;
-    const message = document.getElementById('message-text').value;
+//     if (!sendButton) {
+//         console.error("Bouton non trouvé - Réessayez dans 500ms");
+//         setTimeout(initMessageSending, 500);
+//         return;
+//     }
 
-    if (!receiverId) {
-        alert("Aucun destinataire sélectionné !");
-        return;
-    }
+//     sendButton.addEventListener('click', async function() {
+//         e.preventDefault();
+        
+//         const senderId = document.getElementById('sender-id')?.value.trim();
+//         const receiverId = document.getElementById('receiver-id')?.value.trim();
+//         const message = document.getElementById('message-text')?.value.trim();
 
-    try {
-        const response = await axios.post('actions/send-message.php', {
-            sender_id: senderId,
-            receiver_id: receiverId,
-            message: message
-        });
+//         // Validation
+//         if (!receiverId) {
+//             alert("Aucun destinataire sélectionné !");
+//             return;
+//         }
 
-        if (response.data.success) {
-            document.getElementById('message-text').value = ''; // Vide le textarea
-            loadConversation(receiverId); // Recharge les messages
-        } else {
-            console.error("Erreur :", response.data.error);
-        }
-    } catch (error) {
-        console.error("Erreur réseau :", error);
-    }
-});
+//         if (!message) {
+//             alert("Veuillez écrire un message");
+//             return;
+//         }
+
+//         try {
+//             // Feedback visuel
+//             sendButton.disabled = true;
+//             sendButton.innerHTML = '<span>Envoi...</span>';
+
+//             const response = await axios.post('actions/send-message-action.php', {
+//                 sender_id: senderId,
+//                 receiver_id: receiverId,
+//                 message: message
+//             });
+
+//             if (response.data.success) {
+//                 document.getElementById('message-text').value = '';
+//                 // Ajout dynamique du message
+//                 addNewMessage(message, true);
+//             }
+//         } catch (error) {
+//             console.error("Erreur:", error);
+//             alert("Échec de l'envoi");
+//         } finally {
+//             sendButton.disabled = false;
+//             sendButton.innerHTML = '<svg>...</svg>'; // Remettre l'icône
+//         }
+//     });
+// }
+
+// // Lancement initial
+// document.addEventListener('DOMContentLoaded', initMessageSending);
+// // Re-tentative si chargement dynamique
+// initMessageSending();

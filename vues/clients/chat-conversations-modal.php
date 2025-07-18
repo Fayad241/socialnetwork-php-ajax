@@ -1,23 +1,4 @@
 <?php 
-    // session_start();
-    // require 'inclusions/database.php';
-
-    // if (!isset($_SESSION['user-id'])) {
-    //     die(json_encode(['error' => 'Non connecté'])); 
-    // }
-
-    // $stmt = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
-    // $stmt->execute([':user_id' => $_SESSION['user-id']]);
-    // $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // $output = '';
-
-    // if(rowCount($user) == 1) {
-    //     $output .= "Aucun utilisateur disponible dans le chat";
-    // } else if(rowCount($user) > 0) {
-        
-    // }
-    // echo $output;
 
 
 ?>
@@ -37,15 +18,15 @@
 <body>
 
    <section id="popup-messages" class="absolute hidden justify-center items-center" style="z-index: 200">
-    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 440px">
+    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 420px">
         <div class="flex items-center justify-between mb-4">
             <div class="text-blue-600 font-bold text-2xl">Messages</div>
-            <svg id="close-messages" class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+            <svg id="close-messages" class="border border-gray-200 bg-gray-100 hover:bg-gray-50 flex items-center justify-center rounded-full w-6 h-6 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     stroke-width="1.5"
-                    class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
+                    >
                 <path stroke-linecap="round" stroke-linejoin="round"
                 d="M6 18L18 6M6 6l12 12" />
             </svg>

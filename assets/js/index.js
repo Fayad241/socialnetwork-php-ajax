@@ -1,3 +1,4 @@
+// Ouvrir et fermer les notifications
 const openNotification = document.getElementById('open-notifications');
 const closeNotification = document.getElementById('close-notifications');
 const popupNotification = document.getElementById('popup-notifications');
@@ -10,6 +11,7 @@ closeNotification.addEventListener('click', () => {
     popupNotification.style.display = 'none';
 })
 
+// Ouvrir et fermer la liste de conversations
 const openMessage = document.getElementById('open-messages');
 const closeMessage = document.getElementById('close-messages');
 const popupMessage = document.getElementById('popup-messages');
@@ -77,24 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     // alert("Invitation envoyée !");
                     button.closest('.suggestion-item').remove(); // retire la suggestion
                     const card = `
-  <div class="invitation-item flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
-    <div class="flex gap-3 justify-center">
-      <div class="flex gap-3 items-center justify-center">
-        <img class="w-10 h-10 object-cover rounded" src="profile-pic/${button.dataset.profilePic}" alt="">
-        <div class="break-words w-44">Invitation envoyée à <strong>${button.dataset.userName}</strong></div>
-      </div>
-      <div class="text-gray-600 text-sm font-bold">À l’instant</div>
-    </div>
-    <button class="btn-cancel-invite flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm outline-0 cursor-pointer" 
-    data-receiver-id="${receiverId}"
-    data-user-name="${button.dataset.userName}"
-    data-profile-pic="${button.dataset.profilePic}">
-      Annuler
-    </button>
-  </div>
-`;
-
-    // document.getElementById('invites-limited').insertAdjacentHTML('beforeend', card);
+                <div class="invitation-item flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
+                    <div class="flex gap-3 justify-center">
+                    <div class="flex gap-3 items-center justify-center">
+                        <img class="w-10 h-10 object-cover rounded" src="profile-pic/${button.dataset.profilePic}" alt="">
+                        <div class="break-words w-44">Invitation envoyée à <strong>${button.dataset.userName}</strong></div>
+                    </div>
+                    <div class="text-gray-600 text-sm font-bold">À l’instant</div>
+                    </div>
+                    <button class="btn-cancel-invite flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm outline-0 cursor-pointer" 
+                    data-receiver-id="${receiverId}"
+                    data-user-name="${button.dataset.userName}"
+                    data-profile-pic="${button.dataset.profilePic}">
+                    Annuler
+                    </button>
+                </div>
+            `;
 
                 } else {
                     alert(response.data.message);
@@ -173,7 +173,7 @@ document.querySelectorAll('.btn-cancel-invite').forEach(button => {
     });
 });
 
-
+// Envoyer commentaire
 function sendComment(event) {
     const button = event.currentTarget;
     const container = button.closest('.comments-block'); 
@@ -203,7 +203,7 @@ document.querySelectorAll('.commentButton').forEach(button => {
     button.addEventListener('click', sendComment);
 })
 
-
+// charger commentaires
 function loadComments(postId, container) {
     axios.get('actions/afficher-commentaire-action.php', {
         params: {
@@ -254,6 +254,9 @@ window.onload = () => {
         }
     });
 };
+
+
+
 
 
 

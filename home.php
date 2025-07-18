@@ -65,6 +65,9 @@
 
   $invitationsEnvoyees = $stmt4->fetchAll(PDO::FETCH_ASSOC);
 
+  // Requete pour afficher les informations des autres utilisateurs
+  $stmt5 = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
+  $stmt5->execute([':user_id' => $_SESSION['user_id']]);
   
 
 
@@ -88,49 +91,12 @@
 
   <!-- Modal de chat de conversation  -->
   <section id="chat-container" class="absolute hidden justify-center items-center" style="z-index: 200">
+    
+    <div class="chat-place flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 35vw; height:520px; margin: 35px 420px">
+    
+        
 
-    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl" style="width: 35vw; height:520px; margin: 35px 440px">
-        <div class="flex items-center justify-between shadow-sm w-full p-4">
-          <div class="flex gap-4">
-              <div class="relative">
-                <img class="rounded-full object-cover" src="assets/images/img_user_publicaton.jpg" alt="" style="width: 45px; height: 45px">
-                <div class="absolute w-3 h-3 bg-green-500 rounded-full border-2 border-white" style="right: -1px; bottom: 3px"></div>
-              </div>
-              <div style="width: 380px">
-                  <strong>Junior Rice</strong>
-                  <p class="text-gray-600">en ligne</p>
-              </div>
-          </div>
-          <svg class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2" xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
-              <path stroke-linecap="round" stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </div>
-        <div class="flex flex-col my-1 chat-place">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, autem?
-        </div>
-
-        <!-- Champ de saisi du message -->
-        <form id="message-form" action="" method="post" style="margin-top: auto">
-          <div class="flex gap-2 items-center mb-1 w-full" style="margin: 0 10px">
-            <div class="relative">
-              <input type="hidden" id="sender-id" value="<?=$_SESSION['user_id']?>">
-              <input type="hidden" id="receiver-id" value="">
-              <input id="message-text" class="bg-gray-200 rounded-xl mb-2 outline-0" style="height: 44px; width: 30vw; padding: 10px 12px; padding-right: 56px" name="" placeholder="Entrer un message" />
-              <svg class="absolute w-4 h-4 font-bold text-gray-600" style="right: 16px; bottom: 19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-            </div>
-            <div>
-              <button class="flex justify-center items-center rounded-full bg-gray-400 p-2 mb-2">
-                <svg  class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-              </button>
-            </div>
-          </div>
-        </form>
+        
     </div>
   </section> 
 
@@ -510,18 +476,18 @@
 
 
 
-      <!-- Amis en connectés -->
+      <!-- Amis -->
       <div>
         <div class="flex items-center justify-between mb-1">
           <div class="text-gray-400 font-bold">CONTACTS EN LIGNE</div>
           <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">15</div>
         </div>
         <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
-        <?php while($users = $stmt1->fetch(PDO::FETCH_ASSOC)) { ?> 
+        <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
           <div class="flex items-center justify-between">
             <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$users['profile-pic']?>" alt="">
-              <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
+              <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$fetch['profile-pic']?>" alt="">
+              <strong><?= htmlspecialchars($fetch['last-name'] . ' ' . $fetch['first-name']); ?></strong>
             </div>
             <div class="bg-green-500 rounded-full h-2 w-2"></div>
           </div>
@@ -536,6 +502,7 @@
 
   <script src="assets/js/index.js"></script>
   <script src="assets/js/chat-conversations-modal.js"></script>
+  <script src="assets/js/send-message.js"></script>
   <script src="assets/js/logout.js"></script>
 </body>
 </html>

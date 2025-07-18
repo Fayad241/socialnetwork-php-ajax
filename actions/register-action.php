@@ -39,22 +39,6 @@
         }
     }
 
-    // if(!isset($_POST['last-name'], $_POST['first-name'], $_POST['email'], $_POST['password'], $_POST['confirm-password'], $_POST['gender'], $_POST['birthday'], $_FILES['profile-pic'])) {
-
-    //     http_response_code(400);
-    //     echo "Champs obligatoires manquants";
-    //     exit();
-    // }
-
-    // $lastName = trim($_POST['last-name']);
-    // $firstName = trim($_POST['first-name']);
-    // $email = trim($_POST['email']);
-    // $bio = isset($_POST['bio']) ? trim($_POST['bio']) : null;
-    // $gender= trim($_POST['gender']);
-    // $birthday = trim($_POST['birthday']);
-    // $password = trim($_POST['password']);
-    // $confirmPassword = trim($_POST['confirm-password']);
-
     // Traitement des données
     $userData = [
         'last-name' => trim($data['last-name']),
