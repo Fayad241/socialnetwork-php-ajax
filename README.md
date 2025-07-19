@@ -22,6 +22,7 @@ Le projet est construit avec :
   ✅ Chat en temps réel (AJAX)  
   ✅ Système d'amis et notifications  
   ✅ Envoyer des invitations d’amis
+  ✅ reception des invitations d’amis
   ✅ Publication de posts avec commentaires 
 
 
