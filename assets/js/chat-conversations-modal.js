@@ -1,9 +1,5 @@
 let usersList = document.querySelector('.users-list');
 
-if(usersList) {
-    console.log("liste d'utilisateurs present")
-}
-
 async function fetchUsers() {
   try {
     const response = await axios.get("actions/conversations-modal-action.php");
@@ -24,7 +20,7 @@ usersList.addEventListener('click', async (e) => {
     if (!userItem) return;
 
     const userId = userItem.dataset.userId;
-    console.log(userId)
+    // console.log(userId)
     await loadConversation(userId);
 });
 
@@ -63,8 +59,8 @@ function setupMessageSending(userId) {
     const sendButton = document.getElementById('send-message-btn');
     const messageInput = document.getElementById('message-text');
     
-    console.log("Bouton sélectionné:", sendButton);
-    console.log("Champ message:", messageInput);
+    // console.log("Bouton sélectionné:", sendButton);
+    // console.log("Champ message:", messageInput);
 
     if (!sendButton || !messageInput) {
         console.error("Éléments introuvables");
@@ -78,10 +74,10 @@ function setupMessageSending(userId) {
         const senderId = document.getElementById('sender-id')?.value.trim();
         const message = messageInput.value.trim();
 
-        console.log("Tentative d'envoi:", {senderId, userId, message});
+        // console.log("Tentative d'envoi:", {senderId, userId, message});
 
         if (!message) {
-            alert("Veuillez écrire un message");
+            // alert("Veuillez écrire un message");
             return;
         }
 
@@ -107,7 +103,7 @@ function setupMessageSending(userId) {
             }
         } catch (error) {
             console.error("Erreur complète:", error);
-            alert("Échec de l'envoi: " + (error.response?.data?.error || error.message));
+            // alert("Échec de l'envoi: " + (error.response?.data?.error || error.message));
         } 
     });
 }

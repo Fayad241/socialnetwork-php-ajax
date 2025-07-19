@@ -96,12 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-                } else {
-                    alert(response.data.message);
-                }
+                } 
             } catch (error) {
                 console.error("Erreur :", error);
-                alert("Erreur lors de l'envoi de l'invitation.");
+                // alert("Erreur lors de l'envoi de l'invitation.");
             }
         });
     });
@@ -134,14 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelectorAll('.btn-cancel-invite').forEach(button => {
     button.addEventListener('click', async () => {
         const receiverId = button.dataset.receiverId;
-        console.log(receiverId)
+        // console.log(receiverId)
         try {
             const response = await axios.post('actions/cancel-invitation-action.php', {
                 receiver_id: receiverId
             });
 
             if (response.data.success) {
-                console.log('Invitation annulée.');
+                // console.log('Invitation annulée.');
                 button.closest('.invitation-item').remove(); // Supprimer visuellement
                 // Recrée dynamiquement la suggestion
                 const suggestionHTML = `
@@ -162,13 +160,11 @@ document.querySelectorAll('.btn-cancel-invite').forEach(button => {
                 // L'ajoute à la suggestion limitée
                 document.getElementById('suggestion-limited').insertAdjacentHTML('beforeend', suggestionHTML);
 
-            } else {
-                console.log(response.data.message || 'Erreur.');
-            }
+            } 
         } catch (error) {
-            console.log(receiverId)
+            // console.log(receiverId)
             console.error("Erreur d’annulation :", error);
-            alert("Erreur serveur lors de l’annulation.");
+            // alert("Erreur serveur lors de l’annulation.");
         }
     });
 });
@@ -190,7 +186,7 @@ function sendComment(event) {
         unique_id: uniqueId
     })
     .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         container.querySelector('.commentInput').value = '';
         loadComments(postId, commentsContainer); // recharge les commentaires du post
     })

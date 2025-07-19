@@ -367,7 +367,7 @@
           </div>
         </div>
         <?php } ?>
-        <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm cursor-pointer">Voir tout</button>
+        <!-- <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm cursor-pointer">Voir tout</button> -->
       </div>
       
   <!-- Partie Invitations envoyées -->
@@ -480,7 +480,7 @@
       <div>
         <div class="flex items-center justify-between mb-1">
           <div class="text-gray-400 font-bold">CONTACTS EN LIGNE</div>
-          <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">15</div>
+          <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px"></div>
         </div>
         <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
         <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
@@ -502,7 +502,6 @@
 
   <script src="assets/js/index.js"></script>
   <script src="assets/js/chat-conversations-modal.js"></script>
-  <script src="assets/js/send-message.js"></script>
   <script src="assets/js/logout.js"></script>
 </body>
 </html>

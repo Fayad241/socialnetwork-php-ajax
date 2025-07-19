@@ -37,7 +37,7 @@
             }
         }
     });
-    console.log(currentStep)
+    // console.log(currentStep)
 
 
     prevBtn.addEventListener('click', () => {
@@ -277,7 +277,7 @@
 
     function validateStep2() {
         const profilePic = document.querySelector('input[name="profile-pic"]');
-        console.log("validateStep2 exécutée");
+        // console.log("validateStep2 exécutée");
         let valid = true;
 
         function validateProfile(input) {
@@ -322,7 +322,7 @@
             localStorage.clear();
             sessionStorage.removeItem("currentStep");
 
-            console.log(response.data);
+            // console.log(response.data);
 
             // Vérifier la réponse
             if (response.data.success) {
@@ -335,7 +335,7 @@
         
         catch(error) {
             console.error("Erreur axios: ", error.response ? error.response.data : error.message);
-            console.log("erreur lors de l'envoi");
+            // console.log("erreur lors de l'envoi");
         }
 
     });

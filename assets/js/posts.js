@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!content && !fileInput.files[0]) {
-            alert('Ajoutez un texte ou une image au minimum.');
             return;
         }
 
@@ -51,12 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('image-preview').classList.add('hidden');
                 document.getElementById('preview').src = '';
                 window.location.href = '../../home.php';
-            } else {
-                alert(response.data.message || 'Erreur lors de la publication.');
-            }
+            } 
         } catch (error) {
             console.error("Erreur lors de l'envoi :", error);
-            alert('Erreur serveur lors de la publication.');
+            // alert('Erreur serveur lors de la publication.');
         }
     });
 });

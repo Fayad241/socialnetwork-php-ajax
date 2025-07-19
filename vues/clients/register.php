@@ -89,7 +89,7 @@ error_reporting(E_ALL);
               🌈 Autre
               </button>
             </div>
-            <input type="text" class="bg-gray-300 border border-gray-500 text-gray-700" name="gender" required>
+            <input type="hidden" class="bg-gray-300 border border-gray-500 text-gray-700" name="gender" required>
           </div>
           <div class="mb-4">
               <label class="block text-gray-700 font-medium mb-2">Date de naissance</label>

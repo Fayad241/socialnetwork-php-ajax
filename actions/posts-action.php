@@ -10,12 +10,6 @@ try {
         exit;
     }
 
-    // if (empty($_POST['content'])) {
-    //     http_response_code(400);
-    //     echo json_encode(['success' => false, 'message' => 'Le contenu de la publication est requis']);
-    //     exit;
-    // }
-
     $content = trim($_POST['content']);
     $imageName = null;
 
