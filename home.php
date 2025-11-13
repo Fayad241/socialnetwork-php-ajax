@@ -1,6 +1,5 @@
 <?php 
-  session_start();
-  require 'inclusions/database.php';
+  require 'inclusions/check_session.php';
 
   if (!isset($_SESSION['user_id'])) {
     header("Location: vues/clients/login.php"); 
@@ -175,12 +174,23 @@
           </div>
         </div>
       </div> -->
-      <button id="logoutBtn" type="submit" class="bg-red-400 hover:bg-red-300 text-white px-4 py-3 rounded-2xl cursor-pointer my-4 flex justify-center items-center gap-2 font-bold">
+      <!-- <button id="logoutBtn" type="submit" class="bg-red-400 hover:bg-red-300 text-white px-4 py-3 rounded-2xl cursor-pointer my-4 flex justify-center items-center gap-2 font-bold">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
         </svg>
         Se déconnecter
+      </button> -->
+      <button
+        id="logoutBtn"
+        type="button"
+        class="flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold text-white bg-gradient-to-r from-red-500 to-red-400 rounded-bl-2xl shadow-md hover:shadow-lg hover:from-red-400 hover:to-red-500 transform hover:-translate-y-0.5 transition-all duration-300 ease-out cursor-pointer outline-none"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+        </svg>
+        Se déconnecter
       </button>
+
 
     </div>
 

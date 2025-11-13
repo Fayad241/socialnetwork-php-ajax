@@ -11,6 +11,7 @@ closeNotification.addEventListener('click', () => {
     popupNotification.style.display = 'none';
 })
 
+
 // Ouvrir et fermer la liste de conversations
 const openMessage = document.getElementById('open-messages');
 const closeMessage = document.getElementById('close-messages');

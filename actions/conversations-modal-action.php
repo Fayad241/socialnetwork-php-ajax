@@ -1,6 +1,9 @@
 <?php 
     session_start();
     require '../inclusions/database.php';
+    require '../inclusions/functions.php';
+
+    $current_user = $_SESSION['user_id'];
 
     if (!isset($_SESSION['user_id'])) {
         die(json_encode(['error' => 'Non connecté'])); 

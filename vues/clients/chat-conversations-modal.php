@@ -32,14 +32,19 @@
             </svg>
         </div>
         <div class="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-6 h-6 text-gray-500 ml-4 top-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-6 h-6 text-gray-500 ml-4 top-2 opacity-300 z-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <input class="bg-gray-100 rounded-2xl outline-hidden h-auto py-2 px-3 pl-12 w-80 shadow-lg" type="text" placeholder="Rechercher...">
+            <input class="searchBar relative bg-gray-100 rounded-2xl h-auto py-2 px-3 pl-12 w-80 border border-gray-300 rounded-lg outline-none transition-opacity duration-300 opacity-70 focus:opacity-100 focus:ring-2 focus:ring-blue-500" type="text" placeholder="Rechercher...">
+
+            <!-- Loader caché par défaut -->
+            <div id="loader" class="absolute right-23 top-1/2 -translate-y-1/2 hidden">
+                <div class="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
         </div>
-        <div class="flex gap-1 flex-col my-6 overflow-y-auto users-list">
-           
+        <div class="users-list flex gap-1 flex-col my-6 overflow-y-auto  transition-opacity duration-300 opacity-100">
+           <!-- Ouverture modal de conversations utilisateurs -->
         </div>
     </div>
    </section>

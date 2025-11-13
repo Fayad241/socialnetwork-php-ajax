@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+/* Scrollbar grande sections page d'acceuil */
 .scrollbar-custom::-webkit-scrollbar {
     /* width: 8px;
     height: 12px; */
@@ -12,8 +14,38 @@
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: red;
+    /* background: red; */
     box-shadow: rgb(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 10px;
 }
+
+/* Scrollbar liste conversations avec utilisateurs et place de chat */
+.users-list::-webkit-scrollbar, 
+.messages-zone::-webkit-scrollbar {
+  width: 8px;
+}
+
+.users-list::-webkit-scrollbar-track, 
+.messages-zone::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.users-list::-webkit-scrollbar-thumb, 
+.messages-zone::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.4); /* gris slate-500 */
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+}
+
+.users-list::-webkit-scrollbar-thumb:hover, 
+.messages-zone::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 116, 139, 0.7);
+}
+
+/* Firefox */
+.users-list, .messages-zone {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
+}
+

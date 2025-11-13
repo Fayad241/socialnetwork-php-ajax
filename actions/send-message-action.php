@@ -1,34 +1,55 @@
 <?php
-session_start();
-require '../inclusions/database.php';
-header('Content-Type: application/json');
+    session_start();
+    require '../inclusions/database.php';
 
-if (!isset($_SESSION['user_id'])) {
-    die(json_encode(['error' => 'Non connecté']));
-}
+    header('Content-Type: application/json');
 
-if (empty($_POST['sender_id']) || empty($_POST['receiver_id']) || empty($_POST['message'])) {
-    die(json_encode(['error' => 'Données manquantes']));
-}
+    // Vérification de la connexion
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(['success' => false, 'error' => 'Non connecté']);
+        exit;
+    }
 
-$senderId = $_POST['sender_id'];
-$receiverId = $_POST['receiver_id'];
-$message = htmlspecialchars($_POST['message']);
+    // Récupération des données JSON
+    $data = json_decode(file_get_contents('php://input'), true);
 
-try {
-    $stmt = $pdo->prepare("
-        INSERT INTO messages (`sender-msg-id`, `receiver-msg-id`, `msg`, `date-send`)
-        VALUES (:sender_id, :receiver_id, :message, NOW())
-    ");
-    
-    $stmt->execute([
-        ':sender_id' => $senderId,
-        ':receiver_id' => $receiverId,
-        ':message' => $message
-    ]);
+    if (empty($data['receiver_id']) || empty($data['message'])) {
+        echo json_encode(['success' => false, 'error' => 'Données manquantes']);
+        exit;
+    }
 
-    echo json_encode(['success' => true]);
-} catch (PDOException $e) {
-    error_log("Erreur SQL: " . $e->getMessage());
-    echo json_encode(['error' => 'Erreur de base de données']);
-}
+    $sender_id = $_SESSION['user_id'];
+    $receiver_id = $data['receiver_id'];
+    $message = trim($data['message']);
+
+    // Validation
+    if (strlen($message) > 1000) {
+        echo json_encode(['success' => false, 'error' => 'Message trop long']);
+        exit;
+    }
+
+    try {
+        // Insertion du message
+        $stmt = $pdo->prepare("
+            INSERT INTO messages (`sender-msg-id`, `receiver-msg-id`, `msg`, `date-send`) 
+            VALUES (:sender, :receiver, :message, NOW())
+        ");
+        
+        $stmt->execute([
+            ':sender' => $sender_id,
+            ':receiver' => $receiver_id,
+            ':message' => $message
+        ]);
+        
+        echo json_encode([
+            'success' => true,
+            'message' => 'Message envoyé'
+        ]);
+        
+    } catch (PDOException $e) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Erreur base de données'
+        ]);
+    }
+?>
