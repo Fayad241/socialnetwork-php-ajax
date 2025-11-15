@@ -171,75 +171,75 @@ document.querySelectorAll('.btn-cancel-invite').forEach(button => {
 });
 
 // Envoyer commentaire
-function sendComment(event) {
-    const button = event.currentTarget;
-    const container = button.closest('.comments-block'); 
+// function sendComment(event) {
+//     const button = event.currentTarget;
+//     const container = button.closest('.comments-block'); 
 
-    const comment = container.querySelector('.commentInput').value.trim();
-    const postId = container.querySelector('.postId').value;
-    const uniqueId = container.querySelector('.uniqueId').value;
+//     const comment = container.querySelector('.commentInput').value.trim();
+//     const postId = container.querySelector('.postId').value;
+//     const uniqueId = container.querySelector('.uniqueId').value;
 
-    if (comment.trim() === '') return;
+//     if (comment.trim() === '') return;
 
-    axios.post('actions/envoi-commentaire-action.php', {
-        comment: comment,
-        post_id: postId,
-        unique_id: uniqueId
-    })
-    .then(response => {
-        // console.log(response.data);
-        container.querySelector('.commentInput').value = '';
-        loadComments(postId, commentsContainer); // recharge les commentaires du post
-    })
-    .catch(error => {
-        console.error('Erreur lors de l\'envoi', error);
-    });
-}
+//     axios.post('actions/envoi-commentaire-action.php', {
+//         comment: comment,
+//         post_id: postId,
+//         unique_id: uniqueId
+//     })
+//     .then(response => {
+//         // console.log(response.data);
+//         container.querySelector('.commentInput').value = '';
+//         loadComments(postId, commentsContainer); // recharge les commentaires du post
+//     })
+//     .catch(error => {
+//         console.error('Erreur lors de l\'envoi', error);
+//     });
+// }
 
-document.querySelectorAll('.commentButton').forEach(button => {
-    button.addEventListener('click', sendComment);
-})
+// document.querySelectorAll('.commentButton').forEach(button => {
+//     button.addEventListener('click', sendComment);
+// })
 
-// charger commentaires
-function loadComments(postId, container) {
-    axios.get('actions/afficher-commentaire-action.php', {
-        params: {
-            post_id: postId
-        }
-    })
-    .then(response => {
-        if (container) {
-            container.innerHTML = response.data;
-        }
-        const commentBlocks = document.querySelectorAll('.comments-block');
-        if (!commentBlocks) return;
+// // charger commentaires
+// function loadComments(postId, container) {
+//     axios.get('actions/afficher-commentaire-action.php', {
+//         params: {
+//             post_id: postId
+//         }
+//     })
+//     .then(response => {
+//         if (container) {
+//             container.innerHTML = response.data;
+//         }
+//         const commentBlocks = document.querySelectorAll('.comments-block');
+//         if (!commentBlocks) return;
 
-        commentBlocks.forEach(block => {
-            const comments = block.querySelectorAll('.comment-item');
-            const showMoreBtn = document.querySelector('.show-more');
-            const showLessBtn = document.querySelector('.show-less');
+//         commentBlocks.forEach(block => {
+//             const comments = block.querySelectorAll('.comment-item');
+//             const showMoreBtn = document.querySelector('.show-more');
+//             const showLessBtn = document.querySelector('.show-less');
 
-            if (showMoreBtn && showLessBtn) {
-                showMoreBtn.addEventListener('click', () => {
-                    comments.forEach(item => item.classList.remove('hidden'));
-                    showMoreBtn.classList.add('hidden');
-                    showLessBtn.classList.remove('hidden');
-                });
+//             if (showMoreBtn && showLessBtn) {
+//                 showMoreBtn.addEventListener('click', () => {
+//                     comments.forEach(item => item.classList.remove('hidden'));
+//                     showMoreBtn.classList.add('hidden');
+//                     showLessBtn.classList.remove('hidden');
+//                 });
 
-                showLessBtn.addEventListener('click', () => {
-                    comments.forEach((item, index) => {
-                        if (index >= 2) item.classList.add('hidden');
-                    });
-                    showMoreBtn.classList.remove('hidden');
-                    showLessBtn.classList.add('hidden');
-                });
-            }
-        });
-    })
-    .catch(error => {
-        console.error('Erreur chargement commentaires', error);
-    });
-}
+//                 showLessBtn.addEventListener('click', () => {
+//                     comments.forEach((item, index) => {
+//                         if (index >= 2) item.classList.add('hidden');
+//                     });
+//                     showMoreBtn.classList.remove('hidden');
+//                     showLessBtn.classList.add('hidden');
+//                 });
+//             }
+//         });
+//     })
+//     .catch(error => {
+//         console.error('Erreur chargement commentaires', error);
+//     });
+// }
 
 // Charger les commentaires au démarrage
 window.onload = () => {

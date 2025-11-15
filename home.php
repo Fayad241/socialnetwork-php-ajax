@@ -34,13 +34,14 @@
             posts.content,
             posts.`img-publication`,
             posts.`date-publication`,
-            posts.`unique-id`,
+            posts.`created_at`,
+            posts.`user_id`,
             users.`first-name`,
             users.`last-name`,
             users.`profile-pic`,
             users.email
             FROM posts
-            INNER JOIN users ON posts.`unique-id` = users.`unique-id`
+            INNER JOIN users ON posts.`user_id` = users.`unique-id`
             ORDER BY posts.`date-publication` DESC;
           ");
   $stmt2->execute();
@@ -268,90 +269,8 @@
       </div>
 
       <!-- Publications et Posts des utilisateurs -->
-      <?php 
-        while($post = $stmt2->fetch(PDO::FETCH_ASSOC)) { ?>
-          <div class="post-block flex flex-col justify-center bg-white rounded-2xl shadow-md px-5 py-4 mb-5" data-post-id="<?= htmlspecialchars($post['id']) ?>">
-            <div class="flex items-center justify-between">
-              <div class="flex gap-3 items-center justify-center">
-                <img class="w-10 h-10 rounded object-cover" src="profile-pic/<?=$post['profile-pic']?>" alt="">
-                <div>
-                  <p class="font-bold"><?= htmlspecialchars($post['last-name'] . ' ' . $post['first-name']); ?></p>
-                  <p class="text-gray-400">il y'a 10h</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-center rounded border px-4 text-gray-400 w-5 h-5" style="padding-bottom: 21px;">
-                <p class="flex items-center justify-center w-2 h-3 text-3xl">...</p>      
-              </div>
-            </div>
-            <div class="my-4">
-              <?= $post['content'] ?>
-            </div>
-            <img class="h-96 w-full rounded-xl object-cover" src="uploads/posts/<?=$post['img-publication']?>" alt="">
-            <div class="flex items-center justify-between my-4">
-              <div class="flex gap-5 items-center justify-between">
-                <div class="flex items-center justify-center" style="margin-left: 10px; gap: 4px">
-                  <!-- Like (non activé) -->
-                  <!-- <svg xmlns="http://www.w3.org/2000/svg"
-                      class="w-7 h-7 text-gray-400"
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 
-                            4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 
-                            4.5 0 00-6.364 0z" />
-                  </svg> -->
-                  <!-- Like (activé) -->
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                      class="w-7 h-7 text-red-500 cursor-pointer"
-                      fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 
-                            2 12.28 2 8.5 2 5.42 4.42 3 
-                            7.5 3c1.74 0 3.41 0.81 4.5 
-                            2.09C13.09 3.81 14.76 3 
-                            16.5 3 19.58 3 22 5.42 22 
-                            8.5c0 3.78-3.4 6.86-8.55 
-                            11.54L12 21.35z" />
-                  </svg>
-                  <p>1.8k</p>
-                </div>
-                <div class="flex items-center justify-center" style="gap: 4px">
-                  <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      class="w-6 h-6 text-gray-500 hover:text-blue-500 cursor-pointer transition duration-200">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M21 12c0 4.97-4.03 9-9 9a8.96 8.96 0 01-4.479-1.175L3 21l1.175-4.479A8.96 8.96 0 013 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" />
-                  </svg>
-                  <p>2.5k</p>
-                </div>
-                <div class="flex items-center justify-center">
-                  <svg class="w-9 h-9 text-gray-400" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.734 15.8974L19.22 12.1374C19.3971 11.9927 19.4998 11.7761 19.4998 11.5474C19.4998 11.3187 19.3971 11.1022 19.22 10.9574L14.734 7.19743C14.4947 6.9929 14.1598 6.94275 13.8711 7.06826C13.5824 7.19377 13.3906 7.47295 13.377 7.78743V9.27043C7.079 8.17943 5.5 13.8154 5.5 16.9974C6.961 14.5734 10.747 10.1794 13.377 13.8154V15.3024C13.3888 15.6178 13.5799 15.8987 13.8689 16.0254C14.158 16.1521 14.494 16.1024 14.734 15.8974Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                  <p>145</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z" />
-                </svg>
-              </div>
-            </div>
-            <div class="comments-block flex items-center justify-between mb-4">
-              <div class="flex gap-2 justify-center">
-                <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-                <textarea class="commentInput bg-gray-100 rounded-xl w-96 outline-0" placeholder="Commenter ce post" style="resize: none; height: 74px; padding: 6px 12px;"></textarea>
-                <input type="hidden" class="postId" value="<?= htmlspecialchars($post['id']) ?>">
-                <input type="hidden" class="uniqueId" value="<?= htmlspecialchars($_SESSION['user_id']) ?>">
-              </div>
-              <button class="commentButton flex justify-center items-center rounded-full bg-gray-400 p-2 outline-0">
-                <svg class="w-6 h-6 text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-              </button>
-            </div>
-            <div class="commentsContainer" data-post-id="<?= htmlspecialchars($post['id']) ?>"></div>
-          </div>
-      <?php  } ?>
+      <?php require 'inclusions/components/usersPosts.php' ?>
+      
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->
@@ -487,23 +406,23 @@
 
 
       <!-- Amis -->
-      <div>
-        <div class="flex items-center justify-between mb-1">
-          <div class="text-gray-400 font-bold">CONTACTS EN LIGNE</div>
-          <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px"></div>
-        </div>
-        <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
-        <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
-          <div class="flex items-center justify-between">
-            <div class="flex gap-2 items-center">
-              <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$fetch['profile-pic']?>" alt="">
-              <strong><?= htmlspecialchars($fetch['last-name'] . ' ' . $fetch['first-name']); ?></strong>
-            </div>
-            <div class="bg-green-500 rounded-full h-2 w-2"></div>
-          </div>
-        <?php } ?>
-        </div>
+    <div>
+      <div class="flex items-center justify-between mb-1">
+        <div class="text-gray-400 font-bold">CONTACTS EN LIGNE</div>
+        <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px"></div>
       </div>
+      <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
+      <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
+        <div class="flex items-center justify-between">
+          <div class="flex gap-2 items-center">
+            <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$fetch['profile-pic']?>" alt="">
+            <strong><?= htmlspecialchars($fetch['last-name'] . ' ' . $fetch['first-name']); ?></strong>
+          </div>
+          <div class="bg-green-500 rounded-full h-2 w-2"></div>
+        </div>
+      <?php } ?>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -513,5 +432,6 @@
   <script src="assets/js/index.js"></script>
   <script src="assets/js/chat-conversations-modal.js"></script>
   <script src="assets/js/logout.js"></script>
+
 </body>
 </html>
