@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // MODIFICATION: Actualisation intelligente en temps réel
+    // Actualisation intelligente en temps réel
     setInterval(async () => {
         document.querySelectorAll('.post-block').forEach(async post => {
             const postId = post.dataset.postId;

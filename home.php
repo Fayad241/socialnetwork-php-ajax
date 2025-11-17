@@ -1,31 +1,16 @@
 <?php 
   require 'inclusions/check_session.php';
 
-  if (!isset($_SESSION['user_id'])) {
+  $current_user = $_SESSION['user_id'];
+
+  if (!isset($current_user)) {
     header("Location: vues/clients/login.php"); 
   }
 
   // Requete pour afficher les informations personnelles de l'utilisateur
   $stmt = $pdo->prepare("SELECT * FROM users WHERE `unique-id` = :user_id");
-  $stmt->execute([':user_id' => $_SESSION['user_id']]);
+  $stmt->execute([':user_id' => $current_user]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  //
-  $stmt1 = $pdo->prepare("
-    SELECT * FROM users u
-    WHERE u.`unique-id` != :current_user
-    AND u.`unique-id` NOT IN (
-        SELECT ignored_user_id FROM ignored_suggestions WHERE user_id = :current_user
-    )
-    AND u.`unique-id` NOT IN (
-        SELECT `receiver-id` FROM friend_requests WHERE `sender-id` = :current_user
-    )
-  ");
-  $stmt1->execute([':current_user' => $_SESSION['user_id']]);
-  $usersList = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-  $firstTwo = array_slice($usersList, 0, 2);
-  $others = array_slice($usersList, 2);
-
 
   // Requete pour affichage des posts
   $stmt2 = $pdo->prepare("SELECT 
@@ -43,32 +28,12 @@
             FROM posts
             INNER JOIN users ON posts.`user_id` = users.`unique-id`
             ORDER BY posts.`date-publication` DESC;
-          ");
+        ");
   $stmt2->execute();
-
-
-  // Requete affichage des invitations recues
-  $stmt3 = $pdo->prepare(" SELECT u.* FROM users u
-              JOIN friend_requests f ON u.`unique-id` = f.`sender-id`
-              WHERE f.`receiver-id` = :user_id AND f.status = 'pending'
-            ");
-  $stmt3->bindParam(':user_id', $_SESSION['user_id']);
-  $stmt3->execute();
-
-  // Requete affichage des invitations envoyées
-  $stmt4 = $pdo->prepare(" SELECT u.* FROM users u
-              JOIN friend_requests f ON u.`unique-id` = f.`receiver-id`
-              WHERE f.`sender-id` = :user_id AND f.status = 'pending'
-            ");
-  $stmt4->bindParam(':user_id', $_SESSION['user_id']);
-  $stmt4->execute();
-
-  $invitationsEnvoyees = $stmt4->fetchAll(PDO::FETCH_ASSOC);
 
   // Requete pour afficher les informations des autres utilisateurs
   $stmt5 = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
-  $stmt5->execute([':user_id' => $_SESSION['user_id']]);
-  
+  $stmt5->execute([':user_id' => $current_user]);
 
 
 ?>
@@ -85,7 +50,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link href="assets/css/output.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 overflow-hidden">
+<body class="relative bg-gray-100 overflow-hidden">
 
   <?php require 'vues/clients/chat-conversations-modal.php' ?>
 
@@ -103,7 +68,7 @@
   <!-- Partie de l'entete -->
   <?php require 'inclusions/header.php' ?>
 
-  <section class="flex justify-center">
+  <section class="content-container flex justify-center">
     <!-- Partie side-bar et invitations (zone gauche) -->
     <div class="flex gap-3 flex-col my-3 w-full overflow-y-auto scrollbar-custom" style="padding: 0 30px; height: 87vh; width: 350px;">
 
@@ -274,156 +239,58 @@
     </div>
 
     <!-- Partie invitations, suggestions, contacts (Zone droite) -->
-    <div class="flex gap-6 flex-col my-3 w-full overflow-y-auto scrollbar-custom" style="padding: 0 30px;height: 87vh; width: 350px;">
-      <!-- Partie Invitations recues -->
-      <div class="flex flex-col justify-center">
-        <div class="flex items-center justify-between mb-1">
-          <div class="text-gray-400 font-bold">INVITATIONS RECUES</div>
-          <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">5</div>
-        </div>
-        <?php while($row = $stmt3->fetch(PDO::FETCH_ASSOC)) { ?>
-        <div class="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
-          <div class="flex gap-3 justify-center">
-            <div class="flex gap-3 items-center justify-center">
-              <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= htmlspecialchars($row['profile-pic']) ?>" alt="">
-              <div class="break-words w-48"><strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong> veut faire partie de vos amis</div>
-            </div>
-            <div class="text-gray-600 text-sm font-bold">1h</div>
-          </div>
-          <div class="flex gap-6 items-center justify-center">
-            <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 105px;">Accepter</button>
-            <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer" style="width: 105px;">Refuser</button>
+    <div class="flex gap-5 flex-col my-3 w-full overflow-y-auto scrollbar-custom" style="padding: 0 30px;height: 87vh; width: 350px;">
+       
+      <!-- Invitations, suggestions -->
+      <?php require 'inclusions/components/friendsManager.php' ?>
+
+
+      <!-- Contacts -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-gray-500 font-semibold tracking-wide text-sm">
+            CONTACTS 
+          </div>    
+
+          <div class="bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+            <?= $stmt5->rowCount() ?>
           </div>
         </div>
-        <?php } ?>
-        <!-- <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm cursor-pointer">Voir tout</button> -->
-      </div>
-      
-  <!-- Partie Invitations envoyées -->
-  <div class="flex flex-col justify-center">
-    <div class="flex items-center justify-between mb-1">
-      <div class="text-gray-400 font-bold">INVITATIONS ENVOYEES</div>
-      <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px"><?= count($invitationsEnvoyees) ?></div>
-    </div>
 
-    <!-- Invitations envoyées inexistentes -->
-    <?php if (empty($invitationsEnvoyees)) : ?>
-      <div class="text-gray-600 italic text-sm text-center py-2">Aucune invitation envoyée pour l'instant.</div>
-    <?php else : ?>
+        <div class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg py-5 px-6">
 
-    <!-- les deux premieres invitations -->
-    <div id="invites-limited">
-        <?php foreach (array_slice($invitationsEnvoyees, 0, 2) as $row) : ?>
-        <div class="invitation-item flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
-        <div class="flex gap-3 justify-center">
-          <div class="flex gap-3 items-center justify-center">
-            <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $row['profile-pic'] ?>" alt="">
-            <div class="break-words w-44">Invitation envoyée à <strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong></div>
-          </div>
-          <div class="text-gray-600 text-sm font-bold">2ans</div>
-        </div>
-        <button class="btn-cancel-invite flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm outline-0 cursor-pointer" data-receiver-id="<?= $row['unique-id']?>" data-user-name="<?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']) ?>"
-        data-profile-pic="<?= $row['profile-pic'] ?>">Annuler</button>
-      </div>
-      <?php endforeach; ?>
-    </div>
+          <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
+              <!-- Calculer le statut de l'utilisateur -->
+             <?php $status = getUserStatus($fetch['last-activity']); ?>
 
-      <!-- Le reste(masqué) -->
-      <div id="invites-full" class="hidden">
-        <?php foreach (array_slice($invitationsEnvoyees, 2) as $row) : ?>
-           <div class="invitation-item flex flex-col gap-4 items-center justify-center bg-white rounded-2xl shadow-md py-2 px-3 mb-4 text-sm">
-            <div class="flex gap-3 justify-center">
-              <div class="flex gap-3 items-center justify-center">
-                <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $row['profile-pic'] ?>" alt="">
-                <div class="break-words w-44">Invitation envoyée à <strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong></div>
+            <div class="flex items-center justify-between">
+              
+              <!-- Infos utilisateur -->
+              <div class="flex items-center gap-3">
+                <img 
+                  class="w-11 h-11 rounded-xl object-cover ring-2 ring-gray-200" 
+                  src="profile-pic/<?=$fetch['profile-pic']?>" 
+                  alt=""
+                >
+                <strong class="text-gray-800 text-sm">
+                  <?= htmlspecialchars($fetch['last-name'] . ' ' . $fetch['first-name']); ?>
+                </strong>
               </div>
-              <div class="text-gray-600 text-sm font-bold">2ans</div>
-            </div>
-            <button class="btn-cancel-invite flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm w-full text-red-500 shadow-sm outline-0 cursor-pointer" data-receiver-id="<?= $row['unique-id']?>" data-user-name="<?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']) ?>"
-            data-profile-pic="<?= $row['profile-pic'] ?>">Annuler</button>
-          </div>
-        <?php endforeach; ?>
-      </div>
 
-      <?php if (count($invitationsEnvoyees) > 2) : ?>
-        <button id="toggle-invites" class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm bg-gray-100 text-blue-600 shadow-sm outline-0 cursor-pointer">
-          Voir plus
-        </button>
-      <?php endif; ?>
-
-    <?php endif; ?>
-      
-  </div>
-
-      <!-- Partie Suggestions d'amis -->
-      <div class="flex flex-col justify-center">
-        <div class="text-gray-400 mb-1 font-bold">SUGGESTION D'AMIS</div>
-
-        <!-- Les deux premières suggestions visibles au départ -->
-        <div id="suggestion-limited">
-          <?php foreach ($firstTwo as $users) { ?>
-            <div class="suggestion-item bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
-              <div class="flex items-center gap-3 justify-center">
-                <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $users['profile-pic'] ?>" alt="">
-                <div class="flex gap-3 flex-col justify-center">
-                  <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
-                  <div class="flex gap-2">
-                    <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer outline-0 btn-add-friend" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>" data-user-name="<?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']) ?>"
-                    data-profile-pic="<?= $users['profile-pic'] ?>">Ajouter ami</button>
-                    <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer outline-0 btn-remove-suggestion" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
-                  </div>
-                </div>
+              <!-- Indicateur en ligne ou non -->
+              <div class="relative">
+                <span class="<?= $status['class'] ?> absolute inline-block h-3 w-3 rounded-full shadow-sm"></span>
               </div>
+
             </div>
+
           <?php } ?>
-      </div>
 
-      <div id="suggestion-full" class="hidden">
-          <?php foreach ($usersList as $users) { ?>
-            <div class="suggestion-item bg-white rounded-2xl shadow-md py-3 px-2 mb-4 text-sm">
-              <div class="flex items-center gap-3 justify-center">
-                <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= $users['profile-pic'] ?>" alt="">
-                <div class="flex gap-3 flex-col justify-center">
-                  <strong><?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']); ?></strong>
-                  <div class="flex gap-2">
-                    <button class="flex items-center justify-center bg-[#2563EB] text-white rounded-xl px-5 py-2 text-sm whitespace-nowrap cursor-pointer outline-0 btn-add-friend" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>" data-user-name="<?= htmlspecialchars($users['last-name'] . ' ' . $users['first-name']) ?>"
-                    data-profile-pic="<?= $users['profile-pic'] ?>">Ajouter ami</button>
-                    <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm cursor-pointer outline-0 btn-remove-suggestion" style="width: 90px;" data-user-id="<?= $users['unique-id'] ?>">Retirer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <?php } ?>
         </div>
-
-        <?php if (count($usersList) > 2) { ?>
-          <button id="toggle-suggestions" class="text-blue-600 text-sm border border-gray-300 rounded-xl py-2 px-4 bg-gray-100 shadow-sm cursor-pointer self-center outline-0">
-            Voir plus
-          </button>
-        <?php } ?>
-    </div>
-
-
-
-      <!-- Amis -->
-    <div>
-      <div class="flex items-center justify-between mb-1">
-        <div class="text-gray-400 font-bold">CONTACTS EN LIGNE</div>
-        <div class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px"></div>
       </div>
-      <div class="flex gap-5 flex-col gap-4 justify-center bg-white rounded-2xl shadow-md py-5 px-6 mb-4">
-      <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
-        <div class="flex items-center justify-between">
-          <div class="flex gap-2 items-center">
-            <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?=$fetch['profile-pic']?>" alt="">
-            <strong><?= htmlspecialchars($fetch['last-name'] . ' ' . $fetch['first-name']); ?></strong>
-          </div>
-          <div class="bg-green-500 rounded-full h-2 w-2"></div>
-        </div>
-      <?php } ?>
-      </div>
+
     </div>
-    </div>
+
   </section>
 
 
