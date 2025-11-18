@@ -257,14 +257,8 @@
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
-  .top-\[10\%\] {
-    top: 10%;
-  }
   .-right-1 {
     right: calc(var(--spacing) * -1);
-  }
-  .right-1 {
-    right: calc(var(--spacing) * 1);
   }
   .right-4 {
     right: calc(var(--spacing) * 4);
@@ -278,14 +272,8 @@
   .left-4 {
     left: calc(var(--spacing) * 4);
   }
-  .left-\[10\%\] {
-    left: 10%;
-  }
   .z-1 {
     z-index: 1;
-  }
-  .z-50 {
-    z-index: 50;
   }
   .z-\[9998\] {
     z-index: 9998;
@@ -295,24 +283,6 @@
   }
   .float-right {
     float: right;
-  }
-  .container {
-    width: 100%;
-    @media (width >= 40rem) {
-      max-width: 40rem;
-    }
-    @media (width >= 48rem) {
-      max-width: 48rem;
-    }
-    @media (width >= 64rem) {
-      max-width: 64rem;
-    }
-    @media (width >= 80rem) {
-      max-width: 80rem;
-    }
-    @media (width >= 96rem) {
-      max-width: 96rem;
-    }
   }
   .mx-4 {
     margin-inline: calc(var(--spacing) * 4);
@@ -386,6 +356,9 @@
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
+  .ml-1 {
+    margin-left: calc(var(--spacing) * 1);
+  }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
   }
@@ -443,6 +416,12 @@
   .h-13 {
     height: calc(var(--spacing) * 13);
   }
+  .h-14 {
+    height: calc(var(--spacing) * 14);
+  }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
+  }
   .h-24 {
     height: calc(var(--spacing) * 24);
   }
@@ -499,6 +478,9 @@
   }
   .w-13 {
     width: calc(var(--spacing) * 13);
+  }
+  .w-14 {
+    width: calc(var(--spacing) * 14);
   }
   .w-24 {
     width: calc(var(--spacing) * 24);
@@ -618,9 +600,6 @@
   }
   .gap-\[1px\] {
     gap: 1px;
-  }
-  .self-center {
-    align-self: center;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -1023,11 +1002,17 @@
   .opacity-0 {
     opacity: 0%;
   }
+  .opacity-25 {
+    opacity: 25%;
+  }
   .opacity-50 {
     opacity: 50%;
   }
   .opacity-70 {
     opacity: 70%;
+  }
+  .opacity-75 {
+    opacity: 75%;
   }
   .opacity-100 {
     opacity: 100%;
@@ -1382,21 +1367,21 @@
   backdrop-filter: blur(10px);
   border-radius: 10px;
 }
-.users-list::-webkit-scrollbar, .messages-zone::-webkit-scrollbar {
+.users-list::-webkit-scrollbar, .messages-zone::-webkit-scrollbar, .text-post::-webkit-scrollbar {
   width: 8px;
 }
-.users-list::-webkit-scrollbar-track, .messages-zone::-webkit-scrollbar-track {
+.users-list::-webkit-scrollbar-track, .messages-zone::-webkit-scrollbar-track, .text-post::-webkit-scrollbar-track {
   background: transparent;
 }
-.users-list::-webkit-scrollbar-thumb, .messages-zone::-webkit-scrollbar-thumb {
+.users-list::-webkit-scrollbar-thumb, .messages-zone::-webkit-scrollbar-thumb, .text-post::-webkit-scrollbar-thumb {
   background-color: rgba(100, 116, 139, 0.4);
   border-radius: 9999px;
   transition: background-color 0.3s ease;
 }
-.users-list::-webkit-scrollbar-thumb:hover, .messages-zone::-webkit-scrollbar-thumb:hover {
+.users-list::-webkit-scrollbar-thumb:hover, .messages-zone::-webkit-scrollbar-thumb:hover .text-post::-webkit-scrollbar-thumb:hover {
   background-color: rgba(100, 116, 139, 0.7);
 }
-.users-list, .messages-zone {
+.users-list, .messages-zone, .text-post {
   scrollbar-width: thin;
   scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
 }

@@ -98,7 +98,7 @@
 
         </div>
 
-        <div class="comments-block flex items-center gap-4 mb-4 mt-2">
+        <div class="comments-block hidden items-center gap-4 mb-4 mt-2">
             <div class="flex gap-2 justify-center">
                 <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
                 <textarea class="commentInput bg-gray-100 rounded-xl w-96 outline-0" placeholder="Commenter ce post" style="resize: none; height: 74px; padding: 6px 12px;"></textarea>

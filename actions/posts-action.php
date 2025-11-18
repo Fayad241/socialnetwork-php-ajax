@@ -10,11 +10,12 @@
             exit;
         }
 
-        $content = trim($_POST['content']);
+        $content = isset($_POST['content']) ? trim($_POST['content']) : '';
         $imageName = null;
 
         // Gestion de l'image si présente
-        if (isset($_FILES['img-publication']) && $_FILES['img-publication']['error'] === 0) {
+        if (!empty($_FILES['img-publication']) && $_FILES['img-publication']['error'] === 0) {
+
             $imgTmp = $_FILES['img-publication']['tmp_name'];
             $imgName = $_FILES['img-publication']['name'];
             $imgExt = strtolower(pathinfo($imgName, PATHINFO_EXTENSION));
@@ -29,22 +30,31 @@
             move_uploaded_file($imgTmp, '../uploads/posts/' . $imageName);
         }
 
+        // Vérification session
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Utilisateur non connecté']);
+            exit;
+        }
 
         $userId = $_SESSION['user_id'];
-        $datePost = date('Y-m-d H:i:s');;
+        $datePost = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO `posts` (`content`, `img-publication`, `date-publication`, `unique-id`) VALUES (:content, :image, :date, :user_id)";
+        $sql = "INSERT INTO posts (content, `img-publication`, `date-publication`, `user_id`) 
+                VALUES (:content, :image, :date, :user_id)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':content', $content);
-        $stmt->bindParam(':image', $imageName);
-        $stmt->bindParam(':date', $datePost);
-        $stmt->bindParam(':user_id', $userId);
 
-        $stmt->execute();
+        $stmt->execute([
+            ':content' => $content,
+            ':image'   => $imageName ?? null,
+            ':date'    => $datePost,
+            ':user_id' => $userId
+        ]);
 
         echo json_encode(['success' => true, 'message' => 'Publication enregistrée avec succès']);
 
     } catch (PDOException $e) {
+        file_put_contents("log.txt", $e->getMessage());
         http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Erreur serveur : ' . $e->getMessage()]);
+        echo json_encode(['success' => false, 'message' => 'Erreur serveur']);
     }

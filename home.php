@@ -222,16 +222,23 @@
       </div>
 
       <!-- Faire une publication rapide -->
-      <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3 my-8">
-        <div class="flex gap-3 items-center">
-          <img class="w-10 h-10 rounded object-cover" src="profile-pic/<?=$user['profile-pic']?>" alt="">
-          <textarea class="w-96 flex items-center h-full outline-hidden font-bold text-gray-400 px-2" style="resize: none" name="" id="">Quoi de neuf,<?= ' ' . $user['first-name']?>?</textarea>
-        </div>
-        <button class="flex gap-2 items-center justify-center bg-cyan-500 text-white rounded-xl text-sm font-bold cursor-pointer" style="width: 95px; padding: 10px 12px">
-          <svg class="w-4 h-4 font-bold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.212108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-          Publier
-        </button>
-      </div>
+      <form method="POST" action="" class="form-post my-8">
+          <div id="post-error" class="text-red-500 text-sm mb-1 hidden"></div>
+          <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3">
+            <div class="flex gap-3 items-center">
+              <img class="w-14 h-14 rounded object-cover" src="profile-pic/<?=$user['profile-pic']?>" alt="">
+              <textarea 
+                class="text-post w-96 flex h-full outline-none text-gray-900 px-2" 
+                name="content" 
+                placeholder="Quoi de neuf, <?= $user['first-name']?> ?"
+              ></textarea>
+            </div>
+            <button class="bg-cyan-500 ml-1 w-24 px-3 py-2 text-white rounded-xl text-sm font-bold outline-none cursor-pointer">
+              
+              Publier
+            </button>
+          </div>
+      </form>
 
       <!-- Publications et Posts des utilisateurs -->
       <?php require 'inclusions/components/usersPosts.php' ?>

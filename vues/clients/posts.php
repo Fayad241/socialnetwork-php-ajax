@@ -1,3 +1,21 @@
+<?php 
+
+    require '../../inclusions/check_session.php';
+
+    $current_user = $_SESSION['user_id'];
+
+    if (!isset($current_user)) {
+        header("Location: login.php"); 
+    }
+
+    $sql = $pdo->prepare("SELECT * FROM users WHERE `unique-id` = :user_id");
+    $sql->execute([':user_id' => $current_user]);
+    $user = $sql->fetch(PDO::FETCH_ASSOC);
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +30,23 @@
     <?php require '../../inclusions/header.php' ?>
 
     <section class="flex items-center justify-center">
-        <form method="POST" class="bg-white shadow-lg my-7 rounded-2xl p-6 w-[40vw]">
+        <form method="POST" class="form-post bg-white shadow-lg my-7 rounded-2xl p-6 w-[40vw]">
             <h1 class="text-2xl font-bold mb-4 text-blue-600">Créer une publication</h1>
-        
-            <div class="flex items-center mb-3">
-                <span class="font-bold mr-2">Fayad Ademola</span>
-            </div>
-                
-            <textarea class="w-full rounded-lg resize-none outline-0 shadow p-2 h-32" name="content">Quoi de neuf? Fayad</textarea>
             
-            <!-- Section pour ajouter des médias -->
+            <div class="flex items-center mb-3">
+                <span class="font-bold mr-2"><?= $user['first-name'] . ' ' . $user['last-name'] ?></span>
+            </div>
+
+            <div id="post-error" class="text-red-500 text-sm mt-2 hidden"></div>
+                
+            <textarea class="w-full rounded-lg resize-none outline-0 shadow py-3 px-4 h-32" name="content" placeholder="Quoi de neuf? <?= $user['last-name'] ?>"></textarea>
+            
             <div class="flex flex-col items-center justify-center bg-white rounded-lg shadow p-4 mb-4">
                 <p class="text-gray-600 mb-3">Ajouter à votre publication</p>
                 
-                <!-- Boutons d'ajout -->
+                
                 <div class="flex justify-around">
-                    <!-- Input file caché -->
+                
                     <input type="file" id="image-upload" name="img-publication" class="hidden" accept="image/*">
                     
                     <!-- Bouton pour déclencher l'upload -->
@@ -45,7 +64,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 float-right rounded outline-0 cursor-pointer">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 float-right rounded-xl outline-0 cursor-pointer">
                 Poster
             </button>
         </form>

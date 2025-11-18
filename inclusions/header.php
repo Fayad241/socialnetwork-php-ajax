@@ -12,9 +12,9 @@
         <svg width="42" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#2563EB" />   <!-- blue-600 -->
-              <stop offset="50%" stop-color="#3B82F6" />  <!-- blue-500 -->
-              <stop offset="100%" stop-color="#06B6D4" /> <!-- cyan-400 -->
+              <stop offset="0%" stop-color="#2563EB" />   
+              <stop offset="50%" stop-color="#3B82F6" />  
+              <stop offset="100%" stop-color="#06B6D4" /> 
             </linearGradient>
           </defs>
           <!-- Spiral circle -->
@@ -124,7 +124,7 @@
           </div>
         </div>
         <div>
-          <img class="w-9 h-9 object-cover rounded" src="profile-pic/<?=$user['profile-pic']?>" alt="">
+          <img class="w-9 h-9 object-cover rounded" src="/socialnetwork/profile-pic/<?=$user['profile-pic']?>" alt="">
         </div>
       </div>
     </div>
