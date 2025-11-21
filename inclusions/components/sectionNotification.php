@@ -21,7 +21,7 @@
 
 
         <!-- UI Affichage Notifications -->
-        <div class="absolute border border-gray-200 rounded-2xl bg-white shadow-2xl overflow-hidden hidden right-0 top-12 w-[390px] h-[80vh] z-[100]" id="popup-notifications">
+        <div class="absolute border border-gray-200 rounded-2xl bg-white shadow-2xl overflow-hidden hidden right-0 top-12 w-[390px] h-[80vh] transition-transform duration-300 transform -translate-y-5 opacity-0" id="popup-notifications">
             <div class="flex flex-col h-full">
                 <!-- Header -->
                 <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 bg-gradient-to-r from-indigo-50 to-blue-50">

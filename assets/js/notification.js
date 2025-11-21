@@ -1,15 +1,42 @@
-// Ouvrir et fermer les notifications
 const openNotification = document.getElementById('open-notifications');
 const closeNotification = document.getElementById('close-notifications');
 const popupNotification = document.getElementById('popup-notifications');
 
-openNotification.addEventListener('click', () => {
-    popupNotification.style.display = 'block';
-})
+openNotification.addEventListener('click', (e) => {
+  e.stopPropagation(); // Empêche la fermeture immédiate
+  popupNotification.classList.remove('hidden');
 
-closeNotification.addEventListener('click', () => {
-    popupNotification.style.display = 'none';
-})
+  requestAnimationFrame(() => {
+    popupNotification.classList.remove('-translate-y-5', 'opacity-0');
+    popupNotification.classList.add('translate-y-0', 'opacity-100');
+  });
+});
+
+closeNotification.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closePopup();
+});
+
+// Clic en dehors pour fermer
+document.addEventListener('click', (e) => {
+  if (!popupNotification.contains(e.target) && e.target !== openNotification) {
+    if (!popupNotification.classList.contains('hidden')) {
+      closePopup();
+    }
+  }
+});
+
+function closePopup() {
+  popupNotification.classList.add('-translate-y-5', 'opacity-0');
+  setTimeout(() => {
+    popupNotification.classList.add('hidden');
+  }, 200);
+}
+
+popupNotification.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
 
 
 // Charger les notifications
