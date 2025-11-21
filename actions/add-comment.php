@@ -16,7 +16,8 @@
         exit;
     }
 
-    $user_id = $_SESSION['user_id'];
+    $sender_id = $_SESSION['user_id'];
+    $receiver_id = $data['receiver_id'];
     $post_id = $data['post_id'];
     $comment = trim($data['comment']);
 
@@ -35,9 +36,22 @@
         
         $stmt->execute([
             ':post_id' => $post_id,
-            ':user_id' => $user_id,
+            ':user_id' => $sender_id,
             ':comment' => $comment
         ]);
+
+        if ($sender_id != $receiver_id) {
+            // Créer une notification pour le destinataire
+            $notifStmt = $pdo->prepare("
+                INSERT INTO notifications (user_id, sender_id, type, message, post_id, created_at) 
+                VALUES (:user_id, :sender_id, 'comment', 'a commenté votre publication', :post_id, NOW())
+            ");
+            $notifStmt->execute([
+                ':user_id' => $receiver_id,
+                ':sender_id' => $sender_id,
+                ':post_id' => $post_id
+            ]);
+        }
         
         // Compter le nombre total de commentaires
         $countStmt = $pdo->prepare("SELECT COUNT(*) as total FROM comments WHERE post_id = :post_id");

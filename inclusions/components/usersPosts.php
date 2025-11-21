@@ -1,6 +1,27 @@
 <?php 
+
+    // Requete pour affichage des posts
+    $stmt2 = $pdo->prepare("SELECT 
+        posts.id AS post_id,
+        posts.id,
+        posts.content,
+        posts.`img-publication`,
+        posts.`date-publication`,
+        posts.`created_at`,
+        posts.`user_id`,
+        users.`first-name`,
+        users.`last-name`,
+        users.`profile-pic`,
+        users.email
+        FROM posts
+        INNER JOIN users ON posts.`user_id` = users.`unique-id`
+        ORDER BY posts.`date-publication` DESC;
+    ");
+    $stmt2->execute();
+
     while($post = $stmt2->fetch(PDO::FETCH_ASSOC)) { 
         $postId = $post['id'];
+        $authorId = $post['user_id'];
         $currentUser = $_SESSION['user_id'];
         
         // Compter les likes
@@ -57,7 +78,7 @@
         <div class="flex items-center justify-between my-4">
             <div class="flex gap-5 items-center justify-between">
                 <!-- LIKES -->
-                <div class="like-section flex items-center justify-center gap-1 ml-3 cursor-pointer" data-post-id="<?= $postId ?>">
+                <div class="like-section flex items-center justify-center gap-1 ml-3 cursor-pointer" data-post-id="<?= $postId ?>" data-author-id="<?= $authorId ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="like-icon w-6 h-6 <?= $userHasLiked ? 'text-red-500' : 'text-gray-700 hover:text-red-500' ?> transition-colors"
                         fill="<?= $userHasLiked ? 'currentColor' : 'none' ?>"
@@ -80,7 +101,7 @@
                 </div>
 
                 <!-- FAVORIS -->
-                <div class="favorite-section flex items-center gap-1 justify-center cursor-pointer" data-post-id="<?= $postId ?>">
+                <div class="favorite-section flex items-center gap-1 justify-center cursor-pointer" data-post-id="<?= $postId ?>" data-author-id="<?= $authorId ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="favorite-icon w-6 h-6 <?= $userHasFavorited ? 'text-yellow-500' : 'text-gray-700 hover:text-yellow-500' ?> transition-colors" 
                         fill="<?= $userHasFavorited ? 'currentColor' : 'none' ?>" 
@@ -103,7 +124,7 @@
                 <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
                 <textarea class="commentInput bg-gray-100 rounded-xl w-96 outline-0" placeholder="Commenter ce post" style="resize: none; height: 74px; padding: 6px 12px;"></textarea>
                 <input type="hidden" class="postId" value="<?= htmlspecialchars($postId) ?>">
-                <input type="hidden" class="uniqueId" value="<?= htmlspecialchars($_SESSION['user_id']) ?>">
+                <input type="hidden" class="receiverId" value="<?= htmlspecialchars($authorId) ?>">
             </div>
             <button class="commentButton flex justify-center items-center rounded-full bg-blue-500 hover:bg-blue-600 p-2 transition-colors outline-none cursor-pointer">
                 <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

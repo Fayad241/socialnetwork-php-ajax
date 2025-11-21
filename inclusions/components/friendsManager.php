@@ -92,7 +92,7 @@
                     <div class="flex gap-3 justify-center w-full">
                         <div class="flex gap-3 items-center justify-center">
                             <img class="w-10 h-10 object-cover rounded" src="profile-pic/<?= htmlspecialchars($row['profile-pic']) ?>" alt="">
-                            <div class="break-words w-48">
+                            <div class="">
                                 <strong><?= htmlspecialchars($row['last-name'] . ' ' . $row['first-name']); ?></strong> 
                                 veut faire partie de vos amis
                             </div>

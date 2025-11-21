@@ -18,6 +18,7 @@
 
     $user_id = $_SESSION['user_id'];
     $post_id = $data['post_id'];
+    $post_author_id = $data['post_author_id'];
 
     try {
         // Vérifier si l'utilisateur a déjà mis en favori
@@ -29,11 +30,35 @@
             $deleteStmt = $pdo->prepare("DELETE FROM favorites WHERE user_id = :user_id AND post_id = :post_id");
             $deleteStmt->execute([':user_id' => $user_id, ':post_id' => $post_id]);
             $favorited = false;
+
+            // Suppression notification
+            $deleteNotif = $pdo->prepare("
+                DELETE FROM notifications 
+                WHERE user_id = :receiver AND sender_id = :sender AND type = 'favorite' AND post_id = :post_id
+            ");
+            $deleteNotif->execute([
+                ':receiver' => $post_author_id,
+                ':sender' => $user_id,
+                ':post_id' => $post_id
+            ]);
         } else {
             // Ajouter aux favoris
             $insertStmt = $pdo->prepare("INSERT INTO favorites (user_id, post_id) VALUES (:user_id, :post_id)");
             $insertStmt->execute([':user_id' => $user_id, ':post_id' => $post_id]);
             $favorited = true;
+
+            if ($user_id != $post_author_id) {
+                // Insertion notification
+                $notifStmt = $pdo->prepare("
+                    INSERT INTO notifications (user_id, sender_id, type, message, post_id, created_at) 
+                    VALUES (:receiver, :sender, 'favorite', 'a mis votre publication en favoris', :post_id, NOW())
+                ");
+                $notifStmt->execute([
+                    ':receiver' => $post_author_id,
+                    ':sender' => $user_id,
+                    ':post_id' => $post_id
+                ]);
+            }
         }
         
         // Compter le nombre total de favoris

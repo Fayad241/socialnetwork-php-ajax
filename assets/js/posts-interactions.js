@@ -60,11 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.like-section').forEach(section => {
         section.addEventListener('click', async function() {
             const postId = this.dataset.postId;
+            const postAuthorId = this.dataset.authorId;
             const icon = this.querySelector('.like-icon');
             const count = this.querySelector('.like-count');
             
             try {
-                const response = await axios.post('actions/toggle-like.php', { post_id: postId });
+                const response = await axios.post('actions/toggle-like.php',{        post_id: postId,
+                post_author_id: postAuthorId
+                });
                 
                 if(response.data.success) {
                     const isLiked = response.data.liked;
@@ -96,11 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.favorite-section').forEach(section => {
         section.addEventListener('click', async function() {
             const postId = this.dataset.postId;
+            const postAuthorId = this.dataset.authorId;
             const icon = this.querySelector('.favorite-icon');
             let countSpan = this.querySelector('.favorite-count');
             
             try {
-                const response = await axios.post('actions/toggle-favorite.php', { post_id: postId });
+                const response = await axios.post('actions/toggle-favorite.php', {
+                    post_id: postId,
+                    post_author_id: postAuthorId 
+                });
                 
                 if(response.data.success) {
                     const isFavorited = response.data.favorited;
@@ -152,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', async function() {
             const block = this.closest('.comments-block');
             const input = block.querySelector('.commentInput');
+            const receiverId = block.querySelector('.receiverId').value;
             const postId = block.querySelector('.postId').value;
             const comment = input.value.trim();
             
@@ -159,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 const response = await axios.post('actions/add-comment.php', {
+                    receiver_id: receiverId,
                     post_id: postId,
                     comment: comment
                 });

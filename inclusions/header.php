@@ -44,85 +44,10 @@
           </div>
           <div>Creer</div>
         </a>
-        <div class="relative">
-          <svg id="open-notifications" xmlns="http://www.w3.org/2000/svg"
-              class="w-10 h-10 text-gray-500 p-[6px] bg-gray-200 rounded-full cursor-pointer"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
-                    6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67
-                    6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595
-                    1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-          </svg>
-          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
-            3
-          </span>
+        
+          <!-- Partie affichage notifications et icone -->
+          <?php require 'inclusions/components/sectionNotification.php' ?>
 
-          <!-- UI Affichage Notifications -->
-          <div class="absolute border border-gray-200 rounded bg-white px-5 py-2 shadow-lg overflow-y-auto" id="popup-notifications" style="display: none; right: 0; top: 45px; width: 390px; height: 85vh; z-index: 100; padding-right: 40px;">
-            <div class="flex flex-col">
-              <div class="flex items-center justify-between border-b border-gray-200">
-                <div class="flex gap-1 items-center font-bold text-xl">
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                      class="w-10 h-10 p-[6px] rounded-full mb-2"
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
-                            6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67
-                            6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595
-                            1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                  </svg>
-                  <p class="mb-2">Notifications</p>
-                </div>
-                <svg id="close-notifications" class="border border-gray-200 bg-gray-100 flex items-center justify-center rounded-full w-7 h-7 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  class="w-6 h-6 text-red-500 hover:text-red-600 cursor-pointer">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <div class="my-4">
-                <div class="font-bold text-xl">Aujourdhui</div>
-                <div class="flex gap-3 my-4">
-                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
-                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
-                    <div>24min</div>
-                  </div>
-                </div>
-                <div class="flex gap-3 my-4">
-                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
-                    <div class=""><strong class="text-black">ULRICH MORGAN</strong> veut faire partie de vos amis</div>
-                    <div>2h</div>
-                    <div class="flex gap-6 items-center justify-center my-1">
-                      <button class="flex items-center justify-center bg-blue-600 text-white rounded-xl px-5 py-2 text-sm" style="width: 105px;">Accepter</button>
-                      <button class="flex items-center justify-center border border-gray-200 rounded-xl px-5 py-2 text-sm" style="width: 105px;">Refuser</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="font-bold text-xl">7 derniers jours</div>
-                <div class="flex gap-3 my-4">
-                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
-                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
-                    <div>1j</div>
-                  </div>
-                </div>
-                <div class="flex gap-3 my-4">
-                  <img class="w-13 h-13 object-cover rounded" src="assets/images/img_user_publicaton.jpg" alt="">
-                  <div class="flex flex-col gap-1 text-gray-600" style="width: 260px;">
-                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia, in? Lorem ipsum dolor sit amet.</div>
-                    <div>3j</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div>
           <img class="w-9 h-9 object-cover rounded" src="/socialnetwork/profile-pic/<?=$user['profile-pic']?>" alt="">
         </div>

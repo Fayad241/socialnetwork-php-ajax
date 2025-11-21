@@ -3,8 +3,6 @@
 
 /* Scrollbar grande sections page d'acceuil */
 .scrollbar-custom::-webkit-scrollbar {
-    /* width: 8px;
-    height: 12px; */
     display: none;
 }
 
@@ -14,7 +12,6 @@
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-    /* background: red; */
     box-shadow: rgb(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -23,32 +20,36 @@
 /* Scrollbar liste conversations avec utilisateurs et place de chat */
 .users-list::-webkit-scrollbar, 
 .messages-zone::-webkit-scrollbar, 
-.text-post::-webkit-scrollbar {
+.text-post::-webkit-scrollbar,
+.notifications-container::-webkit-scrollbar {
   width: 8px;
 }
 
 .users-list::-webkit-scrollbar-track, 
 .messages-zone::-webkit-scrollbar-track,
-.text-post::-webkit-scrollbar-track {
+.text-post::-webkit-scrollbar-track,
+.notifications-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
 .users-list::-webkit-scrollbar-thumb, 
 .messages-zone::-webkit-scrollbar-thumb,
-.text-post::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 116, 139, 0.4); /* gris slate-500 */
+.text-post::-webkit-scrollbar-thumb, 
+.notifications-container::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.4); 
   border-radius: 9999px;
   transition: background-color 0.3s ease;
 }
 
 .users-list::-webkit-scrollbar-thumb:hover, 
 .messages-zone::-webkit-scrollbar-thumb:hover 
-.text-post::-webkit-scrollbar-thumb:hover {
+.text-post::-webkit-scrollbar-thumb:hover,
+.notifications-container::-webkit-scrollbar-thumb:hover {
   background-color: rgba(100, 116, 139, 0.7);
 }
 
 /* Firefox */
-.users-list, .messages-zone, .text-post {
+.users-list, .messages-zone, .text-post, .notifications-container {
   scrollbar-width: thin;
   scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
 }

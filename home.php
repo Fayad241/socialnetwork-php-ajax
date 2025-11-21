@@ -12,28 +12,9 @@
   $stmt->execute([':user_id' => $current_user]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  // Requete pour affichage des posts
-  $stmt2 = $pdo->prepare("SELECT 
-            posts.id AS post_id,
-            posts.id,
-            posts.content,
-            posts.`img-publication`,
-            posts.`date-publication`,
-            posts.`created_at`,
-            posts.`user_id`,
-            users.`first-name`,
-            users.`last-name`,
-            users.`profile-pic`,
-            users.email
-            FROM posts
-            INNER JOIN users ON posts.`user_id` = users.`unique-id`
-            ORDER BY posts.`date-publication` DESC;
-        ");
-  $stmt2->execute();
-
   // Requete pour afficher les informations des autres utilisateurs
   $stmt5 = $pdo->prepare("SELECT * FROM users WHERE NOT `unique-id` = :user_id");
-  $stmt5->execute([':user_id' => $current_user]);
+  $stmt5->execute([':user_id' => $current_user]); 
 
 
 ?>
@@ -174,7 +155,7 @@
             <p>Ajouter storie</p>
           </div>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
+        <!-- <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_1.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
@@ -218,7 +199,7 @@
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
+        </div> -->
       </div>
 
       <!-- Faire une publication rapide -->

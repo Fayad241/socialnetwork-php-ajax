@@ -71,8 +71,8 @@
         
         // Créer une notification pour le destinataire
         $notifStmt = $pdo->prepare("
-            INSERT INTO notifications (user_id, type, sender_id, message, created_at) 
-            VALUES (:user_id, 'friend_request', :sender_id, 'vous a envoyé une demande d\'ami', NOW())
+            INSERT INTO notifications (user_id, sender_id, type, message, created_at) 
+            VALUES (:user_id, :sender_id, 'friend-request', 'vous a envoyé une demande d\'ami', NOW())
         ");
         $notifStmt->execute([
             ':user_id' => $receiver_id,

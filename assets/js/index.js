@@ -1,17 +1,3 @@
-// Ouvrir et fermer les notifications
-const openNotification = document.getElementById('open-notifications');
-const closeNotification = document.getElementById('close-notifications');
-const popupNotification = document.getElementById('popup-notifications');
-
-openNotification.addEventListener('click', () => {
-    popupNotification.style.display = 'block';
-})
-
-closeNotification.addEventListener('click', () => {
-    popupNotification.style.display = 'none';
-})
-
-
 // Ouvrir et fermer la liste de conversations
 const openMessage = document.getElementById('open-messages');
 const closeMessage = document.getElementById('close-messages');

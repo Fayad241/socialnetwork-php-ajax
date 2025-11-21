@@ -32,6 +32,16 @@
             ':sender_id' => $current_user,
             ':receiver_id' => $receiver_id
         ]);
+
+        // Suppression notification chez le destinataire
+        $deleteNotif = $pdo->prepare("
+            DELETE FROM notifications 
+            WHERE user_id = :user_id AND sender_id = :sender_id AND type = 'friend-request'
+        ");
+        $deleteNotif->execute([
+            ':user_id' => $receiver_id,
+            ':sender_id' => $current_user
+        ]);
         
         if ($stmt->rowCount() > 0) {
             echo json_encode([
