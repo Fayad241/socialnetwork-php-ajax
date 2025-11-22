@@ -75,7 +75,7 @@
 <div class="flex flex-col justify-center">
 
     <div class="flex items-center justify-between mb-2">
-        <div class="text-gray-500 font-semibold tracking-wide text-sm">INVITATIONS REÇUES</div>
+        <div class="text-gray-800 font-semibold tracking-wide text-sm">INVITATIONS REÇUES</div>
         <div id="received-invitations-count" class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">
             <?= $stmt3->rowCount() ?>
         </div>
@@ -138,7 +138,7 @@
 <div class="flex flex-col justify-center">
 
     <div class="flex items-center justify-between mb-2">
-        <div class="text-gray-500 font-semibold tracking-wide text-sm">INVITATIONS ENVOYÉES</div>
+        <div class="text-gray-800 font-semibold tracking-wide text-sm">INVITATIONS ENVOYÉES</div>
         <div id="sent-invitations-count" class="bg-blue-500 text-white text-xs font-bold flex items-center justify-center rounded-full" style="padding: 2px 6px">
             <?= count($invitationsEnvoyees) ?>
         </div>
@@ -238,7 +238,7 @@
 
 <div class="flex flex-col justify-center">
 
-    <div class="text-gray-500 font-semibold tracking-wide text-sm mb-2">SUGGESTIONS D'AMIS</div>
+    <div class="text-gray-800 font-semibold tracking-wide text-sm mb-2">SUGGESTIONS D'AMIS</div>
 
     <?php if (empty($usersList)): ?>
 

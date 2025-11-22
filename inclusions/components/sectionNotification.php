@@ -73,6 +73,6 @@
 
 
 
-    <script src="assets/js/notification.js"></script>
+    <script src="/socialnetwork/assets/js/notification.js"></script>
 </body>
 </html>

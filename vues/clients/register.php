@@ -16,7 +16,7 @@ error_reporting(E_ALL);
     <title>Document</title>
 </head>
 
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+<body class="bg-gray-50 flex flex-col items-center justify-center min-h-screen">
   <!-- Logo et nom de l'application -->
   <div class="flex mb-3 justify-center items-center">
     <svg width="44" height="44" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">

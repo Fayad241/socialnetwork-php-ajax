@@ -8,7 +8,7 @@ openNotification.addEventListener('click', (e) => {
 
   requestAnimationFrame(() => {
     popupNotification.classList.remove('-translate-y-5', 'opacity-0');
-    popupNotification.classList.add('translate-y-0', 'opacity-100');
+    popupNotification.classList.add('translate-y-0', 'opacity-100', 'z-[1005]');
   });
 });
 
@@ -42,7 +42,7 @@ popupNotification.addEventListener('click', (e) => {
 // Charger les notifications
 async function loadNotifications() {
   try {
-    const response = await axios.get('actions/get-notifications.php');
+    const response = await axios.get('/socialnetwork/actions/get-notifications.php');
     console.log('Réponse notifications:', response.data);
     
     if (response.data.success) {
@@ -94,7 +94,7 @@ function displayNotifications(notifications) {
     
     div.innerHTML = `
       <div class="relative">
-        <img class="w-12 h-12 object-cover rounded-full ${notif.type === 'friend-request' ? 'ring-2 ring-blue-500' : ''}" src="profile-pic/${notif.sender_pic}" alt="">
+        <img class="w-12 h-12 object-cover rounded-full ${notif.type === 'friend-request' ? 'ring-2 ring-blue-500' : ''}" src="/socialnetwork/profile-pic/${notif.sender_pic}" alt="">
         ${badge}
       </div>
       <div class="flex flex-col gap-1 flex-1">

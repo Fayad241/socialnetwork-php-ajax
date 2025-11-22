@@ -31,7 +31,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link href="assets/css/output.css" rel="stylesheet">
 </head>
-<body class="relative bg-gray-100 overflow-hidden">
+<body class="relative bg-gray-50 overflow-hidden">
 
   <?php require 'vues/clients/chat-conversations-modal.php' ?>
 
@@ -143,63 +143,29 @@
 
 
     <!-- Fil d'actualités (milieu) -->
-    <div class="my-3 overflow-y-auto scrollbar-custom" style="width: 560px; height: 87vh">
+    <div class="my-3 overflow-y-auto scrollbar-custom w-[560px] h-[85vh]">
       <!-- Statut(story) des utilisateurs -->
       <div class="flex gap-4 items-center w-full overflow-x-auto scrollbar-custom" style="scroll-behavior: smooth;">
-        <div class="relative flex-col items-center justify-center" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="h-full w-full object-cover rounded-2xl shadow-sm" src="assets/images/img_status.jpg" alt="">
-          <div class="flex flex-col items-center justify-center absolute bottom-3 font-bold text-white ml-4">
-            <div class="flex items-center justify-center rounded-xl border-4 w-9 h-9 p-1 mb-1">
-              <p class="flex items-center justify-center w-full h-full text-sm text-blue-600 pb-1 rounded bg-white">+</p>      
+        <!-- Ajouter une story -->
+        <a href="vues/clients/create-story.php" class="relative flex flex-col items-center justify-end cursor-pointer" 
+           style="flex: 0 0 auto; width: 135px; height: 210px">
+            <!-- Background dégradé -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-400 via-[#06B6D4] to-purple-600 rounded-2xl"></div>
+            
+            <div class="relative flex flex-col items-center justify-center pb-3 z-10">
+                <div class="flex items-center justify-center rounded-full border-4 border-white w-10 h-10 mb-2 bg-white shadow-lg hover:scale-106 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </div>
+                <p class="font-bold text-white text-sm drop-shadow-lg">Créer une story</p>
             </div>
-            <p>Ajouter storie</p>
-          </div>
-        </div>
-        <!-- <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
+        </a>
+        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
           <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
           <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_1.jpg" alt="">
           <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
         </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_2.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_3.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status_4.jpeg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div>
-        <div class="relative" style="flex: 0 0 auto; width: 135px; height: 210px">
-          <img class="absolute w-9 h-9 rounded top-4 left-4 object-cover rounded border-3 border-white  shadow-sm" src="assets/images/img_user.jpg" alt="">
-          <img class="h-full w-full object-cover rounded-2xl" src="assets/images/img_status.jpg" alt="">
-          <p class="absolute bottom-3 font-bold text-white text-sm ml-2">Junior Mantinou</p>
-        </div> -->
       </div>
 
       <!-- Faire une publication rapide -->
@@ -236,7 +202,7 @@
       <!-- Contacts -->
       <div class="mb-5">
         <div class="flex items-center justify-between mb-2">
-          <div class="text-gray-500 font-semibold tracking-wide text-sm">
+          <div class="text-gray-800 font-semibold tracking-wide text-sm">
             CONTACTS 
           </div>    
 

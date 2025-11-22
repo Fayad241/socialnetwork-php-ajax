@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/724f54335b.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -38,7 +39,7 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         <input class="bg-gray-100 rounded-2xl outline-hidden h-auto py-2 px-3 pl-12 w-76 shadow-sm" type="text" placeholder="Rechercher sur Afrovibe">
-        <a class="flex gap-1 items-center justify-center bg-cyan-500 rounded-2xl text-white font-bold py-2 px-3 cursor-pointer" href="vues/clients/posts.php">
+        <a class="flex gap-1 items-center justify-center bg-cyan-500 rounded-2xl text-white font-bold py-2 px-3 cursor-pointer" href="/socialnetwork/vues/clients/posts.php">
           <div class="flex items-center justify-center text-center rounded border px-1 pb-1">
             <p class="flex items-center justify-center text-center w-2 h-3 text-sm">+</p>      
           </div>
@@ -46,12 +47,13 @@
         </a>
         
           <!-- Partie affichage notifications et icone -->
-          <?php require 'inclusions/components/sectionNotification.php' ?>
+          <?php require 'components/sectionNotification.php' ?>
 
         <div>
           <img class="w-9 h-9 object-cover rounded" src="/socialnetwork/profile-pic/<?=$user['profile-pic']?>" alt="">
         </div>
       </div>
+
     </div>
   </section>
 </body>
