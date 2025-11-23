@@ -14,7 +14,7 @@
         $imageName = null;
 
         // Gestion de l'image si présente
-        if (!empty($_FILES['img-publication']) && $_FILES['img-publication']['error'] === 0) {
+        if (isset($_FILES['img-publication']) && $_FILES['img-publication']['error'] === UPLOAD_ERR_OK) {
 
             $imgTmp = $_FILES['img-publication']['tmp_name'];
             $imgName = $_FILES['img-publication']['name'];
@@ -27,7 +27,7 @@
             }
 
             $imageName = time() . '_' . uniqid() . '.' . $imgExt;
-            move_uploaded_file($imgTmp, '../uploads/posts/' . $imageName);
+            move_uploaded_file($imgTmp, __DIR__ . '/../uploads/posts/' . $imageName);
         }
 
         // Vérification session

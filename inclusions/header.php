@@ -29,9 +29,9 @@
             " fill="none" stroke="url(#blueGradient)" stroke-width="2"/>
           </g>
         </svg>
-        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
+        <a href="/socialnetwork/home.php" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
           AFRO<span class="font-light">vibe</span>
-        </h1>
+        </a>
       </div>
       <div class="relative flex gap-3 items-center justify-between">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500 absolute ml-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

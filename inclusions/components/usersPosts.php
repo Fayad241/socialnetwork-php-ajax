@@ -71,7 +71,7 @@
 
         <?php if(!empty($post['img-publication'])): ?>
 
-        <img class="h-96 w-full rounded-xl object-cover" src="uploads/posts/<?=$post['img-publication']?>" alt="">
+        <img class="h-[90vh] w-full rounded-xl object-cover" src="uploads/posts/<?=$post['img-publication']?>" alt="">
         <?php endif; ?>
 
         <!-- SECTION INTERACTIONS DYNAMIQUES -->
