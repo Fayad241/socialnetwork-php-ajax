@@ -14,11 +14,12 @@
     try {
 
         $text = $_POST['text'] ?? '';
+        $media_type = $_POST['media_type'];
         $new_filename = null;
         $duration = (int)($_POST['duration'] ?? 24);
 
 
-        if (empty($text) && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        if (empty($text) && $_FILES['media']['error'] !== UPLOAD_ERR_OK) {
             echo json_encode(['success' => false, 'message' => 'Veuillez ajouter du texte, une image ou une vidéo']);
             exit;
         }
@@ -28,10 +29,10 @@
             $duration = 24;
         }  
 
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        if (isset($_FILES['media']) && $_FILES['media']['error'] === UPLOAD_ERR_OK) {
 
-            $fileTmp = $_FILES['image']['tmp_name'];
-            $fileName = $_FILES['image']['name'];
+            $fileTmp = $_FILES['media']['tmp_name'];
+            $fileName = $_FILES['media']['name'];
             $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
             $allowed = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'webm'];
@@ -49,14 +50,15 @@
         
         // Insérer dans la base de données
         $stmt = $pdo->prepare("
-            INSERT INTO stories (user_id, image, text, duration_hours, expires_at, created_at)
-            VALUES (:user_id, :image, :text, :duration, :expires_at, NOW())
+            INSERT INTO stories (user_id, media, text, media_type, duration_hours, expires_at, created_at)
+            VALUES (:user_id, :media, :text, :media_type, :duration, :expires_at, NOW())
         ");
         
         $stmt->execute([
             'user_id' => $current_user,
-            'image' => $new_filename ?? null,
+            'media' => $new_filename ?? null,
             'text' => $text,
+            'media_type' => $media_type,
             'duration' => $duration,
             'expires_at' => $expires_at
         ]);

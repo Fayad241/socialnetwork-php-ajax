@@ -29,7 +29,7 @@
             " fill="none" stroke="url(#blueGradient)" stroke-width="2"/>
           </g>
         </svg>
-        <a href="/socialnetwork/home.php" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
+        <a href="/socialnetwork/home.php" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400 outline-none">
           AFRO<span class="font-light">vibe</span>
         </a>
       </div>

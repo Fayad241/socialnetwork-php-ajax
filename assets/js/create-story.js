@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewImg = document.getElementById('preview-image');
     const previewVideo = document.getElementById('preview-video');
     const previewBox = document.getElementById('preview-box');
-    const imageInput = document.getElementById('story-image');
+    const mediaInput = document.getElementById('story-media');
     const durationInputs = document.querySelectorAll('input[name="duration"]');
     const publishBtn = document.getElementById('publish-btn');
 
@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('text-count').textContent = textarea.value.length;
     }
 
-    imageInput.addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (!file) return;
+    mediaInput.addEventListener('change', function (e) {
+        const media = e.target.files[0];
+        if (!media) return;
 
         previewImg.classList.add('hidden');
         previewVideo.classList.add('hidden');
 
-        const type = file.type;
+        const type = media.type;
 
         // IMAGE
         if (type.startsWith("image/")) {
@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 previewImg.classList.remove('hidden');
                 previewBox.classList.remove('hidden');
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(media);
         }
 
         // VIDEO
         else if (type.startsWith("video/")) {
-            const videoURL = URL.createObjectURL(file);
+            const videoURL = URL.createObjectURL(media);
             previewVideo.src = videoURL;
             previewVideo.classList.remove('hidden');
             previewBox.classList.remove('hidden');
@@ -71,19 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
     })   
 
     // Bouton supprimer image
-    const removeImageBtn = document.createElement('button');
-    removeImageBtn.textContent = 'Supprimer l’image/vidéo';
-    removeImageBtn.type = 'button';
-    removeImageBtn.classList.add('text-red-500', 'text-sm', 'mt-2', 'cursor-pointer');
-    previewBox.appendChild(removeImageBtn);
+    const removeMediaBtn = document.createElement('button');
+    removeMediaBtn.textContent = 'Supprimer l’image/vidéo';
+    removeMediaBtn.type = 'button';
+    removeMediaBtn.classList.add('text-red-500', 'text-sm', 'mt-2', 'cursor-pointer');
+    previewBox.appendChild(removeMediaBtn);
 
-    removeImageBtn.addEventListener('click', () => {
+    removeMediaBtn.addEventListener('click', () => {
         previewImg.src = "";
         previewVideo.src = "";
         previewImg.classList.add("hidden");
         previewVideo.classList.add("hidden");
         previewBox.classList.add('hidden');
-        imageInput.value = '';
+        mediaInput.value = '';
     });
 
     function showFormError(message) {
@@ -104,12 +104,23 @@ document.addEventListener('DOMContentLoaded', () => {
     btnPublishStory.addEventListener('click', async function() {
         
         const text = textarea.value;
-        const image = imageInput.files[0];
+        const media = mediaInput.files[0];
         const duration = document.querySelector('input[name="duration"]:checked').value;
+
+        let mediaType = "";
+
+        if (media.type.startsWith("image/")) {
+            mediaType = "image";
+        } else if (media.type.startsWith("video/")) {
+            mediaType = "video";
+        } else {
+            return;
+        }
+
         hideFormError();
 
         // Aucun champ rempli
-        if (!text && !image) {
+        if (!text && !media) {
             showFormError("Veuillez entrer un texte ou une image/vidéo.");
             return;
         }
@@ -121,21 +132,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Check file
-        if (image) {
+        if (media) {
             const allowed = ["image/jpg", "image/jpeg", "image/png", "image/gif", 'video/mp4', 'video/mov', 'video/avi', 'video/webm'];
-            if (!allowed.includes(image.type)) {
+            if (!allowed.includes(media.type)) {
                 showFormError("Format d’image/vidéo non autorisé (formats acceptés : JPG, JPEG, PNG, GIF, mp4, mov, avi, webm).");
                 return;
             }
-            if (image.size > 10 * 1024 * 1024) {
+            if (media.size > 10 * 1024 * 1024) {
                 showFormError("L’image/vidéo est trop lourde (max 10 MB).");
                 return;
             }
         }
 
         const formData = new FormData();
-        if (image) formData.append('image', image);
+        if (media) formData.append('media', media);
         if (text) formData.append('text', text);
+        formData.append("media_type", mediaType);
         formData.append('duration', duration);
         
         try {
@@ -153,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem("story_duration");
 
                 textarea.value = '';
-                imageInput.value = '';
+                mediaInput.value = '';
                 previewImg.src = '';
                 previewVideo.src = '';
                 previewBox.classList.add('hidden');
