@@ -59,3 +59,20 @@
 
 
 
+.menu-item {
+  @apply cursor-pointer transition;
+}
+
+.menu-item:hover {
+  @apply text-gray-900;
+}
+
+.menu-item.active {
+  @apply text-blue-600;
+}
+
+
+
+
+
+
