@@ -17,8 +17,12 @@
 </head>
 <body>
 
-   <section id="popup-messages" class="absolute hidden justify-center items-center" style="z-index: 200">
-    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 420px">
+<!-- <section id="popup-messages" class="absolute hidden justify-center items-center z-[200]">
+    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 420px"> -->
+
+   <section id="popup-messages" class="absolute hidden justify-center items-center z-[200] inset-0 bg-black/30 top-0 left-0 w-screen h-screen">
+    <div class="flex flex-col gap-1 bg-white shadow-lg rounded-2xl 
+               w-[90%] lg:w-[35%] max-w-[600px] h-[520px] p-6">
         <div class="flex items-center justify-between mb-4">
             <div class="text-blue-600 font-bold text-2xl">Messages</div>
             <svg id="close-messages" class="border border-gray-200 bg-gray-100 hover:bg-gray-50 flex items-center justify-center rounded-full w-6 h-6 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
