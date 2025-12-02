@@ -50,7 +50,7 @@
         $userHasFavorited = $userFavStmt->rowCount() > 0;
     ?>
 
-    <div class="post-block flex flex-col justify-center bg-white rounded-2xl shadow-md px-5 py-4 mb-5" data-post-id="<?= htmlspecialchars($postId) ?>">
+    <div class="post-block flex flex-col justify-center bg-white rounded-2xl shadow-md md:px-5 px-3 py-4 mb-5" data-post-id="<?= htmlspecialchars($postId) ?>">
 
         <div class="flex items-center justify-between">
             <div class="flex gap-3 items-center justify-center">
@@ -119,19 +119,26 @@
 
         </div>
 
-        <div class="comments-block hidden items-center gap-4 mb-4 mt-2">
-            <div class="flex gap-2 justify-center">
-                <img class="w-12 h-12 rounded-xl object-cover" src="assets/images/img_user_publicaton.jpg" alt="">
-                <textarea class="commentInput bg-gray-100 rounded-xl w-96 outline-0" placeholder="Commenter ce post" style="resize: none; height: 74px; padding: 6px 12px;"></textarea>
+        <div class="comments-block hidden items-center gap-2 md:gap-4 mb-4 mt-2">
+            <div class="flex gap-2 justify-center w-full sm:w-auto">
+                <img class="w-11 h-11 rounded-xl object-cover ring-2 ring-gray-200" src="assets/images/img_user_publicaton.jpg" alt="">
+
+                <textarea class="commentInput bg-gray-100 rounded-xl w-full sm:w-96 ring-1 ring-gray-200 outline-0"
+                    placeholder="Commenter ce post"
+                    style="resize: none; height: 74px; padding: 6px 12px;"></textarea>
+
                 <input type="hidden" class="postId" value="<?= htmlspecialchars($postId) ?>">
                 <input type="hidden" class="receiverId" value="<?= htmlspecialchars($authorId) ?>">
             </div>
+
+            <!-- Bouton envoyer -->
             <button class="commentButton flex justify-center items-center rounded-full bg-blue-500 hover:bg-blue-600 p-2 transition-colors outline-none cursor-pointer">
-                <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="w-6 h-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.94 2.94a1.5 1.5 0 0 1 1.58-.35l12 4.5a1.5 1.5 0 0 1 0 2.82l-12 4.5A1.5 1.5 0 0 1 2 13.06V11l8-1-8-1V2.94z"/>
                 </svg>
             </button>
         </div>
+
         <div class="commentsContainer" data-post-id="<?= htmlspecialchars($postId) ?>">
             
         </div>

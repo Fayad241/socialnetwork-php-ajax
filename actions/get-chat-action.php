@@ -44,7 +44,7 @@
           </svg>
           <div class="relative">
               <img class="rounded-full object-cover" src="profile-pic/'.(isset($contact['profile-pic']) ? htmlspecialchars($contact['profile-pic']) : 'defaultProfile.jpeg').'" alt="" style="width: 50px; height: 50px">
-              <div class="'.$status['class'].' absolute w-3 h-3 rounded-full border-2 border-white" style="right: -1px; bottom: 3px"></div>
+              <div class="'.$status['class'].' absolute w-3 h-3 rounded-full border-2 border-white top-9 left-10"></div>
           </div>
           <div>
               <strong>'. htmlspecialchars($contact['last-name'] .' '.$contact['first-name']) .'</strong>
@@ -63,18 +63,18 @@
           
           // Message envoyé par l'utilisateur courant
           if($message['sender-msg-id'] == $current_user) {
-              $output .= '<div class="flex gap-1 flex-col bg-blue-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm ml-auto w-[85%]">
+              $output .= '<div class="message-item flex gap-1 flex-col bg-blue-500 text-white rounded-xl my-2 p-2 ml-auto w-[85%]">
                   <div>'.$messageText.'</div>
-                  <div class="text-sm text-right font-semibold">'.$messageTime.'</div>
+                  <div class="message-time text-sm text-right font-semibold">'.$messageTime.'</div>
               </div>';
           }
           // Message reçu
           else {
-              $output .= '<div class="message-item flex gap-3 bg-gray-100 text-gray-600 rounded-xl my-2 p-2 shadow-sm mr-auto w-[85%]">
+              $output .= '<div class="message-item flex gap-3 bg-gray-100 text-gray-500 rounded-xl my-2 p-2 mr-auto w-[85%]">
                   <img class="object-cover rounded-full" src="profile-pic/'.(isset($contact['profile-pic']) ? htmlspecialchars($contact['profile-pic']) : 'defaultProfile.jpeg').'" alt="" style="width: 45px; height: 45px">
                   <div class="flex gap-1 flex-col">
                       <div>'.$messageText.'</div>
-                      <div class="text-sm font-semibold">'.$messageTime.'</div>
+                      <div class="message-time text-sm text-left font-semibold">'.$messageTime.'</div>
                   </div>
               </div>';
           }
@@ -93,8 +93,8 @@
           <textarea id="message-text" class="bg-gray-50 rounded-bl-2xl outline-0 resize-none w-96 py-2 px-3" placeholder="Entrer un message"></textarea>
       </div>
       <button id="send-message-btn" type="button" class="flex justify-center items-center rounded-full bg-blue-500 hover:bg-blue-600 p-2 transition-colors outline-none">
-          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg class="w-6 h-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.94 2.94a1.5 1.5 0 0 1 1.58-.35l12 4.5a1.5 1.5 0 0 1 0 2.82l-12 4.5A1.5 1.5 0 0 1 2 13.06V11l8-1-8-1V2.94z"/>
           </svg>
       </button>
   </div>';

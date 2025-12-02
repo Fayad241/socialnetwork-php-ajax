@@ -4,8 +4,6 @@
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,12 +15,8 @@
 </head>
 <body>
 
-<!-- <section id="popup-messages" class="absolute hidden justify-center items-center z-[200]">
-    <div class="flex gap-1 flex-col bg-white shadow-lg rounded-2xl px-6 py-5" style="width: 35vw; height:520px; margin: 35px 420px"> -->
-
    <section id="popup-messages" class="absolute hidden justify-center items-center z-[200] inset-0 bg-black/30 top-0 left-0 w-screen h-screen">
-    <div class="flex flex-col gap-1 bg-white shadow-lg rounded-2xl 
-               w-[90%] lg:w-[35%] max-w-[600px] h-[520px] p-6">
+    <div class="flex flex-col gap-1 bg-white shadow-lg rounded-2xl w-[35%] max-w-[600px] h-[520px] p-6" style="margin: 35px 420px">
         <div class="flex items-center justify-between mb-4">
             <div class="text-blue-600 font-bold text-2xl">Messages</div>
             <svg id="close-messages" class="border border-gray-200 bg-gray-100 hover:bg-gray-50 flex items-center justify-center rounded-full w-6 h-6 p-1 mb-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
@@ -52,6 +46,45 @@
         </div>
     </div>
    </section>
+
+
+
+   <section id="conversations-view" class="hidden flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <a href="" class="p-2 hover:bg-gray-100 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </a>
+                    <h1 class="text-xl font-bold text-blue-600">Messages</h1>
+                </div>
+            </div>
+            
+            <!-- Barre de recherche (cachée par défaut) -->
+            <div id="search-bar-mobile" class="mt-3">
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input id="search-input-mobile" type="text" placeholder="Rechercher..." 
+                           class="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+        </header>
+
+        <!-- Liste des conversations -->
+        <div id="conversations-list-mobile" class="flex-1 overflow-y-auto">
+            <!-- Chargement -->
+            <div id="loading-conversations" class="flex items-center justify-center py-8">
+                <div class="w-8 h-8 border-3 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            
+            <!-- Liste sera injectée ici par JS -->
+        </div>
+    </section>
 
 
 

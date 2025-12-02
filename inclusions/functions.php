@@ -1,5 +1,4 @@
 <?php
-    // inclusions/functions.php
 
     /**
      * Calcule le temps écoulé depuis une date

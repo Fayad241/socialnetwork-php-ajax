@@ -1,7 +1,7 @@
 <?php 
     session_start();
     require '../inclusions/database.php';
-    require '../inclusions/functions.php';
+    // require __DIR__ . '/../inclusions/functions.php';
 
     $current_user = $_SESSION['user_id'];
 
@@ -17,7 +17,7 @@
     if($sql->rowCount() == 1) {
         $output .= "Aucun utilisateur disponible dans le chat";
     } else if($sql->rowCount() > 0) {
-        require '../inclusions/data.php';
+        require __DIR__ . '/../inclusions/data.php';
     }
     echo $output;
 

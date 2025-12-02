@@ -88,7 +88,7 @@ function displayStories(stories) {
                 `;
             } else {
                 contentHTML = `
-                    <div class="absolute inset-0 rounded-2xl ${hasUnviewed ? 'bg-gradient-to-br from-blue-400 via-[#06B6D4] to-purple-600' : 'bg-gray-300'} p-[3px]">
+                    <div class="absolute inset-0 rounded-2xl ${hasUnviewed ? 'bg-gradient-to-br from-blue-400 via-[#06B6D4] to-purple-600' : 'bg-gray-300'}">
                         <img class="w-full h-full object-cover rounded-2xl" src="uploads/stories/${firstStory.media}" alt="">
                     </div>
                 `;

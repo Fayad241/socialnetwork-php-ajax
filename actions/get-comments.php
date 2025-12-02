@@ -40,7 +40,7 @@
                 $isHidden = $index >= 2 ? "hidden" : "";
                 
                 echo '
-                <div class="comment-item flex items-start gap-3 p-3 border border-gray-200 rounded-xl bg-white shadow-sm mb-3 transition-all duration-300 ' . $isHidden . '">
+                <div class="comment-item flex items-start gap-3 p-3 border border-gray-200 rounded-xl bg-white mb-3 transition-all duration-300 ' . $isHidden . '">
                     <img class="w-10 h-10 rounded-full object-cover" src="profile-pic/' . $profilePic . '" alt="">
                     <div class="flex-1">
                         <div class="flex items-center gap-2">

@@ -38,7 +38,14 @@
   </div>
 
 
+  <!-- VERSION MOBILE -->
+<!-- <div class="lg:hidden flex flex-col"> -->
+    
+    <!-- Vue 1 : Liste des conversations (par défaut) -->
+    
 
+    <!-- Vue 2 : Conversation (cachée par défaut) -->
+<!-- </div> -->
 
   <!-- Modal de chat de conversation  -->
   <section id="chat-container" class="absolute hidden justify-center items-center" style="z-index: 200">
@@ -47,6 +54,60 @@
         
     </div>
   </section> 
+
+  <div id="chat-view-mobile" class="relative hidden flex flex-col h-screen bg-white">
+    <!-- Header conversation -->
+    <header class="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <button onclick="backToConversations()" class="p-2 hover:bg-gray-100 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <div class="relative">
+                <img id="chat-user-pic" class="w-14 h-14 rounded-full object-cover" src="" alt="">
+                <div id="chat-user-status" class="absolute w-3 h-3 rounded-full border-2 border-white"></div>
+            </div>
+            <div class="flex-1">
+                <h2 id="chat-user-name" class="font-bold text-gray-900"></h2>
+                <p id="chat-user-status-text" class="text-xs text-gray-500"></p>
+            </div>
+            <button class="p-2 hover:bg-gray-100 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Zone messages -->
+    <div id="messages-zone-mobile" class="overflow-y-auto p-4 space-y-3 h-[75vh]">
+        <!-- Messages seront injectés ici -->
+    </div>
+
+    <!-- Zone de saisie -->
+    <div class="absolute bg-white bottom-19 left-0 w-full border-t border-gray-200 p-4">
+        <div class="flex items-end gap-2">
+            <button class="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
+            <textarea id="message-input-mobile" 
+                      placeholder="Message..." 
+                      rows="1"
+                      class="flex-1 resize-none bg-gray-100 rounded-2xl px-4 py-2 max-h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 h-full"></textarea>
+            <button id="send-btn-mobile" class="bg-blue-500 hover:bg-blue-600 p-2.5 rounded-full transition-colors">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.94 2.94a1.5 1.5 0 0 1 1.58-.35l12 4.5a1.5 1.5 0 0 1 0 2.82l-12 4.5A1.5 1.5 0 0 1 2 13.06V11l8-1-8-1V2.94z"/>
+                </svg>
+                <!-- <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.7639 12H10.0556M3 8.00003H5.5M4 12H5.5M4.5 16H5.5M9.96153 12.4896L9.07002 15.4486C8.73252 16.5688 8.56376 17.1289 8.70734 17.4633C8.83199 17.7537 9.08656 17.9681 9.39391 18.0415C9.74792 18.1261 10.2711 17.8645 11.3175 17.3413L19.1378 13.4311C20.059 12.9705 20.5197 12.7402 20.6675 12.4285C20.7961 12.1573 20.7961 11.8427 20.6675 11.5715C20.5197 11.2598 20.059 11.0295 19.1378 10.5689L11.3068 6.65342C10.2633 6.13168 9.74156 5.87081 9.38789 5.95502C9.0808 6.02815 8.82627 6.24198 8.70128 6.53184C8.55731 6.86569 8.72427 7.42461 9.05819 8.54246L9.96261 11.5701C10.0137 11.7411 10.0392 11.8266 10.0493 11.9137C10.0583 11.991 10.0582 12.069 10.049 12.1463C10.0387 12.2334 10.013 12.3188 9.96153 12.4896Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> -->
+            </button>
+        </div>
+    </div>
+  </div>
 
   <!-- Partie de l'entete -->
   <?php require 'inclusions/header.php' ?>
@@ -65,23 +126,35 @@
       <?php require 'inclusions/components/sectionStories.php' ?>
 
       <!-- Faire une publication rapide -->
-      <form method="POST" action="" class="form-post my-8">
-          <div id="post-error" class="text-red-500 text-sm mb-1 hidden"></div>
-          <div class="flex items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3">
-            <div class="flex gap-3 items-center">
-              <img class="w-14 h-14 rounded object-cover" src="profile-pic/<?=$user['profile-pic']?>" alt="">
-              <textarea 
-                class="text-post w-96 flex h-full outline-none text-gray-900 px-2" 
-                name="content" 
-                placeholder="Quoi de neuf, <?= $user['first-name']?> ?"
-              ></textarea>
-            </div>
-            <button class="bg-cyan-500 ml-1 w-24 px-3 py-2 text-white rounded-xl text-sm font-bold outline-none cursor-pointer">
-              
-              Publier
-            </button>
+      <form method="POST" action="" class="form-post my-6">
+        <div id="post-error" class="text-red-500 text-sm mb-1 hidden"></div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white w-full rounded-2xl shadow-md px-4 py-3 gap-2">
+
+          <div class="flex items-start sm:items-center gap-3 w-full">
+            <img 
+              class="w-10 h-10 sm:w-14 sm:h-14 rounded object-cover flex-shrink-0"
+              src="profile-pic/<?= $user['profile-pic'] ?>" 
+              alt=""
+            >
+
+            <textarea
+              class="text-post flex-1 min-h-[60px] max-h-36 w-full resize-none outline-none text-gray-900 px-2"
+              name="content"
+              placeholder="Quoi de neuf, <?= $user['first-name'] ?> ?"
+            ></textarea>
           </div>
+
+          <button 
+            class="bg-[#06B6D4] sm:ml-1 p-3 text-white rounded-full text-sm font-bold outline-none ml-auto cursor-pointer"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+            </svg>
+          </button>
+        </div>
       </form>
+
 
       <!-- Publications et Posts des utilisateurs -->
       <?php require 'inclusions/components/usersPosts.php' ?>
@@ -167,7 +240,7 @@
                 </svg>
             </div>
         </a>
-        <a href="#" id="open-messages" class="flex flex-col items-center gap-1 p-2 text-gray-500">
+        <a href="#" onclick="openMobileConversations()" class="flex flex-col items-center gap-1 p-2 text-gray-500">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
             </svg>
