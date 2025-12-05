@@ -7,32 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+
   <header class="hidden lg:block">
     <div class="flex items-center justify-between py-3 px-8 border-b border-gray-200">
-      <div class="flex gap-[1px] items-center">
-        <svg width="42" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#2563EB" />   
-              <stop offset="50%" stop-color="#3B82F6" />  
-              <stop offset="100%" stop-color="#06B6D4" /> 
-            </linearGradient>
-          </defs>
-          <!-- Spiral circle -->
-          <g transform="translate(10, 10)">
-            <circle cx="30" cy="30" r="28" stroke="url(#blueGradient)" stroke-width="4" fill="none"/>
-            <path d="
-              M30 30
-              m0 -20
-              a20 20 0 1 1 -20 20
-              a10 10 0 1 0 10 -10
-            " fill="none" stroke="url(#blueGradient)" stroke-width="2"/>
-          </g>
-        </svg>
-        <a href="/socialnetwork/home.php" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400 outline-none">
-          AFRO<span class="font-light">vibe</span>
-        </a>
-      </div>
+      <!-- Logo -->
+      <a href="/socialnetwork/home.php" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold text-xl">A</span>
+          </div>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Afrovibe</h1>
+      </a>
+      
       <div class="relative flex gap-3 items-center justify-between">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500 absolute ml-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8" />
@@ -46,8 +31,8 @@
           <div>Creer</div>
         </a>
         
-          <!-- Partie affichage notifications et icone -->
-          <?php require 'components/sectionNotification.php' ?>
+        <!-- Partie affichage notifications et icone -->
+        <?php require 'components/sectionNotification.php' ?>
 
         <div>
           <img class="w-9 h-9 object-cover rounded" src="/socialnetwork/profile-pic/<?=$user['profile-pic']?>" alt="">
@@ -58,10 +43,9 @@
   </header>
 
 
-  <!-- Version Mobile (visible uniquement sur mobile) -->
+  <!-- Version Mobile -->
   <section class="lg:hidden flex flex-col">
-    <!-- Header mobile -->
-    <header class="border-b border-gray-200 p-4 sticky top-0 z-50">
+    <header class="bg-white border-b border-gray-200 p-4 sticky top-0 z-50">
         <div class="flex items-center justify-between">
             <!-- Logo -->
             <div class="flex items-center gap-2">
@@ -71,25 +55,25 @@
                 <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Afrovibe</h1>
             </div>
             
-            <!-- Icônes à droite -->
             <div class="flex items-center gap-3">
                 <!-- Recherche -->
-                <button class="p-2 hover:bg-gray-100 rounded-full">
+                <button class="p-2 hover:bg-gray-100 rounded-full outline-none">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
                 
-                <!-- Notifications -->
-                <button class="p-2 hover:bg-gray-100 rounded-full relative">
+                <!-- ✅ NOTIFICATION MOBILE -->
+                <a href="/socialnetwork/vues/clients/notifications.php" class="p-2 bg-gray-100 rounded-full relative outline-none">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                     </svg>
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">12</span>
-                </button>
+                    <span id="notif-badge-mobile" class="notif-badge-mobile absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                </a>
                 
                 <!-- Menu burger -->
-                <button onclick="" class="p-2 hover:bg-gray-100 rounded-full">
+                <button onclick="" class="p-2 hover:bg-gray-100 rounded-full outline-none">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -100,5 +84,39 @@
   </section>
 
 
+
+
+  <script>
+    // Fonction pour charger le badge mobile
+    async function loadMobileBadge() {
+        try {
+            const response = await axios.get('/socialnetwork/actions/get-notifications.php');
+            
+            if (response.data.success) {
+                const badge = document.getElementById('notif-badge-mobile');
+                const count = response.data.unread_count;
+                
+                if (badge) {
+                    if (count > 0) {
+                        badge.textContent = count > 99 ? '99+' : count;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Erreur badge mobile:', error);
+        }
+    }
+
+    // Charger au démarrage (seulement sur mobile)
+    if (window.innerWidth < 1024) {
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMobileBadge();
+            setInterval(loadMobileBadge, 30000);
+        });
+    }
+  </script>
 </body>
 </html>
