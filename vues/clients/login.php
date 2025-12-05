@@ -9,32 +9,17 @@
 </head>
 <body class="bg-gray-50 flex flex-col items-center justify-center min-h-screen">
   
-    <div class="flex gap-[1px] mb-5 justify-center items-center">
-        <svg width="44" height="44" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#2563EB" />   <!-- blue-600 -->
-              <stop offset="50%" stop-color="#3B82F6" />  <!-- blue-500 -->
-              <stop offset="100%" stop-color="#06B6D4" /> <!-- cyan-400 -->
-            </linearGradient>
-          </defs>
-          <!-- Spiral circle -->
-          <g transform="translate(10, 10)">
-            <circle cx="30" cy="30" r="28" stroke="url(#blueGradient)" stroke-width="4" fill="none"/>
-            <path d="
-              M30 30
-              m0 -20
-              a20 20 0 1 1 -20 20
-              a10 10 0 1 0 10 -10
-            " fill="none" stroke="url(#blueGradient)" stroke-width="2"/>
-          </g>
-        </svg>
-        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
-        AFRO<span class="font-light">vibe</span>
-        </h1>
+    <div class="flex mb-9 justify-center items-center">
+        <!-- Logo -->
+        <div href="/socialnetwork/home.php" class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold text-xl">A</span>
+            </div>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Afrovibe</h1>
+        </div>
     </div>
 
-    <form class="flex flex-col gap-4 w-full max-w-sm bg-white p-6 rounded-lg shadow">
+    <form class="flex flex-col gap-4 w-[95%] md:w-full max-w-sm bg-white p-6 rounded-lg shadow">
         <div class="mb-3 font-bold text-4xl text-gray-800 text-left mright-auto">Connexion</div>
         <!-- Email -->
         <div class="w-full flex flex-col gap-2">
