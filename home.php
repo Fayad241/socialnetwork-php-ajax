@@ -118,7 +118,7 @@
       <form method="POST" action="" class="form-post my-6">
         <div id="post-error" class="text-red-500 text-sm mb-1 hidden"></div>
 
-        <div class="flex items-center bg-white w-full rounded-2xl shadow-md px-4 py-3 gap-2">
+        <div class="flex items-center bg-white w-full rounded-2xl shadow-sm px-4 py-3 gap-2">
 
           <div class="flex items-start sm:items-center gap-3 w-full">
             <img 
@@ -169,7 +169,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg py-5 px-6">
+        <div class="flex flex-col gap-4 bg-white rounded-2xl shadow-sm py-5 px-6">
 
           <?php while($fetch = $stmt5->fetch(PDO::FETCH_ASSOC)) { ?> 
             l<!-- Calculer le statut de l'utilisateur -->

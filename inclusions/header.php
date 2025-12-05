@@ -48,12 +48,12 @@
     <header class="bg-white border-b border-gray-200 p-4 sticky top-0 z-50">
         <div class="flex items-center justify-between">
             <!-- Logo -->
-            <div class="flex items-center gap-2">
+            <a href="/socialnetwork/home.php" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
                     <span class="text-white font-bold text-xl">A</span>
                 </div>
                 <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Afrovibe</h1>
-            </div>
+            </a>
             
             <div class="flex items-center gap-3">
                 <!-- Recherche -->

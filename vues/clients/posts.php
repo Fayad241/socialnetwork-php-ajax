@@ -30,7 +30,7 @@
     <?php require '../../inclusions/header.php' ?>
 
     <section class="flex items-center justify-center">
-        <form method="POST" class="form-post md:bg-white md:shadow-sm md:my-7 my-12 md:rounded-2xl p-6 md:w-[65vw] lg:w-[40vw] w-full">
+        <form method="POST" class="form-post bg-white md:shadow-sm md:my-7 my-12 rounded-2xl p-6 md:w-[65vw] mx-3 lg:w-[40vw] w-full">
             <h1 class="text-2xl font-bold mb-4 text-blue-600">Créer une publication</h1>
             
             <div class="flex gap-1.5 items-center mb-3">

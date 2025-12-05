@@ -30,7 +30,7 @@
         </div>
     </header>
 
-    <main class="pb-20">
+    <main class="min-h-[calc(100vh-80px)] pb-20">
         <div id="notifications-container" class="bg-white">
             <!-- Les notifications sont ajoutées ici -->
         </div>

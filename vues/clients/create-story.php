@@ -30,7 +30,7 @@
     <?php require '../../inclusions/header.php' ?>
     
     <section id="add-story-modal" class="flex items-center justify-center">
-        <div class="bg-white rounded-2xl mx-4 my-7 p-6 overflow-hidden shadow-sm w-[40vw]">
+        <div class="bg-white md:shadow-sm md:my-7 my-12 mx-3 p-6 rounded-2xl md:w-[65vw] lg:w-[40vw] w-full overflow-hidden">
            
             <h1 class="text-2xl font-bold mb-4 text-blue-600">Créer une story</h1> 
             <div class="flex gap-1.5 items-center mb-3">
